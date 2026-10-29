@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Икра — красная и чёрная икра, копчёная рыба с доставкой по Москве и России</title>
+<meta name="description" content="Красная и чёрная икра: чавыча, горбуша, форель, нерка, кета, осётр, белуга. Копчёная рыба: сёмга, скумбрия, форель, кижуч, тунец, масляная. Печень трески. Доставка по Москве и Московской области, отправка в другие города России.">
+<meta name="keywords" content="икра, красная икра, чёрная икра, икра чавычи, икра горбуши, копчёная рыба, сёмга, скумбрия, печень трески, купить икру Москва">
+<meta name="theme-color" content="#07130f">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Икра — красная и чёрная икра, копчёная рыба">
+<meta property="og:description" content="Красная и чёрная икра и копчёная рыба с доставкой. Москва и Московская область, отправка по России.">
+<meta property="og:image" content="assets/img/hero-caviar.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23c8322b' stroke='%23d4af37' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<!-- ======================= ВЕРХНЯЯ ПОЛОСА ======================= -->
+<div class="topbar">
+  <div class="wrap">
+    <div>🚚 <strong id="tb-delivery">Доставка по Москве и Московской области</strong></div>
+    <div>📞 <a id="tb-phone" href="tel:+79619200292">+7 961 920-02-92</a></div>
+    <div>🕘 <span id="tb-hours">Ежедневно 9:00 — 21:00</span></div>
+  </div>
+</div>
+
+<!-- ======================= ШАПКА ======================= -->
+<header class="site">
+  <div class="wrap">
+    <a class="logo" href="#top">
+      <span class="logo-mark"></span>
+      <span class="logo-text">Икра<small>красная · чёрная · рыба</small></span>
+    </a>
+    <nav class="main" id="nav">
+      <a href="#catalog">Каталог</a>
+      <a href="#delivery">Доставка и оплата</a>
+      <a href="#about">О нас</a>
+      <a href="#order">Оформить заказ</a>
+    </nav>
+    <div class="header-actions">
+      <a class="btn btn-ghost btn-sm" href="tel:+79619200292">📞 <span>Позвонить</span></a>
+      <button class="btn btn-gold btn-sm cart-btn" id="cart-open">
+        🛒 <span>Корзина</span>
+        <span class="cart-count" id="cart-count">0</span>
+      </button>
+      <button class="burger" id="burger" aria-label="Меню">☰</button>
+    </div>
+  </div>
+</header>
+
+<!-- ======================= ГЕРОЙ ======================= -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <span class="hero-eyebrow">🎄 Предновогодний ассортимент</span>
+      <h1>Красная и чёрная икра<br><span class="gold">к праздничному столу</span></h1>
+      <p class="lead">
+        Чавыча, горбуша, форель, нерка, кета, осётр и белуга. Копчёная рыба и печень трески
+        в наличии. Доставка по Москве и Московской области, отправка в другие города России.
+      </p>
+      <div class="hero-cta">
+        <a class="btn btn-gold" href="#catalog">Смотреть каталог</a>
+        <a class="btn btn-ghost" href="#order">Оформить заказ</a>
+      </div>
+      <div class="hero-stats">
+        <div><b id="stat-count">0</b><span>позиций в наличии</span></div>
+        <div><b>Москва</b><span>и Московская область</span></div>
+        <div><b>По России</b><span>отправка в другие города</span></div>
+      </div>
+    </div>
+    <div class="hero-art">
+      <div class="frame"><img src="assets/img/hero-caviar.jpg" alt="Красная икра"></div>
+      <div class="hero-badge">
+        <b>Свежая партия</b>
+        Принимаем заказы на праздничный стол
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= ПРЕИМУЩЕСТВА ======================= -->
+<div class="strip">
+  <div class="wrap">
+    <div class="strip-item">
+      <span class="ico">🐟</span>
+      <div><b>Икра и рыба в наличии</b><span>Красная, чёрная, копчёная</span></div>
+    </div>
+    <div class="strip-item">
+      <span class="ico">🚚</span>
+      <div><b>Доставка по Москве и МО</b><span>Отправка в другие города</span></div>
+    </div>
+    <div class="strip-item">
+      <span class="ico">💳</span>
+      <div><b>Удобная оплата</b><span>Онлайн, перевод или при получении</span></div>
+    </div>
+    <div class="strip-item">
+      <span class="ico">📞</span>
+      <div><b>Заказ в один звонок</b><span>Поможем собрать набор</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================= КАТАЛОГ ======================= -->
+<section class="block" id="catalog">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">Каталог</span>
+      <h2>Ассортимент</h2>
+      <p>Выберите позиции и добавьте в корзину. Если нужного веса или набора нет — напишите, соберём под заказ.</p>
+    </div>
+
+    <div class="filters" id="filters">
+      <div class="search-box">
+        <input type="search" id="search" placeholder="Поиск по каталогу…" autocomplete="off">
+      </div>
+    </div>
+
+    <div id="catalog-root"></div>
+    <div id="catalog-empty" class="cart-empty" style="display:none">
+      Ничего не нашлось. Попробуйте другое слово или позвоните нам.
+    </div>
+  </div>
+</section>
+
+<!-- ======================= ДОСТАВКА ======================= -->
+<section class="block" id="delivery" style="background:var(--pine-800);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">Доставка и оплата</span>
+      <h2>Как получить заказ</h2>
+      <p>Работаем по Москве и Московской области, отправляем в другие города России.</p>
+    </div>
+    <div class="delivery-grid">
+      <div class="delivery-card">
+        <div class="num">01</div>
+        <h4>Москва и Московская область</h4>
+        <p>Курьером по адресу. Стоимость и время доставки уточняем при подтверждении заказа — зависит от адреса и объёма.</p>
+      </div>
+      <div class="delivery-card">
+        <div class="num">02</div>
+        <h4>Другие города России</h4>
+        <p>Отправляем транспортной компанией или почтой. Икру упаковываем в термобокс с хладоэлементами.</p>
+      </div>
+      <div class="delivery-card">
+        <div class="num">03</div>
+        <h4>Оплата</h4>
+        <p>Онлайн по ссылке, переводом по реквизитам или при получении. Менеджер подтвердит заказ и пришлёт удобный способ.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= О НАС ======================= -->
+<section class="block about" id="about">
+  <div class="wrap">
+    <div class="about-img"><img src="assets/img/hero-table.jpg" alt="Икра и копчёная рыба на столе"></div>
+    <div>
+      <span class="kicker">О нас</span>
+      <h2>Икра и рыба от проверенных поставщиков</h2>
+      <p class="muted">
+        Мы отбираем икру и рыбу сами: смотрим на зерно, запах и плотность, а не только на этикетку.
+        Поэтому в каталоге только то, что готовы поставить на свой стол.
+      </p>
+      <ul>
+        <li>Красная икра: чавыча, горбуша, форель, нерка, кета</li>
+        <li>Чёрная икра: осётр, белуга</li>
+        <li>Копчёная рыба: сёмга, скумбрия, форель, горбуша, кижуч, тунец, масляная, мойва</li>
+        <li>Печень трески и другие закуски к столу</li>
+        <li>Поможем собрать подарочный набор к празднику</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= ЗАКАЗ ======================= -->
+<section class="block order" id="order">
+  <div class="wrap">
+    <div>
+      <span class="kicker">Оформление заказа</span>
+      <h2>Оставьте заказ — мы свяжемся</h2>
+      <p class="muted" style="margin-bottom:26px">
+        Заполните форму, выберите способ оплаты и отправьте. Заказ уйдёт нам напрямую,
+        менеджер подтвердит состав, стоимость доставки и пришлёт ссылку на оплату.
+      </p>
+
+      <form class="form-card" id="order-form" novalidate>
+        <div class="field-row">
+          <div class="field">
+            <label for="f-name">Имя <span class="req">*</span></label>
+            <input type="text" id="f-name" name="name" required placeholder="Как к вам обращаться">
+          </div>
+          <div class="field">
+            <label for="f-phone">Телефон <span class="req">*</span></label>
+            <input type="tel" id="f-phone" name="phone" required placeholder="+7 ___ ___-__-__">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="f-city">Город / адрес доставки</label>
+          <input type="text" id="f-city" name="city" placeholder="Москва, ул. ... или другой город">
+        </div>
+
+        <div class="field">
+          <label>Способ получения</label>
+          <div class="radio-row" id="delivery-opts">
+            <label class="radio-opt sel">
+              <input type="radio" name="delivery" value="Курьер по Москве и МО" checked>
+              <div><b>Курьер по Москве и Московской области</b><span>Стоимость уточним при подтверждении</span></div>
+            </label>
+            <label class="radio-opt">
+              <input type="radio" name="delivery" value="Отправка в другой город">
+              <div><b>Отправка в другой город России</b><span>Транспортная компания или почта</span></div>
+            </label>
+            <label class="radio-opt">
+              <input type="radio" name="delivery" value="Самовывоз">
+              <div><b>Самовывоз</b><span>Адрес и время согласуем</span></div>
+            </label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Способ оплаты</label>
+          <div class="radio-row" id="pay-opts">
+            <label class="radio-opt sel">
+              <input type="radio" name="payment" value="Онлайн по ссылке" checked>
+              <div><b>Онлайн по ссылке</b><span>Пришлём ссылку на оплату после подтверждения</span></div>
+            </label>
+            <label class="radio-opt">
+              <input type="radio" name="payment" value="Перевод по реквизитам">
+              <div><b>Перевод по реквизитам</b><span>СБП или перевод на счёт ИП</span></div>
+            </label>
+            <label class="radio-opt">
+              <input type="radio" name="payment" value="Оплата при получении">
+              <div><b>Оплата при получении</b><span>Наличными или картой курьеру</span></div>
+            </label>
+          </div>
+          <div class="pay-note" id="pay-note">
+            Онлайн-оплата подключается к счёту ИП. После подтверждения заказа менеджер пришлёт
+            персональную ссылку на оплату — платить можно картой или через СБП.
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="f-comment">Комментарий к заказу</label>
+          <textarea id="f-comment" name="comment" placeholder="Например: нужен подарочный набор, позвонить после 18:00"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-gold btn-block" id="submit-btn">Отправить заказ</button>
+        <p class="cart-note">
+          Нажимая кнопку, вы соглашаетесь на обработку персональных данных для оформления и доставки заказа.
+        </p>
+      </form>
+    </div>
+
+    <!-- корзина -->
+    <div class="cart-panel" id="cart-panel">
+      <h3>Ваш заказ <span class="muted" style="font-size:.8rem" id="cart-qty-label"></span></h3>
+      <div id="cart-body">
+        <div class="cart-empty">Корзина пуста.<br>Добавьте позиции из каталога.</div>
+      </div>
+      <div class="cart-total" id="cart-total" style="display:none">
+        <span>Итого</span>
+        <b id="cart-sum">0 ₽</b>
+      </div>
+      <button class="btn btn-red btn-block" id="wa-order" style="margin-top:14px">
+        Заказать в WhatsApp
+      </button>
+      <p class="cart-note">
+        Итоговая сумма зависит от веса и фасовки. Доставку считаем отдельно.
+        Можно отправить заказ в WhatsApp — мы ответим и подтвердим.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= ФУТЕР ======================= -->
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h5>Икра</h5>
+        <p>Красная и чёрная икра, копчёная рыба и закуски к столу. Доставка по Москве и Московской области, отправка по России.</p>
+      </div>
+      <div>
+        <h5>Каталог</h5>
+        <a href="#catalog">Икра</a>
+        <a href="#catalog">Копчёная рыба</a>
+        <a href="#catalog">Закуски</a>
+      </div>
+      <div>
+        <h5>Покупателям</h5>
+        <a href="#delivery">Доставка</a>
+        <a href="#delivery">Оплата</a>
+        <a href="#order">Оформить заказ</a>
+      </div>
+      <div>
+        <h5>Контакты</h5>
+        <a href="tel:+79619200292">+7 961 920-02-92</a>
+        <p id="foot-hours">Ежедневно 9:00 — 21:00</p>
+        <p id="foot-legal" class="muted" style="font-size:.78rem"></p>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="year"></span> Икра. Все права защищены.</span>
+      <span id="foot-requisites"></span>
+    </div>
+  </div>
+</footer>
+
+<a class="float-wa" id="float-wa" href="#" target="_blank" rel="noopener">
+  <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.2-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.2-.6-.4zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.4 1.3 4.9L2 22l5.3-1.4c1.4.8 3 1.2 4.7 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3.1.8.8-3-.2-.3C4 15 3.5 13.5 3.5 12 3.5 7.3 7.3 3.5 12 3.5S20.5 7.3 20.5 12 16.7 20.2 12 20.2z"/></svg>
+  <span>Написать в WhatsApp</span>
+</a>
+
+<div class="modal-back" id="modal">
+  <div class="modal">
+    <div class="ok-mark">✓</div>
+    <h3 id="modal-title">Заказ отправлен</h3>
+    <p id="modal-text">Спасибо! Мы получили заказ и свяжемся с вами для подтверждения.</p>
+    <div style="display:flex;gap:10px;justify-content:center;margin-top:22px;flex-wrap:wrap">
+      <a class="btn btn-red" id="modal-wa" href="#" target="_blank" rel="noopener">Продублировать в WhatsApp</a>
+      <button class="btn btn-ghost" id="modal-close">Закрыть</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<canvas id="snow"></canvas>
+
+<script src="assets/js/products.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
