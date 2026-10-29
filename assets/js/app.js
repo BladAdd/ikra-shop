@@ -322,10 +322,6 @@
     set("tb-delivery", SHOP.delivery);
     set("tb-hours", SHOP.workHours);
     set("foot-hours", SHOP.workHours);
-    var tp = document.getElementById("tb-phone");
-    if (tp) { tp.textContent = SHOP.phone; tp.href = "tel:+" + SHOP.phoneRaw; }
-    var telBtn = document.querySelector('.header-actions a[href^="tel:"]');
-    if (telBtn) telBtn.href = "tel:+" + SHOP.phoneRaw;
     var yr = document.getElementById("year");
     if (yr) yr.textContent = new Date().getFullYear();
 
