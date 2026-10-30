@@ -115,6 +115,18 @@
           "badge": "Премиум",
           "desc": "Самое крупное зерно среди чёрной икры. Для особого случая.",
           "tags": "белуга чёрная икра премиум"
+        },
+        {
+          "id": "testovyy-tovar-vvev",
+          "name": "ТЕСТОВЫЙ ТОВАР",
+          "weight": "250 г",
+          "price": 1234,
+          "oldPrice": null,
+          "unit": "шт",
+          "img": "assets/img/hero-caviar.jpg",
+          "badge": null,
+          "desc": "Проверка админки, будет удалено",
+          "tags": ""
         }
       ]
     },
