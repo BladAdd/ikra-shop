@@ -156,7 +156,7 @@ textarea { resize: vertical; min-height: 70px; }
 .cat-bar .acts { margin-left: auto; display: flex; gap: 7px; }
 
 .item {
-  display: grid; grid-template-columns: 62px 1fr auto; gap: 14px;
+  display: grid; grid-template-columns: auto 62px 1fr auto; gap: 14px;
   align-items: center; padding: 11px 14px; background: var(--bg2);
   border: 1px solid var(--line); border-radius: 8px; margin-bottom: 8px;
   transition: border-color 0.15s;
@@ -306,6 +306,6 @@ textarea { resize: vertical; min-height: 70px; }
   .tab-btn { width: auto; }
   main { padding: 20px 16px 60px; }
   .row, .row-3 { grid-template-columns: 1fr; }
-  .item { grid-template-columns: 50px 1fr; }
+  .item { grid-template-columns: auto 50px 1fr; }
   .item .acts { grid-column: 1 / -1; }
 }

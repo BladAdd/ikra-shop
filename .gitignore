@@ -2,7 +2,11 @@
 tools/candidates/
 tools/candidates2/
 tools/shots/
+tools/chrome-prof*/
 tools/__pycache__/
+node_modules/
+package-lock.json
+package.json
 *.pyc
 Thumbs.db
 desktop.ini
