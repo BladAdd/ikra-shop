@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Админ-панель — Икра</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23c8322b' stroke='%23d4af37' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/css/admin.css">
+</head>
+<body>
+
+<!-- ======================= ВХОД ======================= -->
+<div class="login-wrap" id="login">
+  <div class="login-card">
+    <h1>Админ-панель</h1>
+    <p class="sub">Управление каталогом, ценами, фото и настройками магазина.</p>
+
+    <div class="note">
+      Панель сохраняет изменения прямо в репозиторий сайта на GitHub.
+      Нужен токен доступа — инструкция ниже.
+    </div>
+
+    <div class="field">
+      <label for="in-repo">Репозиторий</label>
+      <input type="text" id="in-repo" placeholder="BladAdd/ikra-shop" value="BladAdd/ikra-shop">
+    </div>
+
+    <div class="field">
+      <label for="in-token">Токен доступа GitHub</label>
+      <input type="password" id="in-token" placeholder="github_pat_... или ghp_...">
+      <div class="hint">Хранится только в этом браузере. Никуда не отправляется, кроме api.github.com.</div>
+    </div>
+
+    <div class="field">
+      <label for="in-branch">Ветка</label>
+      <input type="text" id="in-branch" value="main">
+    </div>
+
+    <button class="btn btn-primary btn-block" id="btn-login">Войти</button>
+
+    <div class="sep"></div>
+
+    <details>
+      <summary style="cursor:pointer;color:var(--gold);font-size:.86rem">Как получить токен (2 минуты)</summary>
+      <ol style="font-size:.82rem;color:var(--muted);line-height:1.7;padding-left:18px">
+        <li>Откройте <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com/settings/personal-access-tokens/new</a></li>
+        <li>Token name: <code>ikra-admin</code></li>
+        <li>Expiration: поставьте <b>No expiration</b> (или год)</li>
+        <li>Repository access → <b>Only select repositories</b> → выберите <code>ikra-shop</code></li>
+        <li>Permissions → Repository permissions → <b>Contents: Read and write</b></li>
+        <li>Нажмите <b>Generate token</b> и скопируйте его сюда</li>
+      </ol>
+      <p style="font-size:.78rem;color:var(--muted)">
+        Токен даёт доступ только к этому репозиторию. Никому его не передавайте.
+      </p>
+    </details>
+  </div>
+</div>
+
+<!-- ======================= ПАНЕЛЬ ======================= -->
+<div class="shell" id="shell">
+
+  <aside>
+    <div class="brand">
+      <span class="dot"></span>
+      <div><b>Икра</b><span>админ-панель</span></div>
+    </div>
+
+    <button class="tab-btn active" data-tab="items"><span class="ic">📦</span> Товары</button>
+    <button class="tab-btn" data-tab="cats"><span class="ic">🗂</span> Категории</button>
+    <button class="tab-btn" data-tab="photos"><span class="ic">🖼</span> Фото</button>
+    <button class="tab-btn" data-tab="shop"><span class="ic">🏪</span> Магазин</button>
+    <button class="tab-btn" data-tab="pay"><span class="ic">💳</span> Оплата</button>
+    <button class="tab-btn" data-tab="backup"><span class="ic">💾</span> Резервные копии</button>
+
+    <div class="spacer"></div>
+    <div class="foot">
+      <a class="tab-btn" href="index.html" target="_blank"><span class="ic">↗</span> Открыть сайт</a>
+      <button class="tab-btn" id="btn-logout"><span class="ic">⏻</span> Выйти</button>
+    </div>
+  </aside>
+
+  <main>
+
+    <!-- статус -->
+    <div class="bar">
+      <div class="st"><span class="dot" id="st-dot"></span><b id="st-text">Проверка связи…</b></div>
+      <div class="st">Товаров: <b id="st-items">0</b></div>
+      <div class="st">Категорий: <b id="st-cats">0</b></div>
+      <div class="grow"></div>
+      <div class="dirty" id="dirty">● Есть несохранённые изменения</div>
+      <button class="btn btn-sm" id="btn-reload">Обновить</button>
+      <button class="btn btn-primary btn-sm" id="btn-save">Сохранить на сайт</button>
+    </div>
+
+    <!-- ======================= ТОВАРЫ ======================= -->
+    <section class="panel on" id="panel-items">
+      <div class="panel-head">
+        <div class="grow">
+          <h1>Товары</h1>
+          <p>Добавляйте позиции, меняйте цены и описания. Порядок меняется перетаскиванием.</p>
+        </div>
+        <button class="btn btn-primary" id="btn-add-item">+ Добавить товар</button>
+      </div>
+      <div id="items-root"></div>
+    </section>
+
+    <!-- ======================= КАТЕГОРИИ ======================= -->
+    <section class="panel" id="panel-cats">
+      <div class="panel-head">
+        <div class="grow">
+          <h1>Категории</h1>
+          <p>Разделы каталога: «Икра», «Копчёная рыба» и любые другие.</p>
+        </div>
+        <button class="btn btn-primary" id="btn-add-cat">+ Добавить категорию</button>
+      </div>
+      <div id="cats-root"></div>
+    </section>
+
+    <!-- ======================= ФОТО ======================= -->
+    <section class="panel" id="panel-photos">
+      <div class="panel-head">
+        <div class="grow">
+          <h1>Фото</h1>
+          <p>Все изображения сайта. Загружайте новые — они сохранятся в репозиторий.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Загрузить фото</h3>
+        <div class="drop" id="drop">
+          Перетащите файлы сюда или нажмите, чтобы выбрать<br>
+          <span style="font-size:.78rem">JPG, PNG, WebP. Большие фото сжимаются автоматически.</span>
+        </div>
+        <input type="file" id="file-input" accept="image/*" multiple hidden>
+        <div class="hint" style="margin-top:10px;color:var(--muted);font-size:.78rem">
+          После загрузки файлы появятся в списке ниже. Не забудьте нажать «Сохранить на сайт».
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Все фото <span class="tag" id="photo-count">0</span></h3>
+        <div class="gallery" id="gallery"></div>
+      </div>
+    </section>
+
+    <!-- ======================= МАГАЗИН ======================= -->
+    <section class="panel" id="panel-shop">
+      <div class="panel-head">
+        <div class="grow">
+          <h1>Магазин</h1>
+          <p>Название, контакты, доставка, реквизиты. Эти данные показываются на сайте.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Основное</h3>
+        <div class="row">
+          <div class="field">
+            <label for="s-name">Название магазина</label>
+            <input type="text" id="s-name" data-shop="name">
+          </div>
+          <div class="field">
+            <label for="s-tagline">Подзаголовок</label>
+            <input type="text" id="s-tagline" data-shop="tagline">
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="s-phone">Телефон (на сайте не показывается)</label>
+            <input type="text" id="s-phone" data-shop="phone" placeholder="+7 900 000-00-00">
+          </div>
+          <div class="field">
+            <label for="s-whatsapp">WhatsApp для заказов</label>
+            <input type="text" id="s-whatsapp" data-shop="whatsapp" placeholder="79000000000">
+            <div class="hint">Только цифры, без + и пробелов</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="s-telegram">Telegram (без @)</label>
+            <input type="text" id="s-telegram" data-shop="telegram">
+          </div>
+          <div class="field">
+            <label for="s-email">Почта</label>
+            <input type="email" id="s-email" data-shop="email">
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="s-city">Город</label>
+            <input type="text" id="s-city" data-shop="city">
+          </div>
+          <div class="field">
+            <label for="s-hours">Часы работы</label>
+            <input type="text" id="s-hours" data-shop="workHours">
+          </div>
+        </div>
+        <div class="field">
+          <label for="s-delivery">Условия доставки (верхняя полоса)</label>
+          <input type="text" id="s-delivery" data-shop="delivery">
+        </div>
+        <label class="check">
+          <input type="checkbox" id="s-newyear" data-shop="newYear">
+          Предновогоднее оформление (снег на сайте)
+        </label>
+      </div>
+
+      <div class="card">
+        <h3>Реквизиты</h3>
+        <div class="row">
+          <div class="field">
+            <label for="s-legal">Название ИП</label>
+            <input type="text" id="s-legal" data-shop="legalName" placeholder="ИП Домшин И. И.">
+          </div>
+          <div class="field">
+            <label for="s-inn">ИНН</label>
+            <input type="text" id="s-inn" data-shop="inn">
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="s-ogrnip">ОГРНИП</label>
+            <input type="text" id="s-ogrnip" data-shop="ogrnip">
+          </div>
+          <div class="field">
+            <label for="s-ozon">Ссылка на Ozon</label>
+            <input type="url" id="s-ozon" data-shop="ozon">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================= ОПЛАТА ======================= -->
+    <section class="panel" id="panel-pay">
+      <div class="panel-head">
+        <div class="grow">
+          <h1>Оплата</h1>
+          <p>Как покупатель платит за заказ.</p>
+        </div>
+      </div>
+
+      <div class="note warn">
+        Сейчас работает режим «по ссылке»: заказ приходит в WhatsApp, вы отправляете
+        покупателю ссылку на оплату. Это рабочий вариант без регистрации в платёжном сервисе.
+      </div>
+
+      <div class="card">
+        <h3>Способ приёма оплаты</h3>
+        <div class="field">
+          <label for="p-provider">Платёжный сервис</label>
+          <select id="p-provider" data-pay="provider">
+            <option value="link">По ссылке (вручную, работает сейчас)</option>
+            <option value="yookassa">ЮKassa</option>
+            <option value="cloudpayments">CloudPayments</option>
+            <option value="robokassa">Робокасса</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="p-shopid">ID магазина (shopId / publicId / login)</label>
+          <input type="text" id="p-shopid" data-pay="shopId">
+        </div>
+        <div class="note">
+          Секретный ключ платёжного сервиса здесь указывать нельзя: он должен храниться
+          только на сервере. Для приёма карт на сайте нужна серверная часть — это отдельная работа.
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Приём заказов на почту (необязательно)</h3>
+        <div class="field">
+          <label for="p-endpoint">Адрес приёма заявок</label>
+          <input type="url" id="p-endpoint" data-pay="orderEndpoint" placeholder="https://formspree.io/f/xxxxxxx">
+          <div class="hint">
+            Если заполнить — заказы будут приходить и на почту, и в WhatsApp.
+            Бесплатно заводится на formspree.io.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================= РЕЗЕРВНЫЕ КОПИИ ======================= -->
+    <section class="panel" id="panel-backup">
+      <div class="panel-head">
+        <div class="grow">
+          <h1>Резервные копии</h1>
+          <p>Скачайте копию данных или восстановите из файла.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Скачать</h3>
+        <p style="color:var(--muted);font-size:.86rem">
+          Файл со всеми товарами, категориями и настройками. Держите копию на всякий случай.
+        </p>
+        <button class="btn" id="btn-export">Скачать копию (JSON)</button>
+      </div>
+
+      <div class="card">
+        <h3>Восстановить</h3>
+        <p style="color:var(--muted);font-size:.86rem">
+          Загрузите ранее скачанный файл. Текущие данные заменятся — после этого нажмите
+          «Сохранить на сайт».
+        </p>
+        <input type="file" id="import-file" accept=".json,application/json">
+      </div>
+
+      <div class="card">
+        <h3>История версий</h3>
+        <p style="color:var(--muted);font-size:.86rem">
+          Каждое сохранение — отдельный коммит в GitHub. Любую версию можно откатить:
+        </p>
+        <a class="btn" id="btn-history" href="#" target="_blank" rel="noopener">Открыть историю на GitHub</a>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- ======================= МОДАЛКА ТОВАРА ======================= -->
+<div class="modal-back" id="modal-item">
+  <div class="modal">
+    <h3 id="mi-title">Товар</h3>
+
+    <div class="row">
+      <div class="field">
+        <label for="mi-name">Название <span style="color:var(--red)">*</span></label>
+        <input type="text" id="mi-name" placeholder="Икра чавычи">
+      </div>
+      <div class="field">
+        <label for="mi-cat">Категория</label>
+        <select id="mi-cat"></select>
+      </div>
+    </div>
+
+    <div class="row-3">
+      <div class="field">
+        <label for="mi-price">Цена, ₽</label>
+        <input type="number" id="mi-price" min="0" step="1" placeholder="4500">
+        <div class="hint">Пусто = «По запросу»</div>
+      </div>
+      <div class="field">
+        <label for="mi-old">Старая цена, ₽</label>
+        <input type="number" id="mi-old" min="0" step="1" placeholder="5500">
+        <div class="hint">Для зачёркивания</div>
+      </div>
+      <div class="field">
+        <label for="mi-weight">Фасовка</label>
+        <input type="text" id="mi-weight" placeholder="500 г">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label for="mi-unit">Единица</label>
+        <select id="mi-unit">
+          <option value="шт">шт</option>
+          <option value="кг">кг</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="mi-badge">Плашка</label>
+        <select id="mi-badge">
+          <option value="">нет</option>
+          <option value="Хит">Хит</option>
+          <option value="Новинка">Новинка</option>
+          <option value="Премиум">Премиум</option>
+          <option value="Осталось мало">Осталось мало</option>
+          <option value="Скидка">Скидка</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="mi-desc">Описание</label>
+      <textarea id="mi-desc" placeholder="Короткое описание, 1-2 строки"></textarea>
+    </div>
+
+    <div class="field">
+      <label for="mi-tags">Ключевые слова для поиска</label>
+      <input type="text" id="mi-tags" placeholder="чавыча красная икра премиум">
+    </div>
+
+    <div class="field">
+      <label>Фото товара</label>
+      <div class="img-pick">
+        <img class="prev" id="mi-prev" alt="">
+        <div class="side">
+          <input type="text" id="mi-img" placeholder="assets/img/photo.jpg">
+          <div class="inline mt" style="margin-top:8px">
+            <button class="btn btn-sm" id="mi-pick">Выбрать из галереи</button>
+            <button class="btn btn-sm" id="mi-upload">Загрузить новое</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-foot">
+      <button class="btn" id="mi-cancel">Отмена</button>
+      <button class="btn btn-primary" id="mi-save">Сохранить товар</button>
+    </div>
+  </div>
+</div>
+
+<!-- ======================= МОДАЛКА ВЫБОРА ФОТО ======================= -->
+<div class="modal-back" id="modal-gallery">
+  <div class="modal">
+    <h3>Выберите фото</h3>
+    <div class="gallery" id="gal-pick"></div>
+    <div class="modal-foot">
+      <button class="btn" id="gal-cancel">Отмена</button>
+    </div>
+  </div>
+</div>
+
+<!-- ======================= МОДАЛКА КАТЕГОРИИ ======================= -->
+<div class="modal-back" id="modal-cat">
+  <div class="modal" style="max-width:520px">
+    <h3 id="mc-title">Категория</h3>
+    <div class="field">
+      <label for="mc-title-in">Название <span style="color:var(--red)">*</span></label>
+      <input type="text" id="mc-title-in" placeholder="Копчёная рыба">
+    </div>
+    <div class="field">
+      <label for="mc-sub">Подзаголовок</label>
+      <input type="text" id="mc-sub" placeholder="В наличии, холодного и горячего копчения">
+    </div>
+    <div class="field">
+      <label for="mc-id">Код (латиницей)</label>
+      <input type="text" id="mc-id" placeholder="smoked">
+      <div class="hint">Используется в ссылках. Только латиница, цифры, дефис.</div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn" id="mc-cancel">Отмена</button>
+      <button class="btn btn-primary" id="mc-save">Сохранить</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="assets/js/admin.js"></script>
+</body>
+</html>

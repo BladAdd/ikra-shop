@@ -1,0 +1,244 @@
+{
+  "version": 1,
+  "updatedAt": "2026-10-29T17:49:37.273Z",
+  "shop": {
+    "name": "Икра",
+    "tagline": "Красная и чёрная икра · копчёная рыба",
+    "phone": "+7 961 920-02-92",
+    "phoneRaw": "79619200292",
+    "whatsapp": "79619200292",
+    "telegram": "",
+    "email": "",
+    "city": "Москва и Московская область",
+    "delivery": "Доставка по Москве и Московской области. Отправка в другие города России.",
+    "freeFrom": null,
+    "inn": "",
+    "ogrnip": "",
+    "legalName": "",
+    "ozon": "",
+    "workHours": "Ежедневно 9:00 — 21:00",
+    "newYear": true
+  },
+  "payments": {
+    "provider": "link",
+    "shopId": "",
+    "currency": "RUB",
+    "testMode": true
+  },
+  "orderEndpoint": "",
+  "catalog": [
+    {
+      "id": "caviar",
+      "title": "Икра",
+      "subtitle": "Красная и чёрная, соленая, в фасовке на выбор",
+      "items": [
+        {
+          "id": "chavycha-500",
+          "name": "Икра чавычи",
+          "weight": "500 г",
+          "price": null,
+          "oldPrice": null,
+          "unit": "шт",
+          "img": "assets/img/caviar-red-1.jpg",
+          "badge": "Премиум",
+          "desc": "Крупное зерно, деликатный вкус. Самый дорогой вид красной икры.",
+          "tags": "чавыча красная икра премиум"
+        },
+        {
+          "id": "gorbusha-500",
+          "name": "Икра горбуши",
+          "weight": "500 г",
+          "price": null,
+          "oldPrice": null,
+          "unit": "шт",
+          "img": "assets/img/caviar-red-2.jpg",
+          "badge": "Хит",
+          "desc": "Классика красной икры. Яркое зерно, чистый вкус, универсально к столу.",
+          "tags": "горбуша красная икра классика"
+        },
+        {
+          "id": "forel-500",
+          "name": "Икра форели",
+          "weight": "500 г",
+          "price": null,
+          "oldPrice": null,
+          "unit": "шт",
+          "img": "assets/img/caviar-red-3.jpg",
+          "badge": null,
+          "desc": "Мелкое упругое зерно, нежный сливочный оттенок вкуса.",
+          "tags": "форель красная икра"
+        },
+        {
+          "id": "nerka-500",
+          "name": "Икра нерки",
+          "weight": "500 г",
+          "price": null,
+          "oldPrice": null,
+          "unit": "шт",
+          "img": "assets/img/caviar-red-2.jpg",
+          "badge": null,
+          "desc": "Насыщенный вкус и тёмно-красное зерно. Плотная, не растекается.",
+          "tags": "нерка красная икра"
+        },
+        {
+          "id": "keta-500",
+          "name": "Икра кеты",
+          "weight": "500 г",
+          "price": null,
+          "oldPrice": null,
+          "unit": "шт",
+          "img": "assets/img/caviar-red-1.jpg",
+          "badge": null,
+          "desc": "Крупное янтарное зерно, одна из самых узнаваемых икр.",
+          "tags": "кета красная икра"
+        },
+        {
+          "id": "osetr-500",
+          "name": "Икра осетровая (чёрная)",
+          "weight": "500 г",
+          "price": null,
+          "oldPrice": null,
+          "unit": "шт",
+          "img": "assets/img/caviar-black-1.jpg",
+          "badge": "Премиум",
+          "desc": "Чёрная икра осетра. Ореховый оттенок вкуса, плотное зерно.",
+          "tags": "осетровая чёрная икра осётр премиум"
+        },
+        {
+          "id": "beluga-500",
+          "name": "Икра белужья (чёрная)",
+          "weight": "500 г",
+          "price": null,
+          "oldPrice": null,
+          "unit": "шт",
+          "img": "assets/img/caviar-black-2.jpg",
+          "badge": "Премиум",
+          "desc": "Самое крупное зерно среди чёрной икры. Для особого случая.",
+          "tags": "белуга чёрная икра премиум"
+        }
+      ]
+    },
+    {
+      "id": "smoked",
+      "title": "Копчёная рыба",
+      "subtitle": "В наличии, холодного и горячего копчения",
+      "items": [
+        {
+          "id": "sm-gorbusha",
+          "name": "Горбуша копчёная",
+          "weight": "1 шт",
+          "price": null,
+          "oldPrice": null,
+          "unit": "шт",
+          "img": "assets/img/fish-gorbusha.jpg",
+          "badge": null,
+          "desc": "Холодного копчения, целая тушка или нарезка.",
+          "tags": "горбуша копчёная рыба"
+        },
+        {
+          "id": "sm-skumbriya",
+          "name": "Скумбрия копчёная",
+          "weight": "1 шт",
+          "price": null,
+          "oldPrice": null,
+          "unit": "шт",
+          "img": "assets/img/fish-skumbriya.jpg",
+          "badge": "Хит",
+          "desc": "Жирная, ароматная. Классика к картошке и пиву.",
+          "tags": "скумбрия копчёная рыба"
+        },
+        {
+          "id": "sm-moyva",
+          "name": "Мойва копчёная",
+          "weight": "1 кг",
+          "price": null,
+          "oldPrice": null,
+          "unit": "кг",
+          "img": "assets/img/fish-moyva.jpg",
+          "badge": null,
+          "desc": "Мелкая, копчёная целиком. Продаётся на вес.",
+          "tags": "мойва копчёная рыба"
+        },
+        {
+          "id": "sm-forel",
+          "name": "Форель копчёная",
+          "weight": "1 шт",
+          "price": null,
+          "oldPrice": null,
+          "unit": "шт",
+          "img": "assets/img/fish-forel.jpg",
+          "badge": null,
+          "desc": "Нежная, слабосолёная, холодного копчения.",
+          "tags": "форель копчёная рыба"
+        },
+        {
+          "id": "sm-semga",
+          "name": "Сёмга копчёная",
+          "weight": "1 кг",
+          "price": null,
+          "oldPrice": null,
+          "unit": "кг",
+          "img": "assets/img/fish-semga.jpg",
+          "badge": null,
+          "desc": "Нарезка ломтиками, на бутерброды и к праздничному столу.",
+          "tags": "сёмга семга копчёная рыба"
+        },
+        {
+          "id": "sm-kizhuch",
+          "name": "Кижуч копчёный",
+          "weight": "1 шт",
+          "price": null,
+          "oldPrice": null,
+          "unit": "шт",
+          "img": "assets/img/fish-kizhuch.jpg",
+          "badge": null,
+          "desc": "Плотное мясо, насыщенный вкус. Холодного копчения.",
+          "tags": "кижуч копчёная рыба"
+        },
+        {
+          "id": "sm-tunec",
+          "name": "Тунец копчёный",
+          "weight": "1 кг",
+          "price": null,
+          "oldPrice": null,
+          "unit": "кг",
+          "img": "assets/img/fish-tunec.jpg",
+          "badge": null,
+          "desc": "Плотный, почти без костей. Хорош в салаты и нарезку.",
+          "tags": "тунец копчёная рыба"
+        },
+        {
+          "id": "sm-maslyanaya",
+          "name": "Масляная рыба копчёная",
+          "weight": "1 кг",
+          "price": null,
+          "oldPrice": null,
+          "unit": "кг",
+          "img": "assets/img/fish-maslyanaya.jpg",
+          "badge": null,
+          "desc": "Очень жирная и мягкая, тает во рту. Нарезка.",
+          "tags": "масляная рыба копчёная"
+        }
+      ]
+    },
+    {
+      "id": "other",
+      "title": "Ещё к столу",
+      "subtitle": "Закуски и дополнения к заказу",
+      "items": [
+        {
+          "id": "treska-liver",
+          "name": "Печень трески",
+          "weight": "1 банка",
+          "price": null,
+          "oldPrice": null,
+          "unit": "шт",
+          "img": "assets/img/liver-treska.jpg",
+          "badge": null,
+          "desc": "Натуральная, в масле. Готовая закуска к праздничному столу.",
+          "tags": "печень трески закуска"
+        }
+      ]
+    }
+  ]
+}

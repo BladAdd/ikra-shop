@@ -1,4 +1,4 @@
-/* ==========================================================================
+﻿/* ==========================================================================
    Икра — логика сайта: каталог, корзина, заказ, оплата.
    Настройки магазина и товары лежат в products.js
    ========================================================================== */
@@ -7,11 +7,9 @@
   "use strict";
 
   /* ---------- ОПЛАТА -------------------------------------------------------
-     Провайдер задаётся в products.js (PAYMENTS). Пока ключей нет, работает
-     режим "по ссылке": заказ уходит менеджеру, он присылает ссылку на оплату.
-     Когда появятся shopId/ключи — включается онлайн-оплата.
+     Провайдер задаётся в data/catalog.json (блок payments). Пока ключей нет,
+     работает режим "по ссылке": заказ уходит менеджеру, он присылает ссылку.
   ------------------------------------------------------------------------- */
-  var PAY = (typeof PAYMENTS !== "undefined") ? PAYMENTS : { provider: "link" };
 
   var money = function (n) {
     return new Intl.NumberFormat("ru-RU").format(n) + " ₽";
@@ -265,11 +263,12 @@
   function payNote(payment) {
     var note = document.getElementById("pay-note");
     if (!note) return;
+    var provider = (typeof PAYMENTS !== "undefined" && PAYMENTS.provider) || "link";
     if (payment === "Оплата при получении") {
       note.textContent = "Оплата курьеру при получении: наличными или картой. Менеджер подтвердит сумму заранее.";
     } else if (payment === "Перевод по реквизитам") {
       note.textContent = "Реквизиты для перевода (СБП или на счёт ИП) пришлём после подтверждения заказа.";
-    } else if (PAY.provider === "link") {
+    } else if (provider === "link") {
       note.textContent = "После подтверждения заказа пришлём персональную ссылку на оплату — картой или через СБП.";
     } else {
       note.textContent = "Оплата проходит на защищённой странице платёжного сервиса. Ссылку пришлём после подтверждения.";
@@ -515,9 +514,18 @@
     })();
   }
 
+  function boot() {
+    var start = function () { init(); };
+    if (typeof loadShopData === "function") {
+      loadShopData().then(start).catch(start);
+    } else {
+      start();
+    }
+  }
+
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
+    document.addEventListener("DOMContentLoaded", boot);
   } else {
-    init();
+    boot();
   }
 })();
