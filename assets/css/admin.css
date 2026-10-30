@@ -309,3 +309,62 @@ textarea { resize: vertical; min-height: 70px; }
   .item { grid-template-columns: auto 50px 1fr; }
   .item .acts { grid-column: 1 / -1; }
 }
+
+/* ======================= ЗАКАЗЫ ======================= */
+.orders-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 12px;
+}
+.order-stat {
+  background: #0f1a20;
+  border: 1px solid rgba(212, 175, 55, 0.18);
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+.order-stat .lbl { display: block; font-size: 0.76rem; color: var(--muted); margin-bottom: 6px; }
+.order-stat .val { display: block; font-size: 1.5rem; color: var(--gold); line-height: 1.1; }
+.order-stat .sum { display: block; font-size: 0.76rem; color: var(--muted); margin-top: 4px; }
+
+.order-row {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  margin-bottom: 10px;
+  background: #0f1a20;
+  overflow: hidden;
+}
+.order-row summary {
+  display: grid;
+  grid-template-columns: 90px 150px 1fr auto auto;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 14px;
+  cursor: pointer;
+  font-size: 0.86rem;
+  list-style: none;
+}
+.order-row summary::-webkit-details-marker { display: none; }
+.order-row summary:hover { background: rgba(212, 175, 55, 0.06); }
+.order-id { font-family: monospace; color: var(--gold); font-weight: 700; }
+.order-date { color: var(--muted); font-size: 0.78rem; }
+.order-name { font-weight: 600; color: #eef3f6; }
+.order-total { font-weight: 700; color: #eef3f6; white-space: nowrap; }
+.order-body {
+  padding: 4px 14px 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: 0.84rem;
+  color: #c9d3db;
+  line-height: 1.7;
+}
+.order-lines {
+  margin-top: 10px;
+  padding: 10px 12px;
+  background: #0a1319;
+  border-radius: 8px;
+}
+.order-line { font-size: 0.82rem; color: var(--muted); }
+
+@media (max-width: 720px) {
+  .order-row summary { grid-template-columns: 1fr auto; row-gap: 4px; }
+  .order-date, .order-name { grid-column: 1 / -1; }
+}

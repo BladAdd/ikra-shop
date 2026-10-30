@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="utf-8">
@@ -37,7 +37,12 @@
       <input type="text" id="in-branch" value="main">
     </div>
 
-    <button class="btn btn-primary btn-block" id="btn-login">Войти</button>
+    <button class="btn btn-primary btn-block" id="btn-login">Войти через GitHub токен</button>
+    <button type="button" class="btn btn-block" id="btn-login-google" style="margin-top:10px;background:#fff;color:#3c4043;border:1px solid #dadce0;font-weight:600">Войти через Google (администратор)</button>
+    <button type="button" class="btn btn-block" id="btn-login-local" style="margin-top:10px;background:#1a2b25;color:#f0f5f2;border:1px solid rgba(212,175,55,0.4);font-weight:600">⚡ Войти без токена (локальный режим)</button>
+    <div style="text-align:center;margin-top:12px">
+      <a href="index.html" style="color:var(--muted);font-size:0.84rem;text-decoration:none">← Вернуться в магазин</a>
+    </div>
 
     <div class="sep"></div>
 
@@ -70,6 +75,7 @@
     <button class="tab-btn active" data-tab="items"><span class="ic">📦</span> Товары</button>
     <button class="tab-btn" data-tab="cats"><span class="ic">🗂</span> Категории</button>
     <button class="tab-btn" data-tab="photos"><span class="ic">🖼</span> Фото</button>
+    <button class="tab-btn" data-tab="orders"><span class="ic">🧾</span> Заказы</button>
     <button class="tab-btn" data-tab="shop"><span class="ic">🏪</span> Магазин</button>
     <button class="tab-btn" data-tab="pay"><span class="ic">💳</span> Оплата</button>
     <button class="tab-btn" data-tab="backup"><span class="ic">💾</span> Резервные копии</button>
@@ -142,6 +148,42 @@
       <div class="card">
         <h3>Все фото <span class="tag" id="photo-count">0</span></h3>
         <div class="gallery" id="gallery"></div>
+      </div>
+    </section>
+
+    <!-- ======================= ЗАКАЗЫ ======================= -->
+    <section class="panel" id="panel-orders">
+      <div class="panel-head">
+        <div class="grow">
+          <h1>Заказы</h1>
+          <p>Заказы, оплаченные через RollyPay, обновляются автоматически по вебхуку.</p>
+        </div>
+        <button class="btn btn-sm" id="btn-orders-reload">Обновить</button>
+      </div>
+
+      <div class="note warn" id="orders-api-note" style="display:none">
+        Сервер API не подключён. Раздел заказов работает, когда запущен бэкенд
+        (Railway/Render) и указан его адрес в <code>API_BASE</code>.
+      </div>
+
+      <div class="card">
+        <h3>Сводка</h3>
+        <div id="orders-stats" class="orders-stats"><div class="empty">Нет данных</div></div>
+      </div>
+
+      <div class="card">
+        <div class="inline" style="margin-bottom:12px">
+          <label style="font-size:.82rem;color:var(--muted)">Фильтр:</label>
+          <select id="orders-filter">
+            <option value="">Все заказы</option>
+            <option value="pending">Ожидают оплаты</option>
+            <option value="paid">Оплачены</option>
+            <option value="canceled">Отменены</option>
+            <option value="expired">Истекли</option>
+            <option value="refunded">Возвраты</option>
+          </select>
+        </div>
+        <div id="orders-list"><div class="empty">Нажмите «Обновить»</div></div>
       </div>
     </section>
 
@@ -440,6 +482,6 @@
 
 <div class="toast" id="toast"></div>
 
-<script src="assets/js/admin.js"></script>
+<script src="assets/js/admin.js?v=3"></script>
 </body>
 </html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Оплата не завершена — Икра &amp; Рыба</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23c8322b' stroke='%23d4af37' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/css/style.css?v=5">
+</head>
+<body>
+<main class="pay-result">
+  <div class="pay-result-card">
+    <div class="pay-result-icon fail">✕</div>
+    <h1>Оплата не прошла</h1>
+    <p>Платёж был отменён или истёк срок оплаты. Деньги не списаны. Вы можете оформить заказ снова или связаться с менеджером.</p>
+    <div class="pay-result-order" id="order-info" style="display:none"></div>
+    <div class="pay-result-actions">
+      <a class="btn btn-gold btn-block" href="index.html#order">Вернуться к оформлению</a>
+      <a class="btn btn-ghost btn-block" href="https://wa.me/79619200292" target="_blank" rel="noopener">Написать менеджеру</a>
+    </div>
+  </div>
+</main>
+
+<script>
+(function () {
+  var id = new URLSearchParams(location.search).get("order");
+  var el = document.getElementById("order-info");
+  if (id) {
+    el.style.display = "block";
+    el.innerHTML = "Номер заказа: <b>" + id.slice(0, 8) + "</b>";
+  }
+})();
+</script>
+</body>
+</html>

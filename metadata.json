@@ -1,0 +1,8 @@
+{
+  "name": "Икра — магазин икры и деликатесов",
+  "description": "Красная и чёрная икра, копчёная рыба с доставкой по Москве и России. Каталог товаров, корзина, оформление заказов и админ-панель.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

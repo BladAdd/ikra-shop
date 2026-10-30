@@ -1,13 +1,15 @@
-# служебное — не в репозиторий
-tools/candidates/
-tools/candidates2/
-tools/shots/
-tools/chrome-prof*/
-tools/__pycache__/
 node_modules/
-package-lock.json
-package.json
-*.pyc
-Thumbs.db
-desktop.ini
+build/
+dist/
+dist-server/
+coverage/
 .DS_Store
+*.log
+.env*
+!.env.example
+
+# База данных и её WAL-файлы никогда не должны попадать в репозиторий
+data/*.db
+data/*.db-shm
+data/*.db-wal
+data/shop.local.db*

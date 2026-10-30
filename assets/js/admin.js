@@ -20,6 +20,7 @@
     repo: "",
     token: "",
     branch: "main",
+    isLocal: false,
     data: null,          // { version, shop, payments, orderEndpoint, catalog }
     sha: null,           // текущий blob sha файла в репозитории
     dirty: false,
@@ -115,6 +116,18 @@
   }
 
   function loadFromRepo() {
+    if (state.isLocal) {
+      return fetch(DATA_PATH + "?v=" + Date.now())
+        .then(function (r) {
+          if (!r.ok) throw new Error("HTTP " + r.status + " при загрузке каталога");
+          return r.json();
+        })
+        .then(function (d) {
+          state.data = d;
+          normalize();
+          return state.data;
+        });
+    }
     return gh("/repos/" + state.repo + "/contents/" + DATA_PATH + "?ref=" + encodeURIComponent(state.branch))
       .then(function (file) {
         state.sha = file.sha;
@@ -125,7 +138,48 @@
       });
   }
 
+  var DATA_JS_PATH = "assets/js/data.js";
+
+  /**
+   * Обновляет встроенную резервную копию каталога в data.js.
+   * Без этого сайт, открытый без сервера, показывал бы старые цены.
+   */
+  function updateFallbackInRepo() {
+    var filePath = DATA_JS_PATH;
+    return gh("/repos/" + state.repo + "/contents/" + filePath + "?ref=" + encodeURIComponent(state.branch))
+      .then(function (file) {
+        var text = b64decode(file.content);
+        var lineRe = /^var FALLBACK_DATA = .*;$/m;
+        if (!lineRe.test(text)) return null; // файл в нестандартном виде — не трогаем
+        var json = JSON.stringify(state.data);
+        var next = text.replace(lineRe, "var FALLBACK_DATA = " + json + ";");
+        return gh("/repos/" + state.repo + "/contents/" + filePath, {
+          method: "PUT",
+          body: {
+            message: "Админка: обновление встроенной копии каталога",
+            content: b64encode(next),
+            branch: state.branch,
+            sha: file.sha
+          }
+        });
+      })
+      .catch(function (e) {
+        console.warn("Не удалось обновить встроенную копию:", e.message);
+        return null;
+      });
+  }
+
   function saveToRepo(message) {
+    if (state.isLocal) {
+      return fetch("/api/catalog", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(state.data, null, 2) + "\n"
+      }).then(function (r) {
+        if (!r.ok) throw new Error("Ошибка сервера при сохранении");
+        return r.json();
+      });
+    }
     var body = JSON.stringify(state.data, null, 2) + "\n";
     var payload = {
       message: message || "Админка: обновление каталога",
@@ -139,7 +193,8 @@
       body: payload
     }).then(function (res) {
       if (res.content && res.content.sha) state.sha = res.content.sha;
-      return res;
+      // Резервная копия обновляется следом; ошибка здесь не отменяет сохранение каталога
+      return updateFallbackInRepo().then(function () { return res; });
     });
   }
 
@@ -247,6 +302,18 @@
   var photoList = [];
 
   function loadPhotos() {
+    if (state.isLocal) {
+      return fetch("assets/img/credits.json")
+        .then(function (r) { return r.json(); })
+        .then(function (credits) {
+          photoList = (Array.isArray(credits) ? credits : []).map(function (c) {
+            var name = c.file.replace(/^assets\/img\//, "");
+            return { name: name, path: c.file, sha: "", size: 0 };
+          });
+          return photoList;
+        })
+        .catch(function () { photoList = []; return photoList; });
+    }
     // список файлов из папки assets/img репозитория
     return gh("/repos/" + state.repo + "/contents/assets/img?ref=" + encodeURIComponent(state.branch))
       .then(function (files) {
@@ -320,6 +387,16 @@
     return compressImage(file, 1400, 0.86)
       .then(function (blob) {
         return blobToB64(blob).then(function (b64) {
+          if (state.isLocal) {
+            return fetch("/api/upload", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ path: path, content: b64 })
+            }).then(function (r) {
+              if (!r.ok) throw new Error("Ошибка загрузки фото на сервер");
+              return r.json();
+            });
+          }
           return gh("/repos/" + state.repo + "/contents/" + path, {
             method: "PUT",
             body: {
@@ -603,8 +680,13 @@
     saveToRepo(msg)
       .then(function () {
         setDirty(false);
-        updateStatus(true, "Сохранено. Сайт обновится через 1-2 минуты");
-        toast("Сохранено. GitHub Pages обновится в течение 1-2 минут.", "ok");
+        if (state.isLocal) {
+          updateStatus(true, "Сохранено локально в data/catalog.json");
+          toast("Каталог успешно сохранён локально!", "ok");
+        } else {
+          updateStatus(true, "Сохранено. Сайт обновится через 1-2 минуты");
+          toast("Сохранено. GitHub Pages обновится в течение 1-2 минут.", "ok");
+        }
       })
       .catch(function (e) {
         toast("Не сохранено: " + e.message, "err");
@@ -667,12 +749,173 @@
     });
   }
 
+  /* ---------------- заказы (через серверный API) ---------------- */
+  var ORDERS_API = (function () {
+    if (window.IKRA_API_URL) return String(window.IKRA_API_URL).replace(/\/$/, "");
+    if (/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) return "http://localhost:8080";
+    return "https://ikra-shop.up.railway.app";
+  })();
+
+  function apiFetch(path, opts) {
+    opts = opts || {};
+    var cfg = {
+      method: opts.method || "GET",
+      credentials: "include",
+      headers: Object.assign({ Accept: "application/json" }, opts.headers || {})
+    };
+    if (opts.body !== undefined) {
+      cfg.headers["Content-Type"] = "application/json";
+      cfg.body = JSON.stringify(opts.body);
+    }
+    return fetch(ORDERS_API + path, cfg).then(function (r) {
+      return r.json().catch(function () { return {}; }).then(function (d) {
+        if (!r.ok) {
+          var e = new Error(d.error || "Ошибка " + r.status);
+          e.status = r.status;
+          throw e;
+        }
+        return d;
+      });
+    });
+  }
+
+  var STATUS_LABEL = {
+    pending: "Ожидает оплаты",
+    paid: "Оплачен",
+    canceled: "Отменён",
+    expired: "Истёк",
+    refunded: "Возврат",
+    failed: "Ошибка"
+  };
+
+  function money2(cents) {
+    return new Intl.NumberFormat("ru-RU").format(Math.round(cents / 100)) + " ₽";
+  }
+
+  function renderOrders(data) {
+    var root = $("#orders-list");
+    var statsEl = $("#orders-stats");
+    if (!root) return;
+
+    if (statsEl && Array.isArray(data.stats)) {
+      statsEl.innerHTML = data.stats.map(function (s) {
+        return '<div class="order-stat">' +
+          '<span class="lbl">' + esc(STATUS_LABEL[s.status] || s.status) + "</span>" +
+          '<b class="val">' + s.n + "</b>" +
+          '<span class="sum">' + money2(s.sum_cents || 0) + "</span>" +
+        "</div>";
+      }).join("") || '<div class="empty">Заказов пока нет</div>';
+    }
+
+    if (!data.orders || !data.orders.length) {
+      root.innerHTML = '<div class="empty">Заказов с таким статусом нет</div>';
+      return;
+    }
+
+    root.innerHTML = data.orders.map(function (o) {
+      var lines = (o.items && o.items.lines ? o.items.lines : []).map(function (l) {
+        return "<div class='order-line'>" + esc(l.name) + " × " + l.qty + " — " + money2(l.sum * 100) + "</div>";
+      }).join("");
+      return '' +
+        '<details class="order-row">' +
+          "<summary>" +
+            '<span class="order-id">#' + esc(String(o.id).slice(0, 8)) + "</span>" +
+            '<span class="order-date">' + new Date(o.createdAt).toLocaleString("ru-RU") + "</span>" +
+            '<span class="order-name">' + esc(o.name) + "</span>" +
+            '<span class="order-total">' + money2(o.total * 100) + "</span>" +
+            '<span class="tag ' + (o.status === "paid" ? "gold" : "hot") + '">' + esc(STATUS_LABEL[o.status] || o.status) + "</span>" +
+          "</summary>" +
+          '<div class="order-body">' +
+            "<div><b>Телефон:</b> " + esc(o.phone) + "</div>" +
+            "<div><b>Адрес:</b> " + esc(o.address || "—") + "</div>" +
+            "<div><b>Доставка:</b> " + esc(o.delivery) + " · <b>Оплата:</b> " + esc(o.payment) + "</div>" +
+            (o.comment ? "<div><b>Комментарий:</b> " + esc(o.comment) + "</div>" : "") +
+            '<div class="order-lines">' + lines + "</div>" +
+            '<div class="inline" style="margin-top:10px">' +
+              '<select data-order-status="' + esc(o.id) + '">' +
+                Object.keys(STATUS_LABEL).map(function (k) {
+                  return '<option value="' + k + '"' + (k === o.status ? " selected" : "") + ">" + STATUS_LABEL[k] + "</option>";
+                }).join("") +
+              "</select>" +
+              '<a class="btn btn-sm" target="_blank" rel="noopener" href="https://wa.me/' + esc(String(o.phone).replace(/\D/g, "").replace(/^8/, "7")) + '">WhatsApp</a>' +
+            "</div>" +
+          "</div>" +
+        "</details>";
+    }).join("");
+  }
+
+  function loadOrders() {
+    var filter = $("#orders-filter") ? $("#orders-filter").value : "";
+    var note = $("#orders-api-note");
+    return apiFetch("/api/orders" + (filter ? "?status=" + encodeURIComponent(filter) : ""))
+      .then(function (d) {
+        if (note) note.style.display = "none";
+        renderOrders(d);
+      })
+      .catch(function (e) {
+        if (note) {
+          note.style.display = "block";
+          note.textContent = "Не удалось получить заказы: " + e.message +
+            ". Проверьте, что сервер запущен и вы вошли как администратор через Google.";
+        }
+        var root = $("#orders-list");
+        if (root) root.innerHTML = '<div class="empty">Заказы недоступны</div>';
+      });
+  }
+
   /* ---------------- обработчики ---------------- */
   function bindAll() {
     $("#btn-login").addEventListener("click", doLogin);
     $("#in-token").addEventListener("keydown", function (e) {
       if (e.key === "Enter") doLogin();
     });
+
+    // Google-вход для администратора
+    var googleBtn = $("#btn-login-google");
+    if (googleBtn) {
+      googleBtn.addEventListener("click", function () {
+        window.location.href = ORDERS_API + "/api/auth/google/start?redirect=admin";
+      });
+    }
+
+    // Заказы
+    var ordersReload = $("#btn-orders-reload");
+    if (ordersReload) ordersReload.addEventListener("click", loadOrders);
+    var ordersFilter = $("#orders-filter");
+    if (ordersFilter) ordersFilter.addEventListener("change", loadOrders);
+
+    var ordersList = $("#orders-list");
+    if (ordersList) {
+      ordersList.addEventListener("change", function (e) {
+        var sel = e.target.closest("[data-order-status]");
+        if (!sel) return;
+        apiFetch("/api/orders/" + encodeURIComponent(sel.dataset.orderStatus) + "/status", {
+          method: "PATCH",
+          body: { status: sel.value }
+        })
+          .then(function () { toast("Статус заказа обновлён", "ok"); loadOrders(); })
+          .catch(function (err) { toast("Не удалось обновить: " + err.message, "err"); });
+      });
+    }
+
+    var localBtn = $("#btn-login-local");
+    if (localBtn) {
+      localBtn.addEventListener("click", function () {
+        state.isLocal = true;
+        state.repo = "Локальный каталог";
+        state.branch = "local";
+        $("#in-repo").value = state.repo;
+        updateStatus(null, "Загрузка локального каталога…");
+        loadFromRepo()
+          .then(startApp)
+          .then(function () {
+            toast("Вход выполнен в локальном режиме", "ok");
+          })
+          .catch(function (e) {
+            toast(e.message, "err");
+          });
+      });
+    }
 
     $("#btn-logout").addEventListener("click", function () {
       if (state.dirty && !confirm("Есть несохранённые изменения. Выйти без сохранения?")) return;
@@ -688,6 +931,7 @@
         $$(".panel").forEach(function (p) { p.classList.remove("on"); });
         var p = $("#panel-" + b.dataset.tab);
         if (p) p.classList.add("on");
+        if (b.dataset.tab === "orders") loadOrders();
       });
     });
 
