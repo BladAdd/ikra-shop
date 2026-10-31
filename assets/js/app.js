@@ -131,25 +131,34 @@
      у порционных (яйца, стекло, упаковка 200 г) — за единицу. */
   function priceCaption(it) {
     if (!it) return "";
+    if (it.unit === "кг" && it.piece) return it.weight ? "за " + it.weight : "за упаковку";
     if (it.unit === "кг") return "за 1 кг";
     if (it.unit === "шт" && it.weight && /^\d+\s*шт$/.test(it.weight)) return "за упаковку " + it.weight;
     if (it.weight) return "за " + it.weight;
     return it.unit ? "за 1 " + it.unit : "";
   }
 
-  /* Самая выгодная фасовка: сравниваем цену за кг/штуку между вариантами. */
-  function bestPack(it) {
-    var packs = it && Array.isArray(it.packs) ? it.packs : [];
-    if (packs.length < 2) return null;
-    var cheapest = packs.reduce(function (a, b) { return b.price < a.price ? b : a; });
-    return cheapest.price < it.price ? cheapest : null;
+  /* Цена за килограмм фасовки: у порционных фасовок (400 г, 200 г) берём цену упаковки. */
+  function packPricePerKg(it, pack) {
+    if (it.unit !== "кг") return pack.price;
+    var m = /([\d.,]+)\s*кг/.exec(pack.weight);
+    if (m) return pack.price / parseFloat(m[1].replace(",", "."));
+    var g = /(\d+)\s*г/.exec(pack.weight);
+    if (g) return pack.price / (parseInt(g[1], 10) / 1000);
+    return pack.price;
   }
 
   function packSavingText(it) {
-    var best = bestPack(it);
+    var packs = it && Array.isArray(it.packs) ? it.packs : [];
+    if (it.unit !== "кг" || packs.length < 2) return "";
+    var base = packPricePerKg(it, { weight: it.weight, price: it.price });
+    var best = null;
+    packs.forEach(function (p) {
+      var per = packPricePerKg(it, p);
+      if (per < base - 1 && (!best || per < packPricePerKg(it, best))) best = p;
+    });
     if (!best) return "";
-    var label = it.unit === "шт" ? "за упаковку" : "за 1 кг";
-    return "Выгоднее: " + best.weight + " — " + money(best.price) + " " + label;
+    return "Выгоднее: " + best.weight + " — " + money(Math.round(packPricePerKg(it, best))) + " за 1 кг";
   }
 
   function priceHtml(it) {

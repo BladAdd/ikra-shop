@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-10-31T22:31:29.190Z",
+  "updatedAt": "2026-10-31T23:23:42.678Z",
   "priceListDate": "22.07.2026",
   "shop": {
     "name": "Икра & Рыба",
@@ -42,6 +42,7 @@
           "price": 790,
           "oldPrice": 850,
           "unit": "кг",
+          "piece": false,
           "packPrice": 790,
           "img": "assets/img/sm-skumbriya-gk.jpg",
           "badge": "Хит",
@@ -67,6 +68,7 @@
           "price": 980,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 2450,
           "img": "assets/img/sm-gorbusha-gk.jpg",
           "badge": null,
@@ -87,6 +89,7 @@
           "price": 930,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 930,
           "img": "assets/img/sm-okun-gk.jpg",
           "badge": "Хит",
@@ -107,6 +110,7 @@
           "price": 1630,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 1630,
           "img": "assets/img/sm-paltus-gk.jpg",
           "badge": null,
@@ -127,6 +131,7 @@
           "price": 1260,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 1260,
           "img": "assets/img/sm-kalmar-gk.jpg",
           "badge": "Деликатес",
@@ -147,6 +152,7 @@
           "price": 1040,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 1040,
           "img": "assets/img/sm-skumbriya-rulet-gk.jpg",
           "badge": null,
@@ -167,6 +173,7 @@
           "price": 790,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 790,
           "img": "assets/img/sm-terpug-gk.jpg",
           "badge": null,
@@ -187,6 +194,7 @@
           "price": 900,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 900,
           "img": "assets/img/sm-sudak-gk.jpg",
           "badge": null,
@@ -207,6 +215,7 @@
           "price": 390,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 390,
           "img": "assets/img/sm-leshch-gk.jpg",
           "badge": "Выгода",
@@ -227,6 +236,7 @@
           "price": 735,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 1838,
           "img": "assets/img/sm-golovy-semgi.jpg",
           "badge": "Выгода",
@@ -247,6 +257,7 @@
           "price": 680,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 1700,
           "img": "assets/img/sm-hrebty-lososya.jpg",
           "badge": "Выгода",
@@ -274,6 +285,7 @@
           "price": 2850,
           "oldPrice": 3100,
           "unit": "кг",
+          "piece": false,
           "packPrice": 2850,
           "img": "assets/img/sm-craft-rulet.jpg",
           "badge": "Эксклюзив",
@@ -294,6 +306,7 @@
           "price": 1630,
           "oldPrice": 1750,
           "unit": "кг",
+          "piece": false,
           "packPrice": 1630,
           "img": "assets/img/sm-paltus.jpg",
           "badge": "Премиум",
@@ -314,6 +327,7 @@
           "price": 1450,
           "oldPrice": 1560,
           "unit": "кг",
+          "piece": false,
           "packPrice": 1450,
           "img": "assets/img/sm-maslyanaya-balyk.jpg",
           "badge": "Хит",
@@ -334,6 +348,7 @@
           "price": 1450,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 1450,
           "img": "assets/img/sm-maslyanaya-slices.jpg",
           "badge": null,
@@ -354,6 +369,7 @@
           "price": 1630,
           "oldPrice": 1790,
           "unit": "кг",
+          "piece": false,
           "packPrice": 3260,
           "img": "assets/img/sm-bryushki-semgi.jpg",
           "badge": "Деликатес",
@@ -374,6 +390,7 @@
           "price": 2400,
           "oldPrice": 2610,
           "unit": "кг",
+          "piece": false,
           "packPrice": 2400,
           "img": "assets/img/sm-tunec-balyk.jpg",
           "badge": "Премиум",
@@ -394,6 +411,7 @@
           "price": 2400,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 2400,
           "img": "assets/img/sm-tunec-slices.jpg",
           "badge": null,
@@ -414,6 +432,7 @@
           "price": 1840,
           "oldPrice": 1960,
           "unit": "кг",
+          "piece": false,
           "packPrice": 1840,
           "img": "assets/img/sm-forel-balyk.jpg",
           "badge": "Хит",
@@ -434,6 +453,7 @@
           "price": 890,
           "oldPrice": 960,
           "unit": "кг",
+          "piece": false,
           "packPrice": 2670,
           "img": "assets/img/sm-gorbusha-plast.jpg",
           "badge": "Хит",
@@ -454,6 +474,7 @@
           "price": 890,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 2670,
           "img": "assets/img/sm-gorbusha-hk.jpg",
           "badge": null,
@@ -474,6 +495,7 @@
           "price": 790,
           "oldPrice": 850,
           "unit": "кг",
+          "piece": false,
           "packPrice": 2370,
           "img": "assets/img/sm-skumbriya-hk.jpg",
           "badge": "Хит",
@@ -494,6 +516,7 @@
           "price": 360,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 1080,
           "img": "assets/img/sm-seld-hk.jpg",
           "badge": "Классика",
@@ -514,6 +537,7 @@
           "price": 550,
           "oldPrice": 620,
           "unit": "кг",
+          "piece": false,
           "packPrice": 1650,
           "img": "assets/img/sm-ivasi-hk.jpg",
           "badge": "Хит",
@@ -534,6 +558,7 @@
           "price": 860,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 2580,
           "img": "assets/img/sm-moyva-hk.jpg",
           "badge": "Хит",
@@ -554,6 +579,7 @@
           "price": 925,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 185,
           "img": "assets/img/sm-moyva-hk-200.jpg",
           "badge": null,
@@ -574,6 +600,7 @@
           "price": 1570,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 3140,
           "img": "assets/img/sm-kizhuch-balyk.jpg",
           "badge": null,
@@ -594,6 +621,7 @@
           "price": 1680,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 3360,
           "img": "assets/img/sm-kizhuch-chili.jpg",
           "badge": null,
@@ -614,6 +642,7 @@
           "price": 1260,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 2520,
           "img": "assets/img/sm-keta-balyk.jpg",
           "badge": null,
@@ -634,6 +663,7 @@
           "price": 735,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 735,
           "img": "assets/img/sm-kambala-hk.jpg",
           "badge": null,
@@ -654,6 +684,7 @@
           "price": 935,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 1870,
           "img": "assets/img/sm-kambala-ersh-hk.jpg",
           "badge": null,
@@ -674,6 +705,7 @@
           "price": 680,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 1360,
           "img": "assets/img/sm-karp-steik.jpg",
           "badge": null,
@@ -694,6 +726,7 @@
           "price": 270,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 540,
           "img": "assets/img/sm-karas-babochka.jpg",
           "badge": "Выгода",
@@ -714,6 +747,7 @@
           "price": 450,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 450,
           "img": "assets/img/sm-kilka-hk.jpg",
           "badge": "Выгода",
@@ -734,6 +768,7 @@
           "price": 290,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 870,
           "img": "assets/img/sm-leshch-hk.jpg",
           "badge": "Выгода",
@@ -754,6 +789,7 @@
           "price": 570,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 570,
           "img": "assets/img/sm-makrel-hk.jpg",
           "badge": null,
@@ -774,6 +810,7 @@
           "price": 305,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 305,
           "img": "assets/img/fish-moyva.jpg",
           "badge": "Выгода",
@@ -794,6 +831,7 @@
           "price": 580,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 580,
           "img": "assets/img/sm-sazan-steik.jpg",
           "badge": null,
@@ -814,6 +852,7 @@
           "price": 370,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 370,
           "img": "assets/img/sm-sazan-plast.jpg",
           "badge": "Выгода",
@@ -834,6 +873,7 @@
           "price": 795,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 1590,
           "img": "assets/img/sm-saira-hk.jpg",
           "badge": null,
@@ -854,6 +894,7 @@
           "price": 295,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 590,
           "img": "assets/img/sm-selatka-hk.jpg",
           "badge": "Выгода",
@@ -874,6 +915,7 @@
           "price": 470,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 1410,
           "img": "assets/img/sm-seld-zalom-hk.jpg",
           "badge": "Премиум",
@@ -894,6 +936,7 @@
           "price": 580,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 1450,
           "img": "assets/img/sm-skumbriya-hk-300.jpg",
           "badge": null,
@@ -914,6 +957,7 @@
           "price": 790,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 1975,
           "img": "assets/img/sm-skumbriya-hk-400.jpg",
           "badge": null,
@@ -934,6 +978,7 @@
           "price": 875,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 2188,
           "img": "assets/img/sm-skumbriya-hk-500.jpg",
           "badge": null,
@@ -954,6 +999,7 @@
           "price": 875,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 3150,
           "img": "assets/img/sm-skumbriya-belopus.jpg",
           "badge": null,
@@ -974,6 +1020,7 @@
           "price": 700,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 1400,
           "img": "assets/img/sm-stavirida-hk.jpg",
           "badge": null,
@@ -994,6 +1041,7 @@
           "price": 850,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 1700,
           "img": "assets/img/sm-tesha-kety.jpg",
           "badge": "Деликатес",
@@ -1014,6 +1062,7 @@
           "price": 1630,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 3260,
           "img": "assets/img/sm-tesha-kizhuch.jpg",
           "badge": null,
@@ -1034,6 +1083,7 @@
           "price": 1630,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 3260,
           "img": "assets/img/sm-tesha-foreli.jpg",
           "badge": null,
@@ -1054,6 +1104,7 @@
           "price": 600,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 1200,
           "img": "assets/img/sm-tolstolobik-steik.jpg",
           "badge": null,
@@ -1074,6 +1125,7 @@
           "price": 510,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 1020,
           "img": "assets/img/sm-tolstolobik-babochka.jpg",
           "badge": "Выгода",
@@ -1094,6 +1146,7 @@
           "price": 650,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 1300,
           "img": "assets/img/sm-tolstolobik-kusok.jpg",
           "badge": null,
@@ -1114,6 +1167,7 @@
           "price": 295,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 885,
           "img": "assets/img/sm-yaz-hk.jpg",
           "badge": "Выгода",
@@ -1141,6 +1195,7 @@
           "price": 480,
           "oldPrice": 540,
           "unit": "кг",
+          "piece": false,
           "packPrice": 960,
           "img": "assets/img/ivasi-ss.jpg",
           "badge": "Хит",
@@ -1166,6 +1221,7 @@
           "price": 480,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 240,
           "img": "assets/img/ss-ivasi-zalivka.jpg",
           "badge": null,
@@ -1186,6 +1242,7 @@
           "price": 520,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 260,
           "img": "assets/img/ss-kilka-pp.jpg",
           "badge": "Выгода",
@@ -1206,6 +1263,7 @@
           "price": 270,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 675,
           "img": "assets/img/ss-kilka-kasp.jpg",
           "badge": null,
@@ -1226,6 +1284,7 @@
           "price": 270,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 675,
           "img": "assets/img/ss-kilka-balt.jpg",
           "badge": null,
@@ -1246,6 +1305,7 @@
           "price": 200,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 500,
           "img": "assets/img/ss-moyva-sol.jpg",
           "badge": "Выгода",
@@ -1266,6 +1326,7 @@
           "price": 280,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 140,
           "img": "assets/img/ss-selatka-pp.jpg",
           "badge": null,
@@ -1286,6 +1347,7 @@
           "price": 360,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 468,
           "img": "assets/img/ss-seld-lodochka.jpg",
           "badge": null,
@@ -1306,6 +1368,7 @@
           "price": 310,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 1240,
           "img": "assets/img/ss-seld-atl-tushka.jpg",
           "badge": null,
@@ -1326,6 +1389,7 @@
           "price": 230,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 920,
           "img": "assets/img/ss-seld-atl-350.jpg",
           "badge": "Выгода",
@@ -1346,6 +1410,7 @@
           "price": 310,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 1240,
           "img": "assets/img/ss-seld-atl-400.jpg",
           "badge": null,
@@ -1366,6 +1431,7 @@
           "price": 430,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 1720,
           "img": "assets/img/ss-seld-atl-500.jpg",
           "badge": null,
@@ -1386,6 +1452,7 @@
           "price": 340,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 1360,
           "img": "assets/img/ss-seld-atl-550.jpg",
           "badge": null,
@@ -1406,6 +1473,7 @@
           "price": 275,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 1100,
           "img": "assets/img/ss-seld-4kg-fabery.jpg",
           "badge": "Выгода",
@@ -1426,6 +1494,7 @@
           "price": 405,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 1215,
           "img": "assets/img/ss-seld-zalom-ss.jpg",
           "badge": "Премиум",
@@ -1446,6 +1515,7 @@
           "price": 2625,
           "oldPrice": 2850,
           "unit": "кг",
+          "piece": false,
           "packPrice": 2625,
           "img": "assets/img/ss-semga-premium.jpg",
           "badge": "Премиум",
@@ -1466,6 +1536,7 @@
           "price": 1575,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 2362,
           "img": "assets/img/ss-semga-hvost.jpg",
           "badge": null,
@@ -1486,6 +1557,7 @@
           "price": 720,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 1800,
           "img": "assets/img/ss-skumbriya-pp.jpg",
           "badge": null,
@@ -1506,6 +1578,7 @@
           "price": 720,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 1800,
           "img": "assets/img/ss-skumbriya-pp-kusok.jpg",
           "badge": null,
@@ -1526,6 +1599,7 @@
           "price": 1150,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 2300,
           "img": "assets/img/ss-bryushki-losos.jpg",
           "badge": "Хит",
@@ -1546,6 +1620,7 @@
           "price": 1995,
           "oldPrice": 2150,
           "unit": "кг",
+          "piece": false,
           "packPrice": 1995,
           "img": "assets/img/ss-forel-karelia.jpg",
           "badge": "Хит",
@@ -1566,6 +1641,7 @@
           "price": 2625,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 2625,
           "img": "assets/img/ss-forel-premium.jpg",
           "badge": null,
@@ -1586,6 +1662,7 @@
           "price": 1575,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 2362,
           "img": "assets/img/ss-forel-hvost.jpg",
           "badge": null,
@@ -1606,6 +1683,7 @@
           "price": 260,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 130,
           "img": "assets/img/ss-hamsa-500.jpg",
           "badge": null,
@@ -1626,6 +1704,7 @@
           "price": 205,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 512,
           "img": "assets/img/ss-hamsa-25.jpg",
           "badge": "Выгода",
@@ -1646,6 +1725,7 @@
           "price": 190,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 760,
           "img": "assets/img/ss-hamsa-4.jpg",
           "badge": "Выгода",
@@ -1666,6 +1746,7 @@
           "price": 1250,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 250,
           "img": "assets/img/ss-gorbusha-kusochki.jpg",
           "badge": null,
@@ -1686,6 +1767,7 @@
           "price": 1040,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 2080,
           "img": "assets/img/ss-gorbusha-maslo-2.jpg",
           "badge": null,
@@ -1706,6 +1788,7 @@
           "price": 1100,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 220,
           "img": "assets/img/ss-assorti-gorbusha.jpg",
           "badge": null,
@@ -1726,6 +1809,7 @@
           "price": 1367,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 205,
           "img": "assets/img/ss-gorbusha-uvareza.jpg",
           "badge": null,
@@ -1746,6 +1830,7 @@
           "price": 1500,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 225,
           "img": "assets/img/ss-pivnoy-nabor.jpg",
           "badge": null,
@@ -1766,6 +1851,7 @@
           "price": 600,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 120,
           "img": "assets/img/ss-seld-solenaya.jpg",
           "badge": null,
@@ -1786,6 +1872,7 @@
           "price": 650,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 130,
           "img": "assets/img/ss-seld-hk-vu.jpg",
           "badge": null,
@@ -1806,6 +1893,7 @@
           "price": 400,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 160,
           "img": "assets/img/ss-salat-he-morkov.jpg",
           "badge": null,
@@ -1826,6 +1914,7 @@
           "price": 338,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 135,
           "img": "assets/img/ss-salat-he-tomat.jpg",
           "badge": "Выгода",
@@ -1846,6 +1935,7 @@
           "price": 790,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 1580,
           "img": "assets/img/ss-salad-he-2.jpg",
           "badge": null,
@@ -1866,6 +1956,7 @@
           "price": 670,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 1340,
           "img": "assets/img/ss-salad-he-tomat-2.jpg",
           "badge": "Выгода",
@@ -1893,6 +1984,7 @@
           "price": 1920,
           "oldPrice": 2110,
           "unit": "кг",
+          "piece": false,
           "packPrice": 3840,
           "img": "assets/img/vyal-koryushka.jpg",
           "badge": "Премиум",
@@ -1913,6 +2005,7 @@
           "price": 1470,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 2940,
           "img": "assets/img/vyal-koryushka-ar.jpg",
           "badge": null,
@@ -1933,6 +2026,7 @@
           "price": 830,
           "oldPrice": 900,
           "unit": "кг",
+          "piece": false,
           "packPrice": 1660,
           "img": "assets/img/vyal-vobla.jpg",
           "badge": "Хит",
@@ -1953,6 +2047,7 @@
           "price": 1370,
           "oldPrice": 1490,
           "unit": "кг",
+          "piece": false,
           "packPrice": 2740,
           "img": "assets/img/vyal-kambala-ikra.jpg",
           "badge": "Хит",
@@ -1973,6 +2068,7 @@
           "price": 840,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 1680,
           "img": "assets/img/vyal-kambala.jpg",
           "badge": null,
@@ -1993,6 +2089,7 @@
           "price": 1470,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 2940,
           "img": "assets/img/vyal-kambala-ersh.jpg",
           "badge": "Деликатес",
@@ -2013,6 +2110,7 @@
           "price": 860,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 1720,
           "img": "assets/img/vyal-sudak.jpg",
           "badge": null,
@@ -2033,6 +2131,7 @@
           "price": 860,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 1720,
           "img": "assets/img/vyal-shchuka.jpg",
           "badge": null,
@@ -2053,6 +2152,7 @@
           "price": 315,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 630,
           "img": "assets/img/vyal-leshch.jpg",
           "badge": "Выгода",
@@ -2073,6 +2173,7 @@
           "price": 650,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 1950,
           "img": "assets/img/vyal-chehon.jpg",
           "badge": null,
@@ -2093,6 +2194,7 @@
           "price": 575,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 115,
           "img": "assets/img/vyal-vobla-tyulka.jpg",
           "badge": "Выгода",
@@ -2113,6 +2215,7 @@
           "price": 950,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 1900,
           "img": "assets/img/vyal-ugleyka.jpg",
           "badge": null,
@@ -2133,6 +2236,7 @@
           "price": 880,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 1760,
           "img": "assets/img/vyal-karp-steik.jpg",
           "badge": null,
@@ -2153,6 +2257,7 @@
           "price": 810,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 1620,
           "img": "assets/img/vyal-karp.jpg",
           "badge": null,
@@ -2173,6 +2278,7 @@
           "price": 330,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 660,
           "img": "assets/img/vyal-guster.jpg",
           "badge": "Выгода",
@@ -2193,6 +2299,7 @@
           "price": 260,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 520,
           "img": "assets/img/vyal-charak.jpg",
           "badge": "Выгода",
@@ -2213,6 +2320,7 @@
           "price": 390,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 780,
           "img": "assets/img/vyal-krasnoperka.jpg",
           "badge": null,
@@ -2233,6 +2341,7 @@
           "price": 950,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 1900,
           "img": "assets/img/vyal-moyva.jpg",
           "badge": null,
@@ -2253,6 +2362,7 @@
           "price": 410,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 820,
           "img": "assets/img/vyal-okun.jpg",
           "badge": "Выгода",
@@ -2273,6 +2383,7 @@
           "price": 460,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 920,
           "img": "assets/img/vyal-plotva.jpg",
           "badge": null,
@@ -2293,6 +2404,7 @@
           "price": 840,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 1680,
           "img": "assets/img/vyal-sinets.jpg",
           "badge": null,
@@ -2313,6 +2425,7 @@
           "price": 315,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 945,
           "img": "assets/img/vyal-leshch-krupny.jpg",
           "badge": null,
@@ -2333,6 +2446,7 @@
           "price": 950,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 1900,
           "img": "assets/img/vyal-rybets.jpg",
           "badge": null,
@@ -2353,6 +2467,7 @@
           "price": 510,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 1020,
           "img": "assets/img/vyal-sazanchik.jpg",
           "badge": null,
@@ -2380,6 +2495,7 @@
           "price": 9000,
           "oldPrice": 9780,
           "unit": "кг",
+          "piece": false,
           "packPrice": 4500,
           "img": "assets/img/caviar-red-2.jpg",
           "badge": "Хит",
@@ -2400,6 +2516,7 @@
           "price": 9800,
           "oldPrice": 10650,
           "unit": "кг",
+          "piece": false,
           "packPrice": 4900,
           "img": "assets/img/caviar-red-1.jpg",
           "badge": "Премиум",
@@ -2420,6 +2537,7 @@
           "price": 8400,
           "oldPrice": 9230,
           "unit": "кг",
+          "piece": false,
           "packPrice": 4200,
           "img": "assets/img/caviar-red-3.jpg",
           "badge": null,
@@ -2440,6 +2558,7 @@
           "price": 10800,
           "oldPrice": 11740,
           "unit": "кг",
+          "piece": false,
           "packPrice": 5400,
           "img": "assets/img/chavycha-500.jpg",
           "badge": "Премиум",
@@ -2460,6 +2579,7 @@
           "price": 76000,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 38000,
           "img": "assets/img/caviar-black-1.jpg",
           "badge": "Премиум",
@@ -2480,6 +2600,7 @@
           "price": 110000,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 55000,
           "img": "assets/img/caviar-black-2.jpg",
           "badge": "Эксклюзив",
@@ -2507,6 +2628,7 @@
           "price": 120,
           "oldPrice": null,
           "unit": "шт",
+          "piece": false,
           "packPrice": 120,
           "img": "assets/img/yaica-perepelinye.jpg",
           "badge": "Фермерское",
@@ -2527,6 +2649,7 @@
           "price": 1522,
           "oldPrice": 1690,
           "unit": "шт",
+          "piece": false,
           "packPrice": 350,
           "img": "assets/img/liver-treska.jpg",
           "badge": "Хит",
@@ -2547,6 +2670,7 @@
           "price": 550,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 550,
           "img": "assets/img/meat-servelat.jpg",
           "badge": "Хит",
@@ -2567,6 +2691,7 @@
           "price": 520,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 520,
           "img": "assets/img/meat-krakov.jpg",
           "badge": "Классика",
@@ -2587,6 +2712,7 @@
           "price": 500,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 500,
           "img": "assets/img/meat-grudinka.jpg",
           "badge": "Хит",
@@ -2607,6 +2733,7 @@
           "price": 600,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 600,
           "img": "assets/img/meat-karbonat.jpg",
           "badge": null,
@@ -2627,6 +2754,7 @@
           "price": 540,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 540,
           "img": "assets/img/meat-vetchina.jpg",
           "badge": null,
@@ -2647,6 +2775,7 @@
           "price": 500,
           "oldPrice": null,
           "unit": "кг",
+          "piece": false,
           "packPrice": 250,
           "img": "assets/img/meat-tushenka.jpg",
           "badge": "Хит",
@@ -2671,9 +2800,10 @@
           "id": "pick-kapusta",
           "name": "Капуста квашеная",
           "weight": "400 г",
-          "price": 150,
+          "price": 60,
           "oldPrice": null,
           "unit": "кг",
+          "piece": true,
           "packPrice": 60,
           "img": "assets/img/pick-kapusta.jpg",
           "badge": "Хит",
@@ -2682,23 +2812,23 @@
           "packs": [
             {
               "weight": "400 г",
-              "price": 150,
+              "price": 60,
               "total": 60
             },
             {
               "weight": "900 г",
-              "price": 106,
+              "price": 95,
               "total": 95
             },
             {
               "weight": "3 кг",
               "price": 270,
-              "total": 810
+              "total": 270
             },
             {
               "weight": "5 кг",
               "price": 440,
-              "total": 2200
+              "total": 440
             }
           ]
         },
@@ -2706,9 +2836,10 @@
           "id": "pick-ogurcy",
           "name": "Огурцы маринованные 0,8 кг",
           "weight": "800 г",
-          "price": 325,
+          "price": 260,
           "oldPrice": null,
           "unit": "кг",
+          "piece": true,
           "packPrice": 260,
           "img": "assets/img/pick-ogurcy.jpg",
           "badge": "Хит",
@@ -2717,13 +2848,13 @@
           "packs": [
             {
               "weight": "800 г",
-              "price": 325,
+              "price": 260,
               "total": 260
             },
             {
               "weight": "2 кг",
               "price": 510,
-              "total": 1020
+              "total": 510
             }
           ]
         },
@@ -2734,7 +2865,8 @@
           "price": 2720,
           "oldPrice": null,
           "unit": "кг",
-          "packPrice": 10064,
+          "piece": true,
+          "packPrice": 2720,
           "img": "assets/img/pick-pomidory.jpg",
           "badge": null,
           "desc": "Бочковые сочные помидоры сладко-пряного квашения с зеленью сельдерея и чесноком.",
@@ -2743,11 +2875,6 @@
             {
               "weight": "3,7 кг",
               "price": 2720,
-              "total": 10064
-            },
-            {
-              "weight": "3,7 кг",
-              "price": 735,
               "total": 2720
             }
           ]
@@ -2756,9 +2883,10 @@
           "id": "pick-pomidory-voronezh",
           "name": "Помидоры квашеные «По-Воронежски»",
           "weight": "3,7 кг",
-          "price": 735,
+          "price": 2720,
           "oldPrice": null,
           "unit": "кг",
+          "piece": true,
           "packPrice": 2720,
           "img": "assets/img/pick-pomidory-voronezh.jpg",
           "badge": null,
@@ -2767,7 +2895,7 @@
           "packs": [
             {
               "weight": "3,7 кг",
-              "price": 735,
+              "price": 2720,
               "total": 2720
             }
           ]
@@ -2776,9 +2904,10 @@
           "id": "pick-morkov",
           "name": "Морковь по-корейски",
           "weight": "250 г",
-          "price": 200,
+          "price": 50,
           "oldPrice": null,
           "unit": "кг",
+          "piece": true,
           "packPrice": 50,
           "img": "assets/img/pick-morkov.jpg",
           "badge": "Хит",
@@ -2787,23 +2916,23 @@
           "packs": [
             {
               "weight": "250 г",
-              "price": 200,
+              "price": 50,
               "total": 50
             },
             {
               "weight": "400 г",
-              "price": 188,
+              "price": 75,
               "total": 75
             },
             {
               "weight": "900 г",
-              "price": 167,
+              "price": 150,
               "total": 150
             },
             {
               "weight": "3 кг",
               "price": 410,
-              "total": 1230
+              "total": 410
             }
           ]
         },
@@ -2811,9 +2940,10 @@
           "id": "pick-baklazhan",
           "name": "Баклажаны по-корейски",
           "weight": "400 г",
-          "price": 225,
+          "price": 90,
           "oldPrice": null,
           "unit": "кг",
+          "piece": true,
           "packPrice": 90,
           "img": "assets/img/pick-baklazhan.jpg",
           "badge": null,
@@ -2822,7 +2952,7 @@
           "packs": [
             {
               "weight": "400 г",
-              "price": 225,
+              "price": 90,
               "total": 90
             },
             {
@@ -2833,7 +2963,7 @@
             {
               "weight": "3 кг",
               "price": 580,
-              "total": 1740
+              "total": 580
             }
           ]
         },
@@ -2841,9 +2971,10 @@
           "id": "pick-brokkoli",
           "name": "Брокколи по-корейски",
           "weight": "400 г",
-          "price": 325,
+          "price": 130,
           "oldPrice": null,
           "unit": "кг",
+          "piece": true,
           "packPrice": 130,
           "img": "assets/img/pick-brokkoli.jpg",
           "badge": null,
@@ -2852,7 +2983,7 @@
           "packs": [
             {
               "weight": "400 г",
-              "price": 325,
+              "price": 130,
               "total": 130
             },
             {
@@ -2863,7 +2994,7 @@
             {
               "weight": "3 кг",
               "price": 760,
-              "total": 2280
+              "total": 760
             }
           ]
         },
@@ -2871,9 +3002,10 @@
           "id": "pick-veshenki",
           "name": "Вешенки по-корейски",
           "weight": "400 г",
-          "price": 450,
+          "price": 180,
           "oldPrice": null,
           "unit": "кг",
+          "piece": true,
           "packPrice": 180,
           "img": "assets/img/pick-veshenki.jpg",
           "badge": null,
@@ -2882,13 +3014,13 @@
           "packs": [
             {
               "weight": "400 г",
-              "price": 450,
+              "price": 180,
               "total": 180
             },
             {
               "weight": "3 кг",
               "price": 760,
-              "total": 2280
+              "total": 760
             }
           ]
         },
@@ -2896,9 +3028,10 @@
           "id": "pick-gruzd",
           "name": "Грузди по-корейски",
           "weight": "400 г",
-          "price": 625,
+          "price": 250,
           "oldPrice": null,
           "unit": "кг",
+          "piece": true,
           "packPrice": 250,
           "img": "assets/img/pick-gruzd.jpg",
           "badge": null,
@@ -2907,13 +3040,13 @@
           "packs": [
             {
               "weight": "400 г",
-              "price": 625,
+              "price": 250,
               "total": 250
             },
             {
               "weight": "3 кг",
               "price": 1580,
-              "total": 4740
+              "total": 1580
             }
           ]
         },
@@ -2921,9 +3054,10 @@
           "id": "pick-drevesnye-griby",
           "name": "Древесные грибы (гребешки) по-корейски",
           "weight": "400 г",
-          "price": 312,
+          "price": 125,
           "oldPrice": null,
           "unit": "кг",
+          "piece": true,
           "packPrice": 125,
           "img": "assets/img/pick-drevesnye-griby.jpg",
           "badge": "Деликатес",
@@ -2932,7 +3066,7 @@
           "packs": [
             {
               "weight": "400 г",
-              "price": 312,
+              "price": 125,
               "total": 125
             },
             {
@@ -2943,7 +3077,7 @@
             {
               "weight": "3 кг",
               "price": 680,
-              "total": 2040
+              "total": 680
             }
           ]
         },
@@ -2951,9 +3085,10 @@
           "id": "pick-kapusta-kusochki",
           "name": "Капуста белокочанная (кусочками)",
           "weight": "400 г",
-          "price": 162,
+          "price": 65,
           "oldPrice": null,
           "unit": "кг",
+          "piece": true,
           "packPrice": 65,
           "img": "assets/img/pick-kapusta-kusochki.jpg",
           "badge": "Выгода",
@@ -2962,7 +3097,7 @@
           "packs": [
             {
               "weight": "400 г",
-              "price": 162,
+              "price": 65,
               "total": 65
             },
             {
@@ -2973,7 +3108,7 @@
             {
               "weight": "3 кг",
               "price": 390,
-              "total": 1170
+              "total": 390
             }
           ]
         },
@@ -2981,9 +3116,10 @@
           "id": "pick-opyata",
           "name": "Опята по-корейски",
           "weight": "400 г",
-          "price": 612,
+          "price": 245,
           "oldPrice": null,
           "unit": "кг",
+          "piece": true,
           "packPrice": 245,
           "img": "assets/img/pick-opyata.jpg",
           "badge": null,
@@ -2992,7 +3128,7 @@
           "packs": [
             {
               "weight": "400 г",
-              "price": 612,
+              "price": 245,
               "total": 245
             },
             {
@@ -3003,7 +3139,7 @@
             {
               "weight": "3 кг",
               "price": 1790,
-              "total": 5370
+              "total": 1790
             }
           ]
         },
@@ -3011,9 +3147,10 @@
           "id": "pick-perec-zeleny",
           "name": "Перец халапеньо зеленый",
           "weight": "250 г",
-          "price": 300,
+          "price": 75,
           "oldPrice": null,
           "unit": "кг",
+          "piece": true,
           "packPrice": 75,
           "img": "assets/img/pick-perec-zeleny.jpg",
           "badge": null,
@@ -3022,7 +3159,7 @@
           "packs": [
             {
               "weight": "250 г",
-              "price": 300,
+              "price": 75,
               "total": 75
             }
           ]
@@ -3031,9 +3168,10 @@
           "id": "pick-perec-krasny",
           "name": "Перец халапеньо красный",
           "weight": "250 г",
-          "price": 300,
+          "price": 75,
           "oldPrice": null,
           "unit": "кг",
+          "piece": true,
           "packPrice": 75,
           "img": "assets/img/pick-perec-krasny.jpg",
           "badge": null,
@@ -3042,7 +3180,7 @@
           "packs": [
             {
               "weight": "250 г",
-              "price": 300,
+              "price": 75,
               "total": 75
             }
           ]
@@ -3051,9 +3189,10 @@
           "id": "pick-svekla",
           "name": "Свёкла в майонезном маринаде",
           "weight": "300 г",
-          "price": 300,
+          "price": 90,
           "oldPrice": null,
           "unit": "кг",
+          "piece": true,
           "packPrice": 90,
           "img": "assets/img/pick-svekla.jpg",
           "badge": null,
@@ -3062,7 +3201,7 @@
           "packs": [
             {
               "weight": "300 г",
-              "price": 300,
+              "price": 90,
               "total": 90
             }
           ]
@@ -3071,9 +3210,10 @@
           "id": "pick-sparzha",
           "name": "Спарка по-корейски",
           "weight": "400 г",
-          "price": 450,
+          "price": 180,
           "oldPrice": null,
           "unit": "кг",
+          "piece": true,
           "packPrice": 180,
           "img": "assets/img/pick-sparzha.jpg",
           "badge": "Хит",
@@ -3082,13 +3222,13 @@
           "packs": [
             {
               "weight": "400 г",
-              "price": 450,
+              "price": 180,
               "total": 180
             },
             {
               "weight": "3 кг",
               "price": 1040,
-              "total": 3120
+              "total": 1040
             }
           ]
         },
@@ -3096,9 +3236,10 @@
           "id": "pick-cvetnaya-kapusta",
           "name": "Цветная капуста по-корейски",
           "weight": "400 г",
-          "price": 312,
+          "price": 125,
           "oldPrice": null,
           "unit": "кг",
+          "piece": true,
           "packPrice": 125,
           "img": "assets/img/pick-cvetnaya-kapusta.jpg",
           "badge": null,
@@ -3107,7 +3248,7 @@
           "packs": [
             {
               "weight": "400 г",
-              "price": 312,
+              "price": 125,
               "total": 125
             },
             {
@@ -3118,7 +3259,7 @@
             {
               "weight": "3 кг",
               "price": 770,
-              "total": 2310
+              "total": 770
             }
           ]
         },
@@ -3126,9 +3267,10 @@
           "id": "pick-shampinyony",
           "name": "Шампиньоны по-корейски",
           "weight": "400 г",
-          "price": 638,
+          "price": 255,
           "oldPrice": null,
           "unit": "кг",
+          "piece": true,
           "packPrice": 255,
           "img": "assets/img/pick-shampinyony.jpg",
           "badge": null,
@@ -3137,13 +3279,13 @@
           "packs": [
             {
               "weight": "400 г",
-              "price": 638,
+              "price": 255,
               "total": 255
             },
             {
               "weight": "3 кг",
               "price": 1680,
-              "total": 5040
+              "total": 1680
             }
           ]
         }
