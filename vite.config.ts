@@ -94,6 +94,10 @@ function copyStaticAssetsPlugin() {
 
 export default defineConfig(() => {
   return {
+    // Сайт на GitHub Pages живёт в подкаталоге (user.github.io/repo), поэтому
+    // при сборке для Pages пути берутся относительные, а не от корня домена.
+    // Обычная сборка остаётся с абсолютными путями — она идёт на сервер.
+    base: process.env.DEPLOY_TARGET === "pages" ? "./" : "/",
     plugins: [react(), tailwindcss(), catalogApiPlugin(), copyStaticAssetsPlugin()],
     resolve: {
       alias: {
@@ -105,6 +109,8 @@ export default defineConfig(() => {
         input: {
           main: path.resolve(__dirname, 'index.html'),
           admin: path.resolve(__dirname, 'admin.html'),
+          paymentSuccess: path.resolve(__dirname, 'payment-success.html'),
+          paymentFail: path.resolve(__dirname, 'payment-fail.html'),
         },
       },
     },

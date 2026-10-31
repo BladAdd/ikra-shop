@@ -10,7 +10,8 @@
     "start": "node dist-server/index.js",
     "preview": "vite preview",
     "clean": "rm -rf dist dist-server",
-    "lint": "tsc --noEmit && tsc -p tsconfig.server.json --noEmit"
+    "lint": "tsc --noEmit && tsc -p tsconfig.server.json --noEmit",
+    "build:pages": "DEPLOY_TARGET=pages vite build"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",
