@@ -13,3 +13,6 @@ data/*.db
 data/*.db-shm
 data/*.db-wal
 data/shop.local.db*
+
+# Рабочие материалы подбора фото: оригиналы до замены и скачанные кандидаты
+tools/candidates/

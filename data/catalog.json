@@ -63,7 +63,7 @@
           "price": 980,
           "oldPrice": null,
           "unit": "кг",
-          "img": "assets/img/gorbusha-tesha.png",
+          "img": "assets/img/gorbusha-tesha.jpg",
           "badge": null,
           "desc": "Дальневосточная горбуша горячего копчения. Натуральная, сочная, великолепна к обеденному столу.",
           "tags": "горбуша горячего копчения гк красная рыба"
@@ -190,7 +190,7 @@
           "price": 1630,
           "oldPrice": 1790,
           "unit": "кг",
-          "img": "assets/img/bryushki-semgi-kopchenye.png",
+          "img": "assets/img/bryushki-semgi-kopchenye.jpg",
           "badge": "Деликатес",
           "desc": "Янтарные брюшки атлантической сёмги холодного копчения. Самая сочная и жирная часть красной рыбы.",
           "tags": "брюшки семги копченые хк лосось деликатес"
@@ -202,7 +202,7 @@
           "price": 2400,
           "oldPrice": 2600,
           "unit": "кг",
-          "img": "assets/img/tunec-kopchenyy.png",
+          "img": "assets/img/tunec-kopchenyy.jpg",
           "badge": "Премиум",
           "desc": "Филейный балык дикого тунца в формовочной сетке холодного копчения. «Морская телятина» без единой кости.",
           "tags": "тунец копченый балык хк сетка"
@@ -238,7 +238,7 @@
           "price": 890,
           "oldPrice": 950,
           "unit": "кг",
-          "img": "assets/img/gorbusha-plast.png",
+          "img": "assets/img/gorbusha-plast-fresh.jpg",
           "badge": "Хит",
           "desc": "Пласт горбуши холодного копчения без головы, расправленный деревянными распорками по классической камчатской технологии.",
           "tags": "горбуша копченая хк пласт дальневосточная"
@@ -262,7 +262,7 @@
           "price": 790,
           "oldPrice": 850,
           "unit": "кг",
-          "img": "assets/img/skumbriya-hk-slices.png",
+          "img": "assets/img/skumbriya-hk-slices.jpg",
           "badge": "Хит",
           "desc": "Жирная атлантическая скумбрия холодного копчения. Плотное мясо, аппетитная золотистая шкурка.",
           "tags": "скумбрия копченая хк нарезка стейки"
@@ -298,7 +298,7 @@
           "price": 550,
           "oldPrice": 620,
           "unit": "кг",
-          "img": "assets/img/ivasi-kopchenaya.png",
+          "img": "assets/img/ivasi-kopchenaya.jpg",
           "badge": "Хит",
           "desc": "Настоящая тихоокеанская сардина иваси натурального холодного копчения. Нежное филе, тает во рту.",
           "tags": "иваси копченая сардина хк тихоокеанская"
@@ -310,7 +310,7 @@
           "price": 860,
           "oldPrice": null,
           "unit": "кг",
-          "img": "assets/img/moyva-kopchenaya.png",
+          "img": "assets/img/moyva-kopchenaya.jpg",
           "badge": "Хит",
           "desc": "Северная мойва холодного копчения. Золотистая, с икоркой, приятный дымный вкус.",
           "tags": "мойва копченая хк рыба"
@@ -353,7 +353,7 @@
           "price": 480,
           "oldPrice": 520,
           "unit": "кг",
-          "img": "assets/img/ivasi-ss.png",
+          "img": "assets/img/ivasi-ss.jpg",
           "badge": "Хит",
           "desc": "Тихоокеанская жирная сардина иваси традиционного бочкового слабого посола. Настоящий ГОСТовский вкус.",
           "tags": "иваси слабосоленая сардина сс тушка"
@@ -662,7 +662,7 @@
           "price": 120,
           "oldPrice": null,
           "unit": "уп",
-          "img": "assets/img/yaica-perepelinye.png",
+          "img": "assets/img/yaica-perepelinye.jpg",
           "badge": "Фермерское",
           "desc": "Свежие домашние перепелиные яйца с эко-фермы. Идеально к праздничному столу, салатам и детям.",
           "tags": "яйца перепелиные фермерские эко продукты"
