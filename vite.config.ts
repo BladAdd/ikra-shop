@@ -111,6 +111,7 @@ export default defineConfig(() => {
           admin: path.resolve(__dirname, 'admin.html'),
           paymentSuccess: path.resolve(__dirname, 'payment-success.html'),
           paymentFail: path.resolve(__dirname, 'payment-fail.html'),
+          credits: path.resolve(__dirname, 'credits.html'),
         },
       },
     },

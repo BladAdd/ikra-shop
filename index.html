@@ -22,7 +22,7 @@
 <meta name="twitter:image" content="https://bladadd.github.io/ikra-shop/assets/img/hero-caviar.jpg">
 <link rel="preconnect" href="https://api.github.com" crossorigin>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23c8322b' stroke='%23d4af37' stroke-width='2'/%3E%3Cpath d='M11 16c2-4 8-4 10 0-2 4-8 4-10 0z' fill='%23d4af37'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="assets/css/style.css?v=5">
+<link rel="stylesheet" href="assets/css/style.css?v=6">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -121,7 +121,7 @@
           <circle cx="11" cy="11" r="8"></circle>
           <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         </svg>
-        <input type="search" id="header-search-input" placeholder="Поиск среди 65 деликатесов: икра, палтус, сёмга..." autocomplete="off">
+        <input type="search" id="header-search-input" placeholder="Поиск среди 149 деликатесов: икра, палтус, сёмга..." autocomplete="off">
         <button type="button" class="search-clear-btn" id="header-search-clear" style="display:none" aria-label="Очистить поиск">✕</button>
       </div>
     </div>
@@ -179,7 +179,7 @@
       <button class="cat-chip active" data-cat="all">
         <span class="cat-chip-icon">✨</span>
         <span class="cat-chip-title">Все товары</span>
-        <span class="cat-chip-count" id="count-all">65</span>
+        <span class="cat-chip-count" id="count-all">149</span>
       </button>
       <!-- Категории будут дополнены скриптом -->
     </div>
@@ -223,7 +223,7 @@
 
       <div class="hero-stats">
         <div class="stat-card">
-          <b class="stat-val" id="stat-count">65</b>
+          <b class="stat-val" id="stat-count">149</b>
           <span class="stat-lbl">позиций в наличии</span>
         </div>
         <div class="stat-card">
@@ -259,7 +259,7 @@
     <div class="strip-item">
       <div class="strip-ico">🐟</div>
       <div class="strip-text">
-        <b>65 позиций отборного качества</b>
+        <b>149 позиций по прайсу</b>
         <span>Красная, чёрная икра, осетровые, сёмга, палтус</span>
       </div>
     </div>
@@ -294,7 +294,7 @@
       <div class="section-head">
         <span class="kicker">Фирменная витрина</span>
         <h2>Ассортимент деликатесов</h2>
-        <p>Каждая позиция отобрана вручную. Натуральное копчение на ольховой щепе без красителей и жидкого дыма.</p>
+        <p><span id="price-note">Цены — по прайс-листу поставщика</span> от <span id="price-date">22.07.2026</span>. Вес и фасовка указаны на карточке товара.</p>
       </div>
 
       <!-- Фильтр-строка в каталоге -->
@@ -738,6 +738,7 @@
         <a href="admin.html" class="admin-link js-admin-link" style="display:none">⚙ Панель управления магазином</a>
       </div>
       <div id="foot-requisites" class="foot-reqs"></div>
+      <a href="credits.html" class="foot-link" style="font-size:.76rem;opacity:.7">Источники фотографий</a>
     </div>
   </div>
 </footer>
@@ -819,6 +820,17 @@
   </div>
 </div>
 
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Просмотр фото товара">
+  <div class="lightbox-card">
+    <button type="button" class="lightbox-close" id="lightbox-close" aria-label="Закрыть фото">✕</button>
+    <img class="lightbox-img" src="" alt="">
+    <div class="lightbox-caption">
+      <b class="lightbox-title"></b>
+      <span class="lightbox-price"></span>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 <canvas id="snow"></canvas>
 
@@ -885,9 +897,9 @@
   </div>
 </div>
 
-<script src="assets/js/data.js?v=2"></script>
+<script src="assets/js/data.js?v=6"></script>
 <script src="assets/js/api.js?v=2"></script>
 <script src="assets/js/auth-ui.js?v=2"></script>
-<script src="assets/js/app.js?v=2"></script>
+<script src="assets/js/app.js?v=6"></script>
 </body>
 </html>

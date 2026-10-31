@@ -1,113 +1,22 @@
 [
  {
-  "file": "assets/img/yaica-perepelinye.png",
-  "source": "yaica-perepelinye.png",
-  "license": "Commercial / Shop"
+  "file": "assets/img/bryushki-semgi-kopchenye.jpg",
+  "source": "tools/photo_src/client/Брюшки сёмги копчёные.jpg",
+  "license": "Commercial / Shop (фото заказчика)"
  },
  {
-  "file": "assets/img/tunec-slices.png",
-  "source": "tunec-slices.png",
-  "license": "Commercial / Shop"
+  "file": "assets/img/caviar-black-1.jpg",
+  "source": "Wikimedia Commons — File:Caviar 001.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:%27BELUGA_CAVIAR%27_sold_in_Baku_Caviar_Boutique_in_Baku_in_Azerbaijan.jpg",
+  "license": "CC BY-SA 4.0",
+  "artist": "<a href=\"//commons.wikimedia.org/w/index.php?title=User:Rudolph.A.furtado&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"User:Rudolph.A.furtado (page does not exist)\">Rudolph.A.furtado</a>"
  },
  {
-  "file": "assets/img/tunec-kopchenyy.png",
-  "source": "tunec-kopchenyy.png",
-  "license": "Commercial / Shop"
- },
- {
-  "file": "assets/img/skumbriya-hk-slices.png",
-  "source": "skumbriya-hk-slices.png",
-  "license": "Commercial / Shop"
- },
- {
-  "file": "assets/img/skumbriya-gk.png",
-  "source": "skumbriya-gk.png",
-  "license": "Commercial / Shop"
- },
- {
-  "file": "assets/img/skumbriya-gk-lemon.png",
-  "source": "skumbriya-gk-lemon.png",
-  "license": "Commercial / Shop"
- },
- {
-  "file": "assets/img/seld-onion.png",
-  "source": "seld-onion.png",
-  "license": "Commercial / Shop"
- },
- {
-  "file": "assets/img/seld-kopchenaya.png",
-  "source": "seld-kopchenaya.png",
-  "license": "Commercial / Shop"
- },
- {
-  "file": "assets/img/ryba-gk-dish.png",
-  "source": "ryba-gk-dish.png",
-  "license": "Commercial / Shop"
- },
- {
-  "file": "assets/img/rulet-tunec-semga-maslyanaya.png",
-  "source": "rulet-tunec-semga-maslyanaya.png",
-  "license": "Commercial / Shop"
- },
- {
-  "file": "assets/img/paltus-kopchenyy.png",
-  "source": "paltus-kopchenyy.png",
-  "license": "Commercial / Shop"
- },
- {
-  "file": "assets/img/okun-gk.png",
-  "source": "okun-gk.png",
-  "license": "Commercial / Shop"
- },
- {
-  "file": "assets/img/moyva-kopchenaya.png",
-  "source": "moyva-kopchenaya.png",
-  "license": "Commercial / Shop"
- },
- {
-  "file": "assets/img/maslyanaya-slices.png",
-  "source": "maslyanaya-slices.png",
-  "license": "Commercial / Shop"
- },
- {
-  "file": "assets/img/maslyanaya-kopchenaya.png",
-  "source": "maslyanaya-kopchenaya.png",
-  "license": "Commercial / Shop"
- },
- {
-  "file": "assets/img/ivasi-ss.png",
-  "source": "ivasi-ss.png",
-  "license": "Commercial / Shop"
- },
- {
-  "file": "assets/img/ivasi-kopchenaya.png",
-  "source": "ivasi-kopchenaya.png",
-  "license": "Commercial / Shop"
- },
- {
-  "file": "assets/img/gorbusha-tesha.png",
-  "source": "gorbusha-tesha.png",
-  "license": "Commercial / Shop"
- },
- {
-  "file": "assets/img/gorbusha-plast.png",
-  "source": "gorbusha-plast.png",
-  "license": "Commercial / Shop"
- },
- {
-  "file": "assets/img/gorbusha-kopchenaya.png",
-  "source": "gorbusha-kopchenaya.png",
-  "license": "Commercial / Shop"
- },
- {
-  "file": "assets/img/forel-kopchenaya.png",
-  "source": "forel-kopchenaya.png",
-  "license": "Commercial / Shop"
- },
- {
-  "file": "assets/img/bryushki-semgi-kopchenye.png",
-  "source": "bryushki-semgi-kopchenye.png",
-  "license": "Commercial / Shop"
+  "file": "assets/img/caviar-black-2.jpg",
+  "source": "Wikimedia Commons — File:Caviar 002.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:20g_Caviar.jpg",
+  "license": "CC BY-SA 4.0",
+  "artist": "<a href=\"//commons.wikimedia.org/wiki/User:Peachyeung316\" title=\"User:Peachyeung316\">Peachyeung316</a>"
  },
  {
   "file": "assets/img/caviar-red-1.jpg",
@@ -131,46 +40,11 @@
   "artist": "Tamaki Sono"
  },
  {
-  "file": "assets/img/caviar-black-1.jpg",
-  "source": "Wikimedia Commons — File:Caviar 001.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:%27BELUGA_CAVIAR%27_sold_in_Baku_Caviar_Boutique_in_Baku_in_Azerbaijan.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "<a href=\"//commons.wikimedia.org/w/index.php?title=User:Rudolph.A.furtado&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"User:Rudolph.A.furtado (page does not exist)\">Rudolph.A.furtado</a>"
- },
- {
-  "file": "assets/img/caviar-black-2.jpg",
-  "source": "Wikimedia Commons — File:Caviar 002.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:20g_Caviar.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "<a href=\"//commons.wikimedia.org/wiki/User:Peachyeung316\" title=\"User:Peachyeung316\">Peachyeung316</a>"
- },
- {
-  "file": "assets/img/hero-caviar.jpg",
-  "source": "File:Ikura 002.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Ikura_002.jpg",
-  "license": "CC BY 2.0",
-  "artist": "whity"
- },
- {
-  "file": "assets/img/hero-table.jpg",
-  "source": "File:02015 1146 Geräucherte Spezialitäten aus Schlesien.JPG",
-  "page": "https://commons.wikimedia.org/wiki/File:02015_1146_Ger%C3%A4ucherte_Spezialit%C3%A4ten_aus_Schlesien.JPG",
-  "license": "CC BY-SA 4.0",
-  "artist": "<a href=\"//commons.wikimedia.org/w/index.php?title=User:Silar&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"User:Silar (page does not exist)\">Silar</a>"
- },
- {
-  "file": "assets/img/fish-semga.jpg",
-  "source": "File:2014 smoked salmon and egg salad toasted baguette.JPG",
-  "page": "https://commons.wikimedia.org/wiki/File:2014_smoked_salmon_and_egg_salad_toasted_baguette.JPG",
+  "file": "assets/img/chavycha-500.jpg",
+  "source": "File:Singer Café - Blini with sour cream and red caviar IMG 3423.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:Singer_Caf%C3%A9_-_Blini_with_sour_cream_and_red_caviar_IMG_3423.JPG",
   "license": "CC BY-SA 3.0",
-  "artist": "<a href=\"//commons.wikimedia.org/wiki/User:Takeaway\" title=\"User:Takeaway\">Takeaway</a>"
- },
- {
-  "file": "assets/img/fish-skumbriya.jpg",
-  "source": "File:Fish platter at Black Horse Inn, Nuthurst West Sussex England.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Fish_platter_at_Black_Horse_Inn,_Nuthurst_West_Sussex_England.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "<a href=\"//commons.wikimedia.org/wiki/User:Acabashi\" title=\"User:Acabashi\">Acabashi</a>"
+  "artist": "Deror_avi"
  },
  {
   "file": "assets/img/fish-forel.jpg",
@@ -187,25 +61,11 @@
   "artist": "<a href=\"//commons.wikimedia.org/w/index.php?title=User:Silar&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"User:Silar (page does not exist)\">Silar</a>"
  },
  {
-  "file": "assets/img/fish-tunec.jpg",
-  "source": "File:Atún en el Mercado de la Boquería.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:At%C3%BAn_en_el_Mercado_de_la_Boquer%C3%ADa.jpg",
-  "license": "CC BY-SA 2.0",
-  "artist": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/photos/98073722@N00\">flydime</a>"
- },
- {
   "file": "assets/img/fish-kizhuch.jpg",
   "source": "File:(20240621) Berlin 11.jpg",
   "page": "https://commons.wikimedia.org/wiki/File:(20240621)_Berlin_11.jpg",
   "license": "CC BY-SA 4.0",
   "artist": "<a href=\"//commons.wikimedia.org/wiki/User:RoyZuoMedia\" title=\"User:RoyZuoMedia\">Roy Zuo</a>"
- },
- {
-  "file": "assets/img/fish-maslyanaya.jpg",
-  "source": "File:02015 1158 Geräucherte Spezialitäten aus Schlesien.JPG",
-  "page": "https://commons.wikimedia.org/wiki/File:02015_1158_Ger%C3%A4ucherte_Spezialit%C3%A4ten_aus_Schlesien.JPG",
-  "license": "CC BY-SA 4.0",
-  "artist": "<a href=\"//commons.wikimedia.org/w/index.php?title=User:Silar&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"User:Silar (page does not exist)\">Silar</a>"
  },
  {
   "file": "assets/img/fish-moyva.jpg",
@@ -215,1071 +75,21 @@
   "artist": "<a href=\"//commons.wikimedia.org/wiki/User:Wolfmann\" title=\"User:Wolfmann\">Wolfmann</a>"
  },
  {
-  "file": "assets/img/liver-treska.jpg",
-  "source": "File:Russian Cod liver in an opened can.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Russian_Cod_liver_in_an_opened_can.jpg",
+  "file": "assets/img/fish-semga.jpg",
+  "source": "File:2014 smoked salmon and egg salad toasted baguette.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:2014_smoked_salmon_and_egg_salad_toasted_baguette.JPG",
   "license": "CC BY-SA 3.0",
-  "artist": "<b><span class=\"plainlinks\"><a class=\"external text\" href=\"https://commons.wikimedia.org/wiki/User:A.Savin\">A.Savin</a></span></b>"
+  "artist": "<a href=\"//commons.wikimedia.org/wiki/User:Takeaway\" title=\"User:Takeaway\">Takeaway</a>"
  },
  {
-  "file": "assets/img/pick-kapusta.jpg",
-  "source": "File:Belarusian-Russian Sauerkraut-1.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Belarusian-Russian_Sauerkraut-1.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Eugene Zelenko"
- },
- {
-  "file": "assets/img/pick-ogurcy.jpg",
-  "source": "File:Polish style pickled cucumbers IMGP0413.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Polish_style_pickled_cucumbers_IMGP0413.jpg",
-  "license": "CC BY-SA 3.0",
-  "artist": "Nikodem Nijaki"
- },
- {
-  "file": "assets/img/pick-morkov.jpg",
-  "source": "File:Korean-style carrot 3.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Korean-style_carrot_3.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Off-shell"
- },
- {
-  "file": "assets/img/pick-baklazhan.jpg",
-  "source": "File:Marinated eggplants with carrots, bell peppers, and garlic.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Marinated_eggplants_with_carrots,_bell_peppers,_and_garlic.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Berser25"
- },
- {
-  "file": "assets/img/pick-mushrooms-wood.jpg",
-  "source": "File:Jelly Ear, Auricularia auricula-judae, UK 2.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Jelly_Ear,_Auricularia_auricula-judae,_UK_2.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Stu's Images"
- },
- {
-  "file": "assets/img/pick-opyata.jpg",
-  "source": "File:Honey mushrooms cooked.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Honey_mushrooms_cooked.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Dmitry Brant"
- },
- {
-  "file": "assets/img/pick-sparja.jpg",
-  "source": "File:ToFu Salad.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:ToFu_Salad.jpg",
-  "license": "CC0",
-  "artist": "စာကလေး SarKaLay"
- },
- {
-  "file": "assets/img/pick-pomidory.jpg",
-  "source": "File:Mmm... ground beef and cheese with pickled peppers and cherry tomatoes (7810283802).jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Mmm..._ground_beef_and_cheese_with_pickled_peppers_and_cherry_tomatoes_(7810283802).jpg",
-  "license": "CC BY 2.0",
-  "artist": "jeffreyw"
- },
- {
-  "file": "assets/img/meat-servelat.jpg",
-  "source": "File:Cervelat Hr.JPG",
-  "page": "https://commons.wikimedia.org/wiki/File:Cervelat_Hr.JPG",
-  "license": "CC BY-SA 3.0",
-  "artist": "Schofför"
- },
- {
-  "file": "assets/img/meat-krakov.jpg",
-  "source": "File:Kraków Politechnika Krakowska W-1 2025.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Krak%C3%B3w_Politechnika_Krakowska_W-1_2025.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Adrian Tync"
- },
- {
-  "file": "assets/img/meat-grudinka.jpg",
-  "source": "File:Maple Bacon Doughnut.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Maple_Bacon_Doughnut.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Prosthetic Head"
- },
- {
-  "file": "assets/img/meat-karbonat.jpg",
-  "source": "File:Roast pork loin (5647644620).jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Roast_pork_loin_(5647644620).jpg",
-  "license": "CC BY 2.0",
-  "artist": "Father.Jack from Coventry, UK"
- },
- {
-  "file": "assets/img/meat-vetchina.jpg",
-  "source": "File:HAM russian.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:HAM_russian.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Pannet"
- },
- {
-  "file": "assets/img/meat-tushenka.jpg",
-  "source": "File:Tushonka beef.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Tushonka_beef.jpg",
-  "license": "CC BY-SA 3.0",
-  "artist": "Bestalex"
- },
- {
-  "file": "assets/img/sm-kalmar-gk.jpg",
-  "source": "File:Squid rings and fish.JPG",
-  "page": "https://commons.wikimedia.org/wiki/File:Squid_rings_and_fish.JPG",
-  "license": "CC BY 3.0",
-  "artist": "Biso"
- },
- {
-  "file": "assets/img/sm-terpug-gk.jpg",
-  "source": "File:DSCF0297 A street vendor grills a row of whole fish over charcoal at a bustling outdoor market wearing a mask and tongs as smoke rises around her.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:DSCF0297_A_street_vendor_grills_a_row_of_whole_fish_over_charcoal_at_a_bustling_outdoor_market_wearing_a_mask_and_tongs_as_smoke_rises_around_her.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "PattayaPatrol"
- },
- {
-  "file": "assets/img/sm-sudak-gk.jpg",
-  "source": "File:Spargel Zander Kartoffeln.JPG",
-  "page": "https://commons.wikimedia.org/wiki/File:Spargel_Zander_Kartoffeln.JPG",
-  "license": "CC BY 3.0",
-  "artist": "Benreis"
- },
- {
-  "file": "assets/img/sm-leshch-gk.jpg",
-  "source": "File:Sloked fish 02.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Sloked_fish_02.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Agoetee 123"
- },
- {
-  "file": "assets/img/vyal-vobla.jpg",
-  "source": "File:RECALLED – Dry Eviscerated Salted Fish (26371944460).jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:RECALLED_%E2%80%93_Dry_Eviscerated_Salted_Fish_(26371944460).jpg",
-  "license": "Public domain",
-  "artist": "The U.S. Food and Drug Administration"
- },
- {
-  "file": "assets/img/vyal-kambala-ikra.jpg",
-  "source": "File:Group of people flounder fishing in shallow water (AM 84637-1).jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Group_of_people_flounder_fishing_in_shallow_water_(AM_84637-1).jpg",
-  "license": "CC BY 4.0",
-  "artist": "Collins, Tudor Washington, 1898-1970, photographer"
- },
- {
-  "file": "assets/img/vyal-kambala-ersh.jpg",
-  "source": "File:FMIB 46250 Long Rough Dab.jpeg",
-  "page": "https://commons.wikimedia.org/wiki/File:FMIB_46250_Long_Rough_Dab.jpeg",
-  "license": "Public domain",
-  "artist": "Jonathan Couch"
- },
- {
-  "file": "assets/img/vyal-shchuka.jpg",
-  "source": "File:Fish on a Drying Rack (93a07885-1dd8-b71c-07dc-01bcc139e98f).jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Fish_on_a_Drying_Rack_(93a07885-1dd8-b71c-07dc-01bcc139e98f).jpg",
-  "license": "Public domain",
-  "artist": "NPS Photo"
- },
- {
-  "file": "assets/img/vyal-leshch.jpg",
-  "source": "File:Zambezi Bream air dried.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Zambezi_Bream_air_dried.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Namibaxab"
- },
- {
-  "file": "assets/img/vyal-chehon.jpg",
-  "source": "File:Pelecus cultratus 464985613.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Pelecus_cultratus_464985613.jpg",
-  "license": "CC BY 4.0",
-  "artist": "Paulius Rupšas"
- },
- {
-  "file": "assets/img/ss-skumbriya-pp.jpg",
-  "source": "File:Hinava Sabah.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Hinava_Sabah.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Terencetulus"
- },
- {
-  "file": "assets/img/ss-bryushki-losos.jpg",
-  "source": "File:Daily Catch- Amberjack, amberjack belly, salmon, octopus, fluke, ocean trout, bigeye tuna, sea urchin with ikura.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Daily_Catch-_Amberjack,_amberjack_belly,_salmon,_octopus,_fluke,_ocean_trout,_bigeye_tuna,_sea_urchin_with_ikura.jpg",
-  "license": "CC BY 2.0",
-  "artist": "T.Tseng"
- },
- {
-  "file": "assets/img/ss-seld-maslo.jpg",
-  "source": "File:RECALLED – Herring (8078014811).jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:RECALLED_%E2%80%93_Herring_(8078014811).jpg",
-  "license": "Public domain",
-  "artist": "The U.S. Food and Drug Administration"
- },
- {
-  "file": "assets/img/ss-seld-voronezh.jpg",
-  "source": "File:Herring fillets on toasted homemade bread, with mustard, pepperoncini, curry powder, black pepper, and white wine sauce - Massachusetts.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Herring_fillets_on_toasted_homemade_bread,_with_mustard,_pepperoncini,_curry_powder,_black_pepper,_and_white_wine_sauce_-_Massachusetts.jpg",
-  "license": "CC0",
-  "artist": "Daderot"
- },
- {
-  "file": "assets/img/ss-salat-he.jpg",
-  "source": "File:Hoe-deopbap in Korea 36.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Hoe-deopbap_in_Korea_36.jpg",
-  "license": "CC BY-SA 3.0",
-  "artist": "User:Piotrus"
- },
- {
-  "file": "assets/img/chavycha-500.jpg",
-  "source": "File:Singer Café - Blini with sour cream and red caviar IMG 3423.JPG",
-  "page": "https://commons.wikimedia.org/wiki/File:Singer_Caf%C3%A9_-_Blini_with_sour_cream_and_red_caviar_IMG_3423.JPG",
-  "license": "CC BY-SA 3.0",
-  "artist": "Deror_avi"
- },
- {
-  "file": "assets/img/pick-kapusta.jpg",
-  "source": "File:Belarusian-Russian Sauerkraut-1.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Belarusian-Russian_Sauerkraut-1.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Eugene Zelenko"
- },
- {
-  "file": "assets/img/pick-ogurcy.jpg",
-  "source": "File:Polish style pickled cucumbers IMGP0413.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Polish_style_pickled_cucumbers_IMGP0413.jpg",
-  "license": "CC BY-SA 3.0",
-  "artist": "Nikodem Nijaki"
- },
- {
-  "file": "assets/img/pick-morkov.jpg",
-  "source": "File:Korean-style carrot 3.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Korean-style_carrot_3.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Off-shell"
- },
- {
-  "file": "assets/img/pick-baklazhan.jpg",
-  "source": "File:Marinated eggplants with carrots, bell peppers, and garlic.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Marinated_eggplants_with_carrots,_bell_peppers,_and_garlic.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Berser25"
- },
- {
-  "file": "assets/img/pick-mushrooms-wood.jpg",
-  "source": "File:Jelly Ear, Auricularia auricula-judae, UK 2.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Jelly_Ear,_Auricularia_auricula-judae,_UK_2.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Stu's Images"
- },
- {
-  "file": "assets/img/pick-opyata.jpg",
-  "source": "File:Honey mushrooms cooked.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Honey_mushrooms_cooked.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Dmitry Brant"
- },
- {
-  "file": "assets/img/pick-sparja.jpg",
-  "source": "File:ToFu Salad.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:ToFu_Salad.jpg",
-  "license": "CC0",
-  "artist": "စာကလေး SarKaLay"
- },
- {
-  "file": "assets/img/pick-pomidory.jpg",
-  "source": "File:Mmm... ground beef and cheese with pickled peppers and cherry tomatoes (7810283802).jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Mmm..._ground_beef_and_cheese_with_pickled_peppers_and_cherry_tomatoes_(7810283802).jpg",
-  "license": "CC BY 2.0",
-  "artist": "jeffreyw"
- },
- {
-  "file": "assets/img/meat-servelat.jpg",
-  "source": "File:Cervelat Hr.JPG",
-  "page": "https://commons.wikimedia.org/wiki/File:Cervelat_Hr.JPG",
-  "license": "CC BY-SA 3.0",
-  "artist": "Schofför"
- },
- {
-  "file": "assets/img/meat-krakov.jpg",
-  "source": "File:Kraków Politechnika Krakowska W-1 2025.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Krak%C3%B3w_Politechnika_Krakowska_W-1_2025.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Adrian Tync"
- },
- {
-  "file": "assets/img/meat-grudinka.jpg",
-  "source": "File:Maple Bacon Doughnut.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Maple_Bacon_Doughnut.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Prosthetic Head"
- },
- {
-  "file": "assets/img/meat-karbonat.jpg",
-  "source": "File:Roast pork loin (5647644620).jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Roast_pork_loin_(5647644620).jpg",
-  "license": "CC BY 2.0",
-  "artist": "Father.Jack from Coventry, UK"
- },
- {
-  "file": "assets/img/meat-vetchina.jpg",
-  "source": "File:HAM russian.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:HAM_russian.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Pannet"
- },
- {
-  "file": "assets/img/meat-tushenka.jpg",
-  "source": "File:Tushonka beef.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Tushonka_beef.jpg",
-  "license": "CC BY-SA 3.0",
-  "artist": "Bestalex"
- },
- {
-  "file": "assets/img/sm-kalmar-gk.jpg",
-  "source": "File:Squid rings and fish.JPG",
-  "page": "https://commons.wikimedia.org/wiki/File:Squid_rings_and_fish.JPG",
-  "license": "CC BY 3.0",
-  "artist": "Biso"
- },
- {
-  "file": "assets/img/sm-terpug-gk.jpg",
-  "source": "File:DSCF0297 A street vendor grills a row of whole fish over charcoal at a bustling outdoor market wearing a mask and tongs as smoke rises around her.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:DSCF0297_A_street_vendor_grills_a_row_of_whole_fish_over_charcoal_at_a_bustling_outdoor_market_wearing_a_mask_and_tongs_as_smoke_rises_around_her.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "PattayaPatrol"
- },
- {
-  "file": "assets/img/sm-sudak-gk.jpg",
-  "source": "File:Spargel Zander Kartoffeln.JPG",
-  "page": "https://commons.wikimedia.org/wiki/File:Spargel_Zander_Kartoffeln.JPG",
-  "license": "CC BY 3.0",
-  "artist": "Benreis"
- },
- {
-  "file": "assets/img/sm-leshch-gk.jpg",
-  "source": "File:Sloked fish 02.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Sloked_fish_02.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Agoetee 123"
- },
- {
-  "file": "assets/img/vyal-vobla.jpg",
-  "source": "File:RECALLED – Dry Eviscerated Salted Fish (26371944460).jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:RECALLED_%E2%80%93_Dry_Eviscerated_Salted_Fish_(26371944460).jpg",
-  "license": "Public domain",
-  "artist": "The U.S. Food and Drug Administration"
- },
- {
-  "file": "assets/img/vyal-kambala-ikra.jpg",
-  "source": "File:Group of people flounder fishing in shallow water (AM 84637-1).jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Group_of_people_flounder_fishing_in_shallow_water_(AM_84637-1).jpg",
-  "license": "CC BY 4.0",
-  "artist": "Collins, Tudor Washington, 1898-1970, photographer"
- },
- {
-  "file": "assets/img/vyal-kambala-ersh.jpg",
-  "source": "File:FMIB 46250 Long Rough Dab.jpeg",
-  "page": "https://commons.wikimedia.org/wiki/File:FMIB_46250_Long_Rough_Dab.jpeg",
-  "license": "Public domain",
-  "artist": "Jonathan Couch"
- },
- {
-  "file": "assets/img/vyal-shchuka.jpg",
-  "source": "File:Fish on a Drying Rack (93a07885-1dd8-b71c-07dc-01bcc139e98f).jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Fish_on_a_Drying_Rack_(93a07885-1dd8-b71c-07dc-01bcc139e98f).jpg",
-  "license": "Public domain",
-  "artist": "NPS Photo"
- },
- {
-  "file": "assets/img/vyal-leshch.jpg",
-  "source": "File:Zambezi Bream air dried.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Zambezi_Bream_air_dried.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Namibaxab"
- },
- {
-  "file": "assets/img/vyal-chehon.jpg",
-  "source": "File:Pelecus cultratus 464985613.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Pelecus_cultratus_464985613.jpg",
-  "license": "CC BY 4.0",
-  "artist": "Paulius Rupšas"
- },
- {
-  "file": "assets/img/ss-skumbriya-pp.jpg",
-  "source": "File:Hinava Sabah.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Hinava_Sabah.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Terencetulus"
- },
- {
-  "file": "assets/img/ss-bryushki-losos.jpg",
-  "source": "File:Daily Catch- Amberjack, amberjack belly, salmon, octopus, fluke, ocean trout, bigeye tuna, sea urchin with ikura.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Daily_Catch-_Amberjack,_amberjack_belly,_salmon,_octopus,_fluke,_ocean_trout,_bigeye_tuna,_sea_urchin_with_ikura.jpg",
-  "license": "CC BY 2.0",
-  "artist": "T.Tseng"
- },
- {
-  "file": "assets/img/ss-seld-maslo.jpg",
-  "source": "File:RECALLED – Herring (8078014811).jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:RECALLED_%E2%80%93_Herring_(8078014811).jpg",
-  "license": "Public domain",
-  "artist": "The U.S. Food and Drug Administration"
- },
- {
-  "file": "assets/img/ss-seld-voronezh.jpg",
-  "source": "File:Herring fillets on toasted homemade bread, with mustard, pepperoncini, curry powder, black pepper, and white wine sauce - Massachusetts.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Herring_fillets_on_toasted_homemade_bread,_with_mustard,_pepperoncini,_curry_powder,_black_pepper,_and_white_wine_sauce_-_Massachusetts.jpg",
-  "license": "CC0",
-  "artist": "Daderot"
- },
- {
-  "file": "assets/img/ss-salat-he.jpg",
-  "source": "File:Hoe-deopbap in Korea 36.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Hoe-deopbap_in_Korea_36.jpg",
-  "license": "CC BY-SA 3.0",
-  "artist": "User:Piotrus"
- },
- {
-  "file": "assets/img/chavycha-500.jpg",
-  "source": "File:Singer Café - Blini with sour cream and red caviar IMG 3423.JPG",
-  "page": "https://commons.wikimedia.org/wiki/File:Singer_Caf%C3%A9_-_Blini_with_sour_cream_and_red_caviar_IMG_3423.JPG",
-  "license": "CC BY-SA 3.0",
-  "artist": "Deror_avi"
- },
- {
-  "file": "assets/img/pick-kapusta.jpg",
-  "source": "File:Belarusian-Russian Sauerkraut-1.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Belarusian-Russian_Sauerkraut-1.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Eugene Zelenko"
- },
- {
-  "file": "assets/img/pick-ogurcy.jpg",
-  "source": "File:Polish style pickled cucumbers IMGP0413.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Polish_style_pickled_cucumbers_IMGP0413.jpg",
-  "license": "CC BY-SA 3.0",
-  "artist": "Nikodem Nijaki"
- },
- {
-  "file": "assets/img/pick-morkov.jpg",
-  "source": "File:Korean-style carrot 3.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Korean-style_carrot_3.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Off-shell"
- },
- {
-  "file": "assets/img/pick-baklazhan.jpg",
-  "source": "File:Marinated eggplants with carrots, bell peppers, and garlic.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Marinated_eggplants_with_carrots,_bell_peppers,_and_garlic.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Berser25"
- },
- {
-  "file": "assets/img/pick-mushrooms-wood.jpg",
-  "source": "File:Jelly Ear, Auricularia auricula-judae, UK 2.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Jelly_Ear,_Auricularia_auricula-judae,_UK_2.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Stu's Images"
- },
- {
-  "file": "assets/img/pick-opyata.jpg",
-  "source": "File:Honey mushrooms cooked.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Honey_mushrooms_cooked.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Dmitry Brant"
- },
- {
-  "file": "assets/img/pick-sparja.jpg",
-  "source": "File:ToFu Salad.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:ToFu_Salad.jpg",
-  "license": "CC0",
-  "artist": "စာကလေး SarKaLay"
- },
- {
-  "file": "assets/img/pick-pomidory.jpg",
-  "source": "File:Mmm... ground beef and cheese with pickled peppers and cherry tomatoes (7810283802).jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Mmm..._ground_beef_and_cheese_with_pickled_peppers_and_cherry_tomatoes_(7810283802).jpg",
-  "license": "CC BY 2.0",
-  "artist": "jeffreyw"
- },
- {
-  "file": "assets/img/meat-servelat.jpg",
-  "source": "File:Cervelat Hr.JPG",
-  "page": "https://commons.wikimedia.org/wiki/File:Cervelat_Hr.JPG",
-  "license": "CC BY-SA 3.0",
-  "artist": "Schofför"
- },
- {
-  "file": "assets/img/meat-krakov.jpg",
-  "source": "File:Kraków Politechnika Krakowska W-1 2025.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Krak%C3%B3w_Politechnika_Krakowska_W-1_2025.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Adrian Tync"
- },
- {
-  "file": "assets/img/meat-grudinka.jpg",
-  "source": "File:Maple Bacon Doughnut.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Maple_Bacon_Doughnut.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Prosthetic Head"
- },
- {
-  "file": "assets/img/meat-karbonat.jpg",
-  "source": "File:Roast pork loin (5647644620).jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Roast_pork_loin_(5647644620).jpg",
-  "license": "CC BY 2.0",
-  "artist": "Father.Jack from Coventry, UK"
- },
- {
-  "file": "assets/img/meat-vetchina.jpg",
-  "source": "File:HAM russian.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:HAM_russian.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Pannet"
- },
- {
-  "file": "assets/img/meat-tushenka.jpg",
-  "source": "File:Tushonka beef.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Tushonka_beef.jpg",
-  "license": "CC BY-SA 3.0",
-  "artist": "Bestalex"
- },
- {
-  "file": "assets/img/sm-kalmar-gk.jpg",
-  "source": "File:Squid rings and fish.JPG",
-  "page": "https://commons.wikimedia.org/wiki/File:Squid_rings_and_fish.JPG",
-  "license": "CC BY 3.0",
-  "artist": "Biso"
- },
- {
-  "file": "assets/img/sm-terpug-gk.jpg",
-  "source": "File:DSCF0297 A street vendor grills a row of whole fish over charcoal at a bustling outdoor market wearing a mask and tongs as smoke rises around her.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:DSCF0297_A_street_vendor_grills_a_row_of_whole_fish_over_charcoal_at_a_bustling_outdoor_market_wearing_a_mask_and_tongs_as_smoke_rises_around_her.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "PattayaPatrol"
- },
- {
-  "file": "assets/img/sm-sudak-gk.jpg",
-  "source": "File:Spargel Zander Kartoffeln.JPG",
-  "page": "https://commons.wikimedia.org/wiki/File:Spargel_Zander_Kartoffeln.JPG",
-  "license": "CC BY 3.0",
-  "artist": "Benreis"
- },
- {
-  "file": "assets/img/sm-leshch-gk.jpg",
-  "source": "File:Sloked fish 02.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Sloked_fish_02.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Agoetee 123"
- },
- {
-  "file": "assets/img/vyal-vobla.jpg",
-  "source": "File:RECALLED – Dry Eviscerated Salted Fish (26371944460).jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:RECALLED_%E2%80%93_Dry_Eviscerated_Salted_Fish_(26371944460).jpg",
-  "license": "Public domain",
-  "artist": "The U.S. Food and Drug Administration"
- },
- {
-  "file": "assets/img/vyal-kambala-ikra.jpg",
-  "source": "File:Group of people flounder fishing in shallow water (AM 84637-1).jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Group_of_people_flounder_fishing_in_shallow_water_(AM_84637-1).jpg",
-  "license": "CC BY 4.0",
-  "artist": "Collins, Tudor Washington, 1898-1970, photographer"
- },
- {
-  "file": "assets/img/vyal-kambala-ersh.jpg",
-  "source": "File:FMIB 46250 Long Rough Dab.jpeg",
-  "page": "https://commons.wikimedia.org/wiki/File:FMIB_46250_Long_Rough_Dab.jpeg",
-  "license": "Public domain",
-  "artist": "Jonathan Couch"
- },
- {
-  "file": "assets/img/vyal-shchuka.jpg",
-  "source": "File:Fish on a Drying Rack (93a07885-1dd8-b71c-07dc-01bcc139e98f).jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Fish_on_a_Drying_Rack_(93a07885-1dd8-b71c-07dc-01bcc139e98f).jpg",
-  "license": "Public domain",
-  "artist": "NPS Photo"
- },
- {
-  "file": "assets/img/vyal-leshch.jpg",
-  "source": "File:Zambezi Bream air dried.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Zambezi_Bream_air_dried.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Namibaxab"
- },
- {
-  "file": "assets/img/vyal-chehon.jpg",
-  "source": "File:Pelecus cultratus 464985613.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Pelecus_cultratus_464985613.jpg",
-  "license": "CC BY 4.0",
-  "artist": "Paulius Rupšas"
- },
- {
-  "file": "assets/img/ss-skumbriya-pp.jpg",
-  "source": "File:Hinava Sabah.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Hinava_Sabah.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Terencetulus"
- },
- {
-  "file": "assets/img/ss-bryushki-losos.jpg",
-  "source": "File:Daily Catch- Amberjack, amberjack belly, salmon, octopus, fluke, ocean trout, bigeye tuna, sea urchin with ikura.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Daily_Catch-_Amberjack,_amberjack_belly,_salmon,_octopus,_fluke,_ocean_trout,_bigeye_tuna,_sea_urchin_with_ikura.jpg",
-  "license": "CC BY 2.0",
-  "artist": "T.Tseng"
- },
- {
-  "file": "assets/img/ss-seld-maslo.jpg",
-  "source": "File:RECALLED – Herring (8078014811).jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:RECALLED_%E2%80%93_Herring_(8078014811).jpg",
-  "license": "Public domain",
-  "artist": "The U.S. Food and Drug Administration"
- },
- {
-  "file": "assets/img/ss-seld-voronezh.jpg",
-  "source": "File:Herring fillets on toasted homemade bread, with mustard, pepperoncini, curry powder, black pepper, and white wine sauce - Massachusetts.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Herring_fillets_on_toasted_homemade_bread,_with_mustard,_pepperoncini,_curry_powder,_black_pepper,_and_white_wine_sauce_-_Massachusetts.jpg",
-  "license": "CC0",
-  "artist": "Daderot"
- },
- {
-  "file": "assets/img/ss-salat-he.jpg",
-  "source": "File:Hoe-deopbap in Korea 36.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Hoe-deopbap_in_Korea_36.jpg",
-  "license": "CC BY-SA 3.0",
-  "artist": "User:Piotrus"
- },
- {
-  "file": "assets/img/chavycha-500.jpg",
-  "source": "File:Singer Café - Blini with sour cream and red caviar IMG 3423.JPG",
-  "page": "https://commons.wikimedia.org/wiki/File:Singer_Caf%C3%A9_-_Blini_with_sour_cream_and_red_caviar_IMG_3423.JPG",
-  "license": "CC BY-SA 3.0",
-  "artist": "Deror_avi"
- },
- {
-  "file": "assets/img/pick-kapusta.jpg",
-  "source": "File:Belarusian-Russian Sauerkraut-1.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Belarusian-Russian_Sauerkraut-1.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Eugene Zelenko"
- },
- {
-  "file": "assets/img/pick-ogurcy.jpg",
-  "source": "File:Polish style pickled cucumbers IMGP0413.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Polish_style_pickled_cucumbers_IMGP0413.jpg",
-  "license": "CC BY-SA 3.0",
-  "artist": "Nikodem Nijaki"
- },
- {
-  "file": "assets/img/pick-morkov.jpg",
-  "source": "File:Korean-style carrot 3.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Korean-style_carrot_3.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Off-shell"
- },
- {
-  "file": "assets/img/pick-baklazhan.jpg",
-  "source": "File:Marinated eggplants with carrots, bell peppers, and garlic.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Marinated_eggplants_with_carrots,_bell_peppers,_and_garlic.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Berser25"
- },
- {
-  "file": "assets/img/pick-mushrooms-wood.jpg",
-  "source": "File:Jelly Ear, Auricularia auricula-judae, UK 2.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Jelly_Ear,_Auricularia_auricula-judae,_UK_2.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Stu's Images"
- },
- {
-  "file": "assets/img/pick-opyata.jpg",
-  "source": "File:Honey mushrooms cooked.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Honey_mushrooms_cooked.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Dmitry Brant"
- },
- {
-  "file": "assets/img/pick-sparja.jpg",
-  "source": "File:ToFu Salad.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:ToFu_Salad.jpg",
-  "license": "CC0",
-  "artist": "စာကလေး SarKaLay"
- },
- {
-  "file": "assets/img/pick-pomidory.jpg",
-  "source": "File:Mmm... ground beef and cheese with pickled peppers and cherry tomatoes (7810283802).jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Mmm..._ground_beef_and_cheese_with_pickled_peppers_and_cherry_tomatoes_(7810283802).jpg",
-  "license": "CC BY 2.0",
-  "artist": "jeffreyw"
- },
- {
-  "file": "assets/img/meat-servelat.jpg",
-  "source": "File:Cervelat Hr.JPG",
-  "page": "https://commons.wikimedia.org/wiki/File:Cervelat_Hr.JPG",
-  "license": "CC BY-SA 3.0",
-  "artist": "Schofför"
- },
- {
-  "file": "assets/img/meat-krakov.jpg",
-  "source": "File:Kraków Politechnika Krakowska W-1 2025.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Krak%C3%B3w_Politechnika_Krakowska_W-1_2025.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Adrian Tync"
- },
- {
-  "file": "assets/img/meat-grudinka.jpg",
-  "source": "File:Maple Bacon Doughnut.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Maple_Bacon_Doughnut.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Prosthetic Head"
- },
- {
-  "file": "assets/img/meat-karbonat.jpg",
-  "source": "File:Roast pork loin (5647644620).jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Roast_pork_loin_(5647644620).jpg",
-  "license": "CC BY 2.0",
-  "artist": "Father.Jack from Coventry, UK"
- },
- {
-  "file": "assets/img/meat-vetchina.jpg",
-  "source": "File:HAM russian.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:HAM_russian.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Pannet"
- },
- {
-  "file": "assets/img/meat-tushenka.jpg",
-  "source": "File:Tushonka beef.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Tushonka_beef.jpg",
-  "license": "CC BY-SA 3.0",
-  "artist": "Bestalex"
- },
- {
-  "file": "assets/img/sm-kalmar-gk.jpg",
-  "source": "File:Squid rings and fish.JPG",
-  "page": "https://commons.wikimedia.org/wiki/File:Squid_rings_and_fish.JPG",
-  "license": "CC BY 3.0",
-  "artist": "Biso"
- },
- {
-  "file": "assets/img/sm-terpug-gk.jpg",
-  "source": "File:DSCF0297 A street vendor grills a row of whole fish over charcoal at a bustling outdoor market wearing a mask and tongs as smoke rises around her.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:DSCF0297_A_street_vendor_grills_a_row_of_whole_fish_over_charcoal_at_a_bustling_outdoor_market_wearing_a_mask_and_tongs_as_smoke_rises_around_her.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "PattayaPatrol"
- },
- {
-  "file": "assets/img/sm-sudak-gk.jpg",
-  "source": "File:Spargel Zander Kartoffeln.JPG",
-  "page": "https://commons.wikimedia.org/wiki/File:Spargel_Zander_Kartoffeln.JPG",
-  "license": "CC BY 3.0",
-  "artist": "Benreis"
- },
- {
-  "file": "assets/img/sm-leshch-gk.jpg",
-  "source": "File:Sloked fish 02.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Sloked_fish_02.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Agoetee 123"
- },
- {
-  "file": "assets/img/vyal-vobla.jpg",
-  "source": "File:RECALLED – Dry Eviscerated Salted Fish (26371944460).jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:RECALLED_%E2%80%93_Dry_Eviscerated_Salted_Fish_(26371944460).jpg",
-  "license": "Public domain",
-  "artist": "The U.S. Food and Drug Administration"
- },
- {
-  "file": "assets/img/vyal-kambala-ikra.jpg",
-  "source": "File:Group of people flounder fishing in shallow water (AM 84637-1).jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Group_of_people_flounder_fishing_in_shallow_water_(AM_84637-1).jpg",
-  "license": "CC BY 4.0",
-  "artist": "Collins, Tudor Washington, 1898-1970, photographer"
- },
- {
-  "file": "assets/img/vyal-kambala-ersh.jpg",
-  "source": "File:FMIB 46250 Long Rough Dab.jpeg",
-  "page": "https://commons.wikimedia.org/wiki/File:FMIB_46250_Long_Rough_Dab.jpeg",
-  "license": "Public domain",
-  "artist": "Jonathan Couch"
- },
- {
-  "file": "assets/img/vyal-shchuka.jpg",
-  "source": "File:Fish on a Drying Rack (93a07885-1dd8-b71c-07dc-01bcc139e98f).jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Fish_on_a_Drying_Rack_(93a07885-1dd8-b71c-07dc-01bcc139e98f).jpg",
-  "license": "Public domain",
-  "artist": "NPS Photo"
- },
- {
-  "file": "assets/img/vyal-leshch.jpg",
-  "source": "File:Zambezi Bream air dried.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Zambezi_Bream_air_dried.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Namibaxab"
- },
- {
-  "file": "assets/img/vyal-chehon.jpg",
-  "source": "File:Pelecus cultratus 464985613.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Pelecus_cultratus_464985613.jpg",
-  "license": "CC BY 4.0",
-  "artist": "Paulius Rupšas"
- },
- {
-  "file": "assets/img/ss-skumbriya-pp.jpg",
-  "source": "File:Hinava Sabah.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Hinava_Sabah.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Terencetulus"
- },
- {
-  "file": "assets/img/ss-bryushki-losos.jpg",
-  "source": "File:Daily Catch- Amberjack, amberjack belly, salmon, octopus, fluke, ocean trout, bigeye tuna, sea urchin with ikura.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Daily_Catch-_Amberjack,_amberjack_belly,_salmon,_octopus,_fluke,_ocean_trout,_bigeye_tuna,_sea_urchin_with_ikura.jpg",
-  "license": "CC BY 2.0",
-  "artist": "T.Tseng"
- },
- {
-  "file": "assets/img/ss-seld-maslo.jpg",
-  "source": "File:RECALLED – Herring (8078014811).jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:RECALLED_%E2%80%93_Herring_(8078014811).jpg",
-  "license": "Public domain",
-  "artist": "The U.S. Food and Drug Administration"
- },
- {
-  "file": "assets/img/ss-seld-voronezh.jpg",
-  "source": "File:Herring fillets on toasted homemade bread, with mustard, pepperoncini, curry powder, black pepper, and white wine sauce - Massachusetts.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Herring_fillets_on_toasted_homemade_bread,_with_mustard,_pepperoncini,_curry_powder,_black_pepper,_and_white_wine_sauce_-_Massachusetts.jpg",
-  "license": "CC0",
-  "artist": "Daderot"
- },
- {
-  "file": "assets/img/ss-salat-he.jpg",
-  "source": "File:Hoe-deopbap in Korea 36.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Hoe-deopbap_in_Korea_36.jpg",
-  "license": "CC BY-SA 3.0",
-  "artist": "User:Piotrus"
- },
- {
-  "file": "assets/img/chavycha-500.jpg",
-  "source": "File:Singer Café - Blini with sour cream and red caviar IMG 3423.JPG",
-  "page": "https://commons.wikimedia.org/wiki/File:Singer_Caf%C3%A9_-_Blini_with_sour_cream_and_red_caviar_IMG_3423.JPG",
-  "license": "CC BY-SA 3.0",
-  "artist": "Deror_avi"
- },
- {
-  "file": "assets/img/pick-kapusta.jpg",
-  "source": "File:Belarusian-Russian Sauerkraut-1.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Belarusian-Russian_Sauerkraut-1.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Eugene Zelenko"
- },
- {
-  "file": "assets/img/pick-ogurcy.jpg",
-  "source": "File:Polish style pickled cucumbers IMGP0413.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Polish_style_pickled_cucumbers_IMGP0413.jpg",
-  "license": "CC BY-SA 3.0",
-  "artist": "Nikodem Nijaki"
- },
- {
-  "file": "assets/img/pick-morkov.jpg",
-  "source": "File:Korean-style carrot 3.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Korean-style_carrot_3.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Off-shell"
- },
- {
-  "file": "assets/img/pick-baklazhan.jpg",
-  "source": "File:Marinated eggplants with carrots, bell peppers, and garlic.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Marinated_eggplants_with_carrots,_bell_peppers,_and_garlic.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Berser25"
- },
- {
-  "file": "assets/img/pick-mushrooms-wood.jpg",
-  "source": "File:Jelly Ear, Auricularia auricula-judae, UK 2.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Jelly_Ear,_Auricularia_auricula-judae,_UK_2.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Stu's Images"
- },
- {
-  "file": "assets/img/pick-opyata.jpg",
-  "source": "File:Honey mushrooms cooked.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Honey_mushrooms_cooked.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Dmitry Brant"
- },
- {
-  "file": "assets/img/pick-sparja.jpg",
-  "source": "File:ToFu Salad.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:ToFu_Salad.jpg",
-  "license": "CC0",
-  "artist": "စာကလေး SarKaLay"
- },
- {
-  "file": "assets/img/pick-pomidory.jpg",
-  "source": "Wikimedia Commons — File:Marinated Tomatoes (3878650079).jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Mmm..._ground_beef_and_cheese_with_pickled_peppers_and_cherry_tomatoes_(7810283802).jpg",
-  "license": "CC BY 2.0",
-  "artist": "jeffreyw"
- },
- {
-  "file": "assets/img/meat-servelat.jpg",
-  "source": "File:Cervelat Hr.JPG",
-  "page": "https://commons.wikimedia.org/wiki/File:Cervelat_Hr.JPG",
-  "license": "CC BY-SA 3.0",
-  "artist": "Schofför"
- },
- {
-  "file": "assets/img/meat-krakov.jpg",
-  "source": "Wikimedia Commons — File:Dva druhy klobás.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Krak%C3%B3w_Politechnika_Krakowska_W-1_2025.jpg",
-  "license": "CC BY 3.0",
-  "artist": "Adrian Tync"
- },
- {
-  "file": "assets/img/meat-grudinka.jpg",
-  "source": "File:Maple Bacon Doughnut.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Maple_Bacon_Doughnut.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Prosthetic Head"
- },
- {
-  "file": "assets/img/meat-karbonat.jpg",
-  "source": "File:Roast pork loin (5647644620).jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Roast_pork_loin_(5647644620).jpg",
-  "license": "CC BY 2.0",
-  "artist": "Father.Jack from Coventry, UK"
- },
- {
-  "file": "assets/img/meat-vetchina.jpg",
-  "source": "File:HAM russian.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:HAM_russian.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Pannet"
- },
- {
-  "file": "assets/img/meat-tushenka.jpg",
-  "source": "File:Tushonka beef.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Tushonka_beef.jpg",
-  "license": "CC BY-SA 3.0",
-  "artist": "Bestalex"
- },
- {
-  "file": "assets/img/sm-kalmar-gk.jpg",
-  "source": "File:Squid rings and fish.JPG",
-  "page": "https://commons.wikimedia.org/wiki/File:Squid_rings_and_fish.JPG",
-  "license": "CC BY 3.0",
-  "artist": "Biso"
- },
- {
-  "file": "assets/img/sm-terpug-gk.jpg",
-  "source": "File:DSCF0297 A street vendor grills a row of whole fish over charcoal at a bustling outdoor market wearing a mask and tongs as smoke rises around her.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:DSCF0297_A_street_vendor_grills_a_row_of_whole_fish_over_charcoal_at_a_bustling_outdoor_market_wearing_a_mask_and_tongs_as_smoke_rises_around_her.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "PattayaPatrol"
- },
- {
-  "file": "assets/img/sm-sudak-gk.jpg",
-  "source": "File:Spargel Zander Kartoffeln.JPG",
-  "page": "https://commons.wikimedia.org/wiki/File:Spargel_Zander_Kartoffeln.JPG",
-  "license": "CC BY 3.0",
-  "artist": "Benreis"
- },
- {
-  "file": "assets/img/sm-leshch-gk.jpg",
-  "source": "File:Sloked fish 02.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Sloked_fish_02.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Agoetee 123"
- },
- {
-  "file": "assets/img/vyal-vobla.jpg",
-  "source": "File:RECALLED – Dry Eviscerated Salted Fish (26371944460).jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:RECALLED_%E2%80%93_Dry_Eviscerated_Salted_Fish_(26371944460).jpg",
-  "license": "Public domain",
-  "artist": "The U.S. Food and Drug Administration"
- },
- {
-  "file": "assets/img/vyal-kambala-ikra.jpg",
-  "source": "File:Group of people flounder fishing in shallow water (AM 84637-1).jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Group_of_people_flounder_fishing_in_shallow_water_(AM_84637-1).jpg",
-  "license": "CC BY 4.0",
-  "artist": "Collins, Tudor Washington, 1898-1970, photographer"
- },
- {
-  "file": "assets/img/vyal-kambala-ersh.jpg",
-  "source": "File:FMIB 46250 Long Rough Dab.jpeg",
-  "page": "https://commons.wikimedia.org/wiki/File:FMIB_46250_Long_Rough_Dab.jpeg",
-  "license": "Public domain",
-  "artist": "Jonathan Couch"
- },
- {
-  "file": "assets/img/vyal-shchuka.jpg",
-  "source": "File:Fish on a Drying Rack (93a07885-1dd8-b71c-07dc-01bcc139e98f).jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Fish_on_a_Drying_Rack_(93a07885-1dd8-b71c-07dc-01bcc139e98f).jpg",
-  "license": "Public domain",
-  "artist": "NPS Photo"
- },
- {
-  "file": "assets/img/vyal-leshch.jpg",
-  "source": "File:Zambezi Bream air dried.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Zambezi_Bream_air_dried.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Namibaxab"
- },
- {
-  "file": "assets/img/vyal-chehon.jpg",
-  "source": "File:Pelecus cultratus 464985613.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Pelecus_cultratus_464985613.jpg",
-  "license": "CC BY 4.0",
-  "artist": "Paulius Rupšas"
- },
- {
-  "file": "assets/img/ss-skumbriya-pp.jpg",
-  "source": "File:Hinava Sabah.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Hinava_Sabah.jpg",
-  "license": "CC BY-SA 4.0",
-  "artist": "Terencetulus"
- },
- {
-  "file": "assets/img/ss-bryushki-losos.jpg",
-  "source": "File:Daily Catch- Amberjack, amberjack belly, salmon, octopus, fluke, ocean trout, bigeye tuna, sea urchin with ikura.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Daily_Catch-_Amberjack,_amberjack_belly,_salmon,_octopus,_fluke,_ocean_trout,_bigeye_tuna,_sea_urchin_with_ikura.jpg",
-  "license": "CC BY 2.0",
-  "artist": "T.Tseng"
- },
- {
-  "file": "assets/img/ss-seld-maslo.jpg",
-  "source": "File:RECALLED – Herring (8078014811).jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:RECALLED_%E2%80%93_Herring_(8078014811).jpg",
-  "license": "Public domain",
-  "artist": "The U.S. Food and Drug Administration"
- },
- {
-  "file": "assets/img/ss-seld-voronezh.jpg",
-  "source": "File:Herring fillets on toasted homemade bread, with mustard, pepperoncini, curry powder, black pepper, and white wine sauce - Massachusetts.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Herring_fillets_on_toasted_homemade_bread,_with_mustard,_pepperoncini,_curry_powder,_black_pepper,_and_white_wine_sauce_-_Massachusetts.jpg",
-  "license": "CC0",
-  "artist": "Daderot"
- },
- {
-  "file": "assets/img/ss-salat-he.jpg",
-  "source": "File:Hoe-deopbap in Korea 36.jpg",
-  "page": "https://commons.wikimedia.org/wiki/File:Hoe-deopbap_in_Korea_36.jpg",
-  "license": "CC BY-SA 3.0",
-  "artist": "User:Piotrus"
- },
- {
-  "file": "assets/img/chavycha-500.jpg",
-  "source": "File:Singer Café - Blini with sour cream and red caviar IMG 3423.JPG",
-  "page": "https://commons.wikimedia.org/wiki/File:Singer_Caf%C3%A9_-_Blini_with_sour_cream_and_red_caviar_IMG_3423.JPG",
-  "license": "CC BY-SA 3.0",
-  "artist": "Deror_avi"
- },
- {
-  "file": "assets/img/ss-pivnoy-nabor.jpg",
-  "source": "ss-pivnoy-nabor.jpg",
+  "file": "assets/img/forel-kopchenaya.png",
+  "source": "forel-kopchenaya.png",
   "license": "Commercial / Shop"
  },
  {
-  "file": "assets/img/vyal-koryushka.jpg",
-  "source": "vyal-koryushka.jpg",
-  "license": "Commercial / Shop"
+  "file": "assets/img/gorbusha-gk-e.jpg",
+  "source": "tools/photo_src/client/Горбуша копчёная.jpg",
+  "license": "Commercial / Shop (фото заказчика)"
  },
  {
   "file": "assets/img/gorbusha-plast-fresh.jpg",
@@ -1289,60 +99,204 @@
   "page": "https://commons.wikimedia.org/wiki/File:Astrakhan_Smoked_Fish_Market_08.jpg"
  },
  {
-  "file": "assets/img/bryushki-semgi-kopchenye.jpg",
-  "source": "File:Gravlax 2.jpg",
-  "license": "CC BY-SA 4.0",
-  "author": "Tiia Monto",
-  "page": "https://commons.wikimedia.org/wiki/File:Gravlax_2.jpg"
- },
- {
-  "file": "assets/img/tunec-kopchenyy.jpg",
-  "source": "File:Mojama de atun.JPG",
-  "license": "Public domain",
-  "author": "Calapito",
-  "page": "https://commons.wikimedia.org/wiki/File:Mojama_de_atun.JPG"
- },
- {
-  "file": "assets/img/gorbusha-plast.jpg",
-  "source": "File:Homemade fish smoking - Freshly smoked mackerel in the smoker.jpg",
-  "license": "CC BY-SA 4.0",
-  "author": "Natalka Ukraine",
-  "page": "https://commons.wikimedia.org/wiki/File:Homemade_fish_smoking_-_Freshly_smoked_mackerel_in_the_smoker.jpg"
- },
- {
   "file": "assets/img/gorbusha-tesha.jpg",
-  "source": "File:Homemade fish smoking - Freshly smoked mackerel in the smoker.jpg",
-  "license": "CC BY-SA 4.0",
-  "author": "Natalka Ukraine",
-  "page": "https://commons.wikimedia.org/wiki/File:Homemade_fish_smoking_-_Freshly_smoked_mackerel_in_the_smoker.jpg"
+  "source": "tools/photo_src/client/Горбуша.jpg",
+  "license": "Commercial / Shop (фото заказчика)"
  },
  {
-  "file": "assets/img/skumbriya-hk-slices.jpg",
-  "source": "File:Homemade fish smoking - Freshly smoked mackerel in the smoker.jpg",
-  "license": "CC BY-SA 4.0",
-  "author": "Natalka Ukraine",
-  "page": "https://commons.wikimedia.org/wiki/File:Homemade_fish_smoking_-_Freshly_smoked_mackerel_in_the_smoker.jpg"
+  "file": "assets/img/hero-caviar.jpg",
+  "source": "File:Ikura 002.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Ikura_002.jpg",
+  "license": "CC BY 2.0",
+  "artist": "whity"
  },
  {
-  "file": "assets/img/yaica-perepelinye.jpg",
-  "source": "File:Wachteleier im Karton-20231205-RM-151854.jpg",
+  "file": "assets/img/hero-table.jpg",
+  "source": "File:02015 1146 Geräucherte Spezialitäten aus Schlesien.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:02015_1146_Ger%C3%A4ucherte_Spezialit%C3%A4ten_aus_Schlesien.JPG",
   "license": "CC BY-SA 4.0",
-  "author": "Ermell",
-  "page": "https://commons.wikimedia.org/wiki/File:Wachteleier_im_Karton-20231205-RM-151854.jpg"
+  "artist": "<a href=\"//commons.wikimedia.org/w/index.php?title=User:Silar&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"User:Silar (page does not exist)\">Silar</a>"
+ },
+ {
+  "file": "assets/img/ivasi-kopchenaya.jpg",
+  "source": "tools/photo_src/client/Иваси копченая.jpg",
+  "license": "Commercial / Shop (фото заказчика)"
  },
  {
   "file": "assets/img/ivasi-ss.jpg",
-  "source": "File:2006 sardines plate.jpg",
+  "source": "tools/photo_src/client/Иваси.jpg",
+  "license": "Commercial / Shop (фото заказчика)"
+ },
+ {
+  "file": "assets/img/liver-treska.jpg",
+  "source": "File:Russian Cod liver in an opened can.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Russian_Cod_liver_in_an_opened_can.jpg",
   "license": "CC BY-SA 3.0",
-  "author": "Rl",
-  "page": "https://commons.wikimedia.org/wiki/File:2006_sardines_plate.jpg"
+  "artist": "<b><span class=\"plainlinks\"><a class=\"external text\" href=\"https://commons.wikimedia.org/wiki/User:A.Savin\">A.Savin</a></span></b>"
+ },
+ {
+  "file": "assets/img/maslyanaya-kopchenaya.jpg",
+  "source": "tools/photo_src/client/Масляная копчёная.jpg",
+  "license": "Commercial / Shop (фото заказчика)"
+ },
+ {
+  "file": "assets/img/maslyanaya-slices.png",
+  "source": "maslyanaya-slices.png",
+  "license": "Commercial / Shop"
+ },
+ {
+  "file": "assets/img/meat-grudinka.jpg",
+  "source": "File:Maple Bacon Doughnut.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Maple_Bacon_Doughnut.jpg",
+  "license": "CC BY-SA 4.0",
+  "artist": "Prosthetic Head"
+ },
+ {
+  "file": "assets/img/meat-karbonat.jpg",
+  "source": "File:Roast pork loin (5647644620).jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Roast_pork_loin_(5647644620).jpg",
+  "license": "CC BY 2.0",
+  "artist": "Father.Jack from Coventry, UK"
+ },
+ {
+  "file": "assets/img/meat-krakov.jpg",
+  "source": "File:Kraków Politechnika Krakowska W-1 2025.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Krak%C3%B3w_Politechnika_Krakowska_W-1_2025.jpg",
+  "license": "CC BY-SA 4.0",
+  "artist": "Adrian Tync"
+ },
+ {
+  "file": "assets/img/meat-servelat.jpg",
+  "source": "File:Cervelat Hr.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:Cervelat_Hr.JPG",
+  "license": "CC BY-SA 3.0",
+  "artist": "Schofför"
+ },
+ {
+  "file": "assets/img/meat-tushenka.jpg",
+  "source": "File:Tushonka beef.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Tushonka_beef.jpg",
+  "license": "CC BY-SA 3.0",
+  "artist": "Bestalex"
+ },
+ {
+  "file": "assets/img/meat-vetchina.jpg",
+  "source": "File:HAM russian.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:HAM_russian.jpg",
+  "license": "CC BY-SA 4.0",
+  "artist": "Pannet"
  },
  {
   "file": "assets/img/moyva-kopchenaya.jpg",
-  "source": "File:20250524 Mallotus villosus fish.jpg",
+  "source": "tools/photo_src/client/Мойва копчёная.jpg",
+  "license": "Commercial / Shop (фото заказчика)"
+ },
+ {
+  "file": "assets/img/okun-gk.jpg",
+  "source": "Изображение предоставлено заказчиком",
+  "license": "Передано клиентом",
+  "author": "",
+  "page": ""
+ },
+ {
+  "file": "assets/img/paltus-kopchenyy.jpg",
+  "source": "tools/photo_src/client/Палтус копчёный.jpg",
+  "license": "Commercial / Shop (фото заказчика)"
+ },
+ {
+  "file": "assets/img/pick-baklazhan.jpg",
+  "source": "File:Marinated eggplants with carrots, bell peppers, and garlic.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Marinated_eggplants_with_carrots,_bell_peppers,_and_garlic.jpg",
+  "license": "CC BY-SA 4.0",
+  "artist": "Berser25"
+ },
+ {
+  "file": "assets/img/pick-kapusta.jpg",
+  "source": "File:Belarusian-Russian Sauerkraut-1.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Belarusian-Russian_Sauerkraut-1.jpg",
+  "license": "CC BY-SA 4.0",
+  "artist": "Eugene Zelenko"
+ },
+ {
+  "file": "assets/img/pick-morkov.jpg",
+  "source": "File:Korean-style carrot 3.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Korean-style_carrot_3.jpg",
+  "license": "CC BY-SA 4.0",
+  "artist": "Off-shell"
+ },
+ {
+  "file": "assets/img/pick-mushrooms-wood.jpg",
+  "source": "File:Jelly Ear, Auricularia auricula-judae, UK 2.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Jelly_Ear,_Auricularia_auricula-judae,_UK_2.jpg",
+  "license": "CC BY-SA 4.0",
+  "artist": "Stu's Images"
+ },
+ {
+  "file": "assets/img/pick-ogurcy.jpg",
+  "source": "File:Polish style pickled cucumbers IMGP0413.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Polish_style_pickled_cucumbers_IMGP0413.jpg",
+  "license": "CC BY-SA 3.0",
+  "artist": "Nikodem Nijaki"
+ },
+ {
+  "file": "assets/img/pick-opyata.jpg",
+  "source": "File:Honey mushrooms cooked.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Honey_mushrooms_cooked.jpg",
+  "license": "CC BY-SA 4.0",
+  "artist": "Dmitry Brant"
+ },
+ {
+  "file": "assets/img/pick-pomidory.jpg",
+  "source": "File:Mmm... ground beef and cheese with pickled peppers and cherry tomatoes (7810283802).jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Mmm..._ground_beef_and_cheese_with_pickled_peppers_and_cherry_tomatoes_(7810283802).jpg",
+  "license": "CC BY 2.0",
+  "artist": "jeffreyw"
+ },
+ {
+  "file": "assets/img/pick-sparja.jpg",
+  "source": "File:ToFu Salad.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:ToFu_Salad.jpg",
   "license": "CC0",
-  "author": "Rakoon",
-  "page": "https://commons.wikimedia.org/wiki/File:20250524_Mallotus_villosus_fish.jpg"
+  "artist": "စာကလေး SarKaLay"
+ },
+ {
+  "file": "assets/img/rulet-tunec-semga-maslyanaya.jpg",
+  "source": "tools/photo_src/client/Крафтовый рулет тунец, сёмга, масляная.jpg",
+  "license": "Commercial / Shop (фото заказчика)"
+ },
+ {
+  "file": "assets/img/seld-kopchenaya.jpg",
+  "source": "tools/photo_src/client/Селедка копчёная.jpg",
+  "license": "Commercial / Shop (фото заказчика)"
+ },
+ {
+  "file": "assets/img/skumbriya-gk-lemon.png",
+  "source": "skumbriya-gk-lemon.png",
+  "license": "Commercial / Shop"
+ },
+ {
+  "file": "assets/img/skumbriya-gk.jpg",
+  "source": "tools/photo_src/client/Скумбрия горячего копчения.jpg",
+  "license": "Commercial / Shop (фото заказчика)"
+ },
+ {
+  "file": "assets/img/skumbriya-hk-slices.jpg",
+  "source": "tools/photo_src/client/Скумбрия копчёная.jpg",
+  "license": "Commercial / Shop (фото заказчика)"
+ },
+ {
+  "file": "assets/img/sm-kalmar-gk.jpg",
+  "source": "File:Squid rings and fish.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:Squid_rings_and_fish.JPG",
+  "license": "CC BY 3.0",
+  "artist": "Biso"
+ },
+ {
+  "file": "assets/img/sm-kambala-hk.jpg",
+  "source": "File:FMIB 44488 Halibut Steamer 'Chicago,' built by the Moran Co for Chlopeck Fish Co, Seattle.jpeg",
+  "page": "https://commons.wikimedia.org/wiki/File:FMIB_44488_Halibut_Steamer_%27Chicago,%27_built_by_the_Moran_Co_for_Chlopeck_Fish_Co,_Seattle.jpeg",
+  "license": "Public domain",
+  "artist": "\nUnknown authorUnknown author"
  },
  {
   "file": "assets/img/sm-keta-balyk.jpg",
@@ -1352,24 +306,142 @@
   "page": "https://commons.wikimedia.org/wiki/File:Oncorhynchus_keta_336282130.jpg"
  },
  {
-  "file": "assets/img/ivasi-kopchenaya.jpg",
-  "source": "File:Sardinops melanostictus Iwaki2.jpg",
+  "file": "assets/img/sm-leshch-gk.jpg",
+  "source": "File:Sloked fish 02.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Sloked_fish_02.jpg",
   "license": "CC BY-SA 4.0",
-  "author": "openverse",
-  "page": "https://commons.wikimedia.org/wiki/File:Sardinops_melanostictus_Iwaki2.jpg"
+  "artist": "Agoetee 123"
  },
  {
-  "file": "assets/img/skumbriya-gk.jpg",
-  "source": "Изображение предоставлено заказчиком",
-  "license": "Передано клиентом",
-  "author": "",
-  "page": ""
+  "file": "assets/img/sm-makrel-hk.jpg",
+  "source": "File:Ebun babi tinapa.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Ebun_babi_tinapa.jpg",
+  "license": "CC BY-SA 4.0",
+  "artist": "CNEcija12345"
  },
  {
-  "file": "assets/img/okun-gk.jpg",
-  "source": "Изображение предоставлено заказчиком",
-  "license": "Передано клиентом",
-  "author": "",
-  "page": ""
+  "file": "assets/img/sm-saira-hk.jpg",
+  "source": "File:130. The River Mooney (Hyodon tergisus). 131. The Saury (Elops saurus). 132. The Spotted Thread Herring (Chatoessus signifer) (NYPL b14505696-113750).tiff",
+  "page": "https://commons.wikimedia.org/wiki/File:130._The_River_Mooney_(Hyodon_tergisus)._131._The_Saury_(Elops_saurus)._132._The_Spotted_Thread_Herring_(Chatoessus_signifer)_(NYPL_b14505696-113750).tiff",
+  "license": "Public domain",
+  "artist": "Scan by NYPL"
+ },
+ {
+  "file": "assets/img/sm-sudak-gk.jpg",
+  "source": "File:Spargel Zander Kartoffeln.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:Spargel_Zander_Kartoffeln.JPG",
+  "license": "CC BY 3.0",
+  "artist": "Benreis"
+ },
+ {
+  "file": "assets/img/sm-terpug-gk.jpg",
+  "source": "File:DSCF0297 A street vendor grills a row of whole fish over charcoal at a bustling outdoor market wearing a mask and tongs as smoke rises around her.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:DSCF0297_A_street_vendor_grills_a_row_of_whole_fish_over_charcoal_at_a_bustling_outdoor_market_wearing_a_mask_and_tongs_as_smoke_rises_around_her.jpg",
+  "license": "CC BY-SA 4.0",
+  "artist": "PattayaPatrol"
+ },
+ {
+  "file": "assets/img/sm-tesha-kety.jpg",
+  "source": "File:DFC 1189 Pan-seared salmon fillet served with creamy mashed potatoes a lime wedge and a side of sauce.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:DFC_1189_Pan-seared_salmon_fillet_served_with_creamy_mashed_potatoes_a_lime_wedge_and_a_side_of_sauce.jpg",
+  "license": "CC BY-SA 4.0",
+  "artist": "PattayaPatrol"
+ },
+ {
+  "file": "assets/img/sm-tesha-kizhuch.jpg",
+  "source": "File:DFC 1189 Pan-seared salmon fillet served with creamy mashed potatoes a lime wedge and a side of sauce.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:DFC_1189_Pan-seared_salmon_fillet_served_with_creamy_mashed_potatoes_a_lime_wedge_and_a_side_of_sauce.jpg",
+  "license": "CC BY-SA 4.0",
+  "artist": "PattayaPatrol"
+ },
+ {
+  "file": "assets/img/ss-bryushki-losos.jpg",
+  "source": "File:Daily Catch- Amberjack, amberjack belly, salmon, octopus, fluke, ocean trout, bigeye tuna, sea urchin with ikura.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Daily_Catch-_Amberjack,_amberjack_belly,_salmon,_octopus,_fluke,_ocean_trout,_bigeye_tuna,_sea_urchin_with_ikura.jpg",
+  "license": "CC BY 2.0",
+  "artist": "T.Tseng"
+ },
+ {
+  "file": "assets/img/ss-pivnoy-nabor.jpg",
+  "source": "ss-pivnoy-nabor.jpg",
+  "license": "Commercial / Shop"
+ },
+ {
+  "file": "assets/img/ss-salat-he.jpg",
+  "source": "File:Hoe-deopbap in Korea 36.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Hoe-deopbap_in_Korea_36.jpg",
+  "license": "CC BY-SA 3.0",
+  "artist": "User:Piotrus"
+ },
+ {
+  "file": "assets/img/ss-skumbriya-pp.jpg",
+  "source": "File:Hinava Sabah.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Hinava_Sabah.jpg",
+  "license": "CC BY-SA 4.0",
+  "artist": "Terencetulus"
+ },
+ {
+  "file": "assets/img/tunec-kopchenyy.jpg",
+  "source": "tools/photo_src/client/Тунец копчёный.jpg",
+  "license": "Commercial / Shop (фото заказчика)"
+ },
+ {
+  "file": "assets/img/tunec-slices.png",
+  "source": "tunec-slices.png",
+  "license": "Commercial / Shop"
+ },
+ {
+  "file": "assets/img/vyal-chehon.jpg",
+  "source": "File:Pelecus cultratus 464985613.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Pelecus_cultratus_464985613.jpg",
+  "license": "CC BY 4.0",
+  "artist": "Paulius Rupšas"
+ },
+ {
+  "file": "assets/img/vyal-kambala-ersh.jpg",
+  "source": "File:FMIB 46250 Long Rough Dab.jpeg",
+  "page": "https://commons.wikimedia.org/wiki/File:FMIB_46250_Long_Rough_Dab.jpeg",
+  "license": "Public domain",
+  "artist": "Jonathan Couch"
+ },
+ {
+  "file": "assets/img/vyal-kambala-ikra.jpg",
+  "source": "File:Group of people flounder fishing in shallow water (AM 84637-1).jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Group_of_people_flounder_fishing_in_shallow_water_(AM_84637-1).jpg",
+  "license": "CC BY 4.0",
+  "artist": "Collins, Tudor Washington, 1898-1970, photographer"
+ },
+ {
+  "file": "assets/img/vyal-koryushka.jpg",
+  "source": "vyal-koryushka.jpg",
+  "license": "Commercial / Shop"
+ },
+ {
+  "file": "assets/img/vyal-leshch.jpg",
+  "source": "File:Zambezi Bream air dried.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Zambezi_Bream_air_dried.jpg",
+  "license": "CC BY-SA 4.0",
+  "artist": "Namibaxab"
+ },
+ {
+  "file": "assets/img/vyal-shchuka.jpg",
+  "source": "File:Fish on a Drying Rack (93a07885-1dd8-b71c-07dc-01bcc139e98f).jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Fish_on_a_Drying_Rack_(93a07885-1dd8-b71c-07dc-01bcc139e98f).jpg",
+  "license": "Public domain",
+  "artist": "NPS Photo"
+ },
+ {
+  "file": "assets/img/vyal-vobla.jpg",
+  "source": "File:RECALLED – Dry Eviscerated Salted Fish (26371944460).jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:RECALLED_%E2%80%93_Dry_Eviscerated_Salted_Fish_(26371944460).jpg",
+  "license": "Public domain",
+  "artist": "The U.S. Food and Drug Administration"
+ },
+ {
+  "file": "assets/img/yaica-perepelinye.jpg",
+  "source": "File:Wachteleier im Karton-20231205-RM-151854.jpg",
+  "license": "CC BY-SA 4.0",
+  "author": "Ermell",
+  "page": "https://commons.wikimedia.org/wiki/File:Wachteleier_im_Karton-20231205-RM-151854.jpg"
  }
 ]

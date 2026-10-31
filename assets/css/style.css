@@ -1035,6 +1035,95 @@ section.block {
   font-weight: normal;
 }
 
+/* Вес прямо на фото + подсказка о выгодной фасовке */
+.card-photo-weight {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  z-index: 2;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  background: rgba(4, 12, 9, 0.72);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  color: var(--gold-300);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  backdrop-filter: blur(6px);
+}
+.card-img img[data-zoom] { cursor: zoom-in; }
+.price-hint {
+  display: block;
+  margin-top: 4px;
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #7fe0a4;
+  white-space: nowrap;
+}
+
+/* Просмотр фото на весь экран */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(3, 9, 7, 0.86);
+  backdrop-filter: blur(6px);
+}
+.lightbox.on { display: flex; }
+.lightbox-card {
+  position: relative;
+  max-width: min(920px, 100%);
+  width: 100%;
+  background: var(--pine-800);
+  border: 1px solid var(--line-gold-strong);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+.lightbox-img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: var(--pine-700);
+}
+.lightbox-caption {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 18px;
+}
+.lightbox-title {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  color: var(--cream);
+}
+.lightbox-price {
+  color: var(--gold-400);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.lightbox-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: rgba(4, 12, 9, 0.7);
+  color: var(--cream);
+  font-size: 1rem;
+  cursor: pointer;
+}
+.lightbox-close:hover { border-color: var(--gold-500); color: var(--gold-300); }
+
 /* СТЕППЕР НА КАРТОЧКЕ */
 .card-stepper {
   display: inline-flex;

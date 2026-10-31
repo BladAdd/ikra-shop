@@ -127,18 +127,42 @@
     return out;
   }
 
+  /* Подпись под ценой строится по прайсу: у весовых товаров цена за килограмм,
+     у порционных (яйца, стекло, упаковка 200 г) — за единицу. */
+  function priceCaption(it) {
+    if (!it) return "";
+    if (it.unit === "кг") return "за 1 кг";
+    if (it.unit === "шт" && it.weight && /^\d+\s*шт$/.test(it.weight)) return "за упаковку " + it.weight;
+    if (it.weight) return "за " + it.weight;
+    return it.unit ? "за 1 " + it.unit : "";
+  }
+
+  /* Самая выгодная фасовка: сравниваем цену за кг/штуку между вариантами. */
+  function bestPack(it) {
+    var packs = it && Array.isArray(it.packs) ? it.packs : [];
+    if (packs.length < 2) return null;
+    var cheapest = packs.reduce(function (a, b) { return b.price < a.price ? b : a; });
+    return cheapest.price < it.price ? cheapest : null;
+  }
+
+  function packSavingText(it) {
+    var best = bestPack(it);
+    if (!best) return "";
+    var label = it.unit === "шт" ? "за упаковку" : "за 1 кг";
+    return "Выгоднее: " + best.weight + " — " + money(best.price) + " " + label;
+  }
+
   function priceHtml(it) {
     if (it.price == null) {
       return '<div class="price">По запросу<small>уточним при заказе</small></div>';
     }
     var old = it.oldPrice ? '<span class="old">' + money(it.oldPrice) + "</span>" : "";
-    var unitStr = "";
-    if (it.weight) {
-      unitStr = "за " + esc(it.weight);
-    } else if (it.unit) {
-      unitStr = "за 1 " + esc(it.unit);
-    }
-    return '<div class="price">' + money(it.price) + old + (unitStr ? "<small>" + unitStr + "</small>" : "") + "</div>";
+    var caption = priceCaption(it);
+    var hint = packSavingText(it);
+    return '<div class="price">' + money(it.price) + old +
+      (caption ? "<small>" + caption + "</small>" : "") +
+      (hint ? '<span class="price-hint">' + esc(hint) + "</span>" : "") +
+      "</div>";
   }
 
   function cardHtml(it) {
@@ -158,13 +182,11 @@
       '<article class="card" data-id="' + esc(it.id) + '">' +
         '<div class="card-img">' +
           badgeHtml(it.badge, it) +
-          '<img src="' + esc(it.img) + '" alt="' + esc(it.name) + '" loading="lazy" onerror="this.src=\'assets/img/hero-caviar.jpg\'">' +
+          '<img src="' + esc(it.img) + '" alt="' + esc(it.name) + '" loading="lazy" data-zoom="' + esc(it.id) + '" onerror="this.src=\'assets/img/hero-caviar.jpg\'">' +
+          (it.weight ? '<span class="card-photo-weight">' + esc(it.weight) + "</span>" : "") +
         '</div>' +
         '<div class="card-body">' +
           "<h4>" + esc(it.name) + "</h4>" +
-          '<div class="card-meta">' +
-            (it.weight ? '<span class="card-weight-tag">' + esc(it.weight) + "</span>" : "") +
-          "</div>" +
           '<p class="card-desc">' + esc(it.desc || "Свежий деликатес высшего сорта с натуральным вкусом.") + "</p>" +
           '<div class="card-foot">' +
             priceHtml(it) +
@@ -366,7 +388,7 @@
         '<div class="cart-line">' +
           '<img src="' + esc(it.img) + '" alt="' + esc(it.name) + '" onerror="this.src=\'assets/img/hero-caviar.jpg\'">' +
           "<div>" +
-            '<div class="nm">' + esc(it.name) + (it.weight ? "<small>" + esc(it.weight) + "</small>" : "") + "</div>" +
+            '<div class="nm">' + esc(it.name) + (it.weight ? "<small>" + esc(it.weight) + " · " + esc(priceCaption(it)) + "</small>" : "") + "</div>" +
             '<div class="qty">' +
               '<button type="button" data-act="dec" data-id="' + esc(it.id) + '" aria-label="Меньше">−</button>' +
               "<span>" + l.qty + "</span>" +
@@ -584,12 +606,34 @@
   }
   function closeModal() { if (modal) modal.classList.remove("on"); }
 
+  /* ---------- Просмотр фото ---------- */
+  var lightbox = document.getElementById("lightbox");
+  function openLightbox(id) {
+    var it = findItem(id);
+    if (!it || !lightbox) return;
+    var img = lightbox.querySelector(".lightbox-img");
+    var title = lightbox.querySelector(".lightbox-title");
+    var price = lightbox.querySelector(".lightbox-price");
+    if (img) { img.src = it.img; img.alt = it.name; }
+    if (title) title.textContent = it.name;
+    if (price) price.textContent = money(it.price) + (priceCaption(it) ? " " + priceCaption(it) : "");
+    lightbox.classList.add("on");
+    document.body.style.overflow = "hidden";
+  }
+  function closeLightbox() {
+    if (!lightbox) return;
+    lightbox.classList.remove("on");
+    document.body.style.overflow = "";
+  }
+
   /* ---------- Инициализация ---------- */
   function init() {
     var set = function (id, val) { var e = document.getElementById(id); if (e && val) e.textContent = val; };
     set("tb-delivery", SHOP.delivery || "Доставка курьером по Москве и МО от 2 часов");
     set("tb-hours", SHOP.workHours || "Ежедневно 9:00 — 21:00");
     set("foot-hours", SHOP.workHours || "Ежедневно 9:00 — 21:00");
+    set("price-date", SHOP.priceListDate || "");
+    set("price-note", SHOP.priceNote || "");
     
     var yr = document.getElementById("year");
     if (yr) yr.textContent = new Date().getFullYear();
@@ -807,7 +851,16 @@
         return;
       }
 
+      // Фото товара на весь экран
+      var zoomImg = e.target.closest("[data-zoom]");
+      if (zoomImg) {
+        openLightbox(zoomImg.dataset.zoom);
+        return;
+      }
+      if (e.target.closest("#lightbox") && !e.target.closest(".lightbox-card")) { closeLightbox(); return; }
+
       // Модалка
+      if (e.target.closest("#lightbox-close")) { closeLightbox(); return; }
       if (e.target.closest("#modal-close")) { closeModal(); return; }
       if (e.target === modal) { closeModal(); return; }
 
@@ -816,6 +869,10 @@
         var nav = document.getElementById("nav");
         if (nav) nav.classList.toggle("open");
       }
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") { closeLightbox(); closeModal(); closeDrawer(); }
     });
 
     // Закрытие мобильного меню при клике по ссылке

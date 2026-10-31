@@ -476,6 +476,12 @@
     p.style.opacity = 1;
   }
 
+  function itemById(ed) {
+    if (!ed || !ed.itemId) return null;
+    var cat = state.data.catalog.filter(function (c) { return c.id === ed.catId; })[0];
+    return cat ? cat.items.filter(function (x) { return x.id === ed.itemId; })[0] || null : null;
+  }
+
   function saveItem() {
     var name = $("#mi-name").value.trim();
     if (!name) { toast("Введите название товара", "err"); $("#mi-name").focus(); return; }
@@ -488,11 +494,15 @@
     var priceRaw = $("#mi-price").value.trim();
     var oldRaw = $("#mi-old").value.trim();
 
+    var prev = itemById(state.editingItem);
     var payload = {
       id: "",
       name: name,
       weight: $("#mi-weight").value.trim() || "1 шт",
       price: priceRaw === "" ? null : Number(priceRaw),
+      // фасовки и цена упаковки приходят из прайса: в форме их нет, поэтому не теряем
+      packPrice: prev && prev.packPrice != null ? prev.packPrice : null,
+      packs: prev && prev.packs ? prev.packs : null,
       oldPrice: oldRaw === "" ? null : Number(oldRaw),
       unit: $("#mi-unit").value,
       img: $("#mi-img").value.trim() || "assets/img/hero-caviar.jpg",

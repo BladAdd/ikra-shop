@@ -16,3 +16,6 @@ data/shop.local.db*
 
 # Рабочие материалы подбора фото: оригиналы до замены и скачанные кандидаты
 tools/candidates/
+tools/photo_src/
+tools/photo_new/
+tools/_*.jpg
