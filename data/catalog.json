@@ -561,19 +561,10 @@
           "price": 925,
           "oldPrice": null,
           "unit": "кг",
-          "piece": false,
-          "packPrice": 185,
-          "img": "assets/img/__NEED_PHOTO__.jpg",
+          "img": "assets/img/moyva-h-k-200-g-mvxooagc.jpg",
           "badge": null,
           "desc": "Пробная упаковка копчёной мойвы: свежий замес в вакууме, удобно взять с собой.",
-          "tags": "мойва копченая хк 200 г порция",
-          "packs": [
-            {
-              "weight": "200 г",
-              "price": 925,
-              "total": 185
-            }
-          ]
+          "tags": "мойва копченая хк 200 г порция"
         },
         {
           "id": "sm-kizhuch-balyk",
