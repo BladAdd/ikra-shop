@@ -129,6 +129,12 @@
 
   /* Подпись под ценой строится по прайсу: у весовых товаров цена за килограмм,
      у порционных (яйца, стекло, упаковка 200 г) — за единицу. */
+  var NEED_PHOTO = "__NEED_PHOTO__.jpg";
+
+  function needsPhoto(it) {
+    return !!it && String(it.img || "").indexOf(NEED_PHOTO) !== -1;
+  }
+
   function priceCaption(it) {
     if (!it) return "";
     if (it.unit === "кг" && it.piece) return it.weight ? "за " + it.weight : "за упаковку";
@@ -190,7 +196,7 @@
     return '' +
       '<article class="card" data-id="' + esc(it.id) + '">' +
         '<div class="card-img">' +
-          badgeHtml(it.badge, it) +
+          (needsPhoto(it) ? '<span class="badge badge-need">Фото нужно</span>' : badgeHtml(it.badge, it)) +
           '<img src="' + esc(it.img) + '" alt="' + esc(it.name) + '" loading="lazy" data-zoom="' + esc(it.id) + '" onerror="this.src=\'assets/img/hero-caviar.jpg\'">' +
           (it.weight ? '<span class="card-photo-weight">' + esc(it.weight) + "</span>" : "") +
         '</div>' +
@@ -863,6 +869,8 @@
       // Фото товара на весь экран
       var zoomImg = e.target.closest("[data-zoom]");
       if (zoomImg) {
+        var zi = findItem(zoomImg.dataset.zoom);
+        if (zi && needsPhoto(zi)) { toast("Фото этой позиции скоро заменим"); return; }
         openLightbox(zoomImg.dataset.zoom);
         return;
       }

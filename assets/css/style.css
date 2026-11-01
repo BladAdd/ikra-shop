@@ -1052,6 +1052,21 @@ section.block {
   backdrop-filter: blur(6px);
 }
 .card-img img[data-zoom] { cursor: zoom-in; }
+/* Плашка на заглушке «фото нужно» */
+.badge-need {
+  background: linear-gradient(135deg, #ffd84a, #e8a11c);
+  color: #2a1a00;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+}
+.card-img .badge-need {
+  top: auto;
+  bottom: 46px;
+  left: 12px;
+}
+.card-img img[src*="__NEED_PHOTO__"] {
+  object-fit: cover;
+  filter: saturate(0.95);
+}
 .price-hint {
   display: block;
   margin-top: 4px;

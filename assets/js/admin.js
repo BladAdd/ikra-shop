@@ -239,6 +239,7 @@
       var rows = cat.items.map(function (it, ii) {
         var p = it.price != null && it.price !== "" ? money(it.price) : "Цена не указана";
         var badges = "";
+        if (/__NEED_PHOTO__/.test(it.img || "")) badges += '<span class="tag hot">нет фото</span>';
         if (it.badge) badges += '<span class="tag gold">' + esc(it.badge) + "</span>";
         if (it.oldPrice) badges += '<span class="tag hot">старая цена</span>';
         return '' +
@@ -312,7 +313,7 @@
           });
           return photoList;
         })
-        .catch(function () { photoList = []; return photoList; });
+        .catch(function () { return finishLocalPhotos(); });
     }
     // список файлов из папки assets/img репозитория
     return gh("/repos/" + state.repo + "/contents/assets/img?ref=" + encodeURIComponent(state.branch))
@@ -323,6 +324,28 @@
         return photoList;
       })
       .catch(function () { photoList = []; return photoList; });
+  }
+
+  /* Локально без GitHub: собираем список уникальных фото из каталога + заглушка. */
+  function finishLocalPhotos() {
+    var seen = {};
+    photoList = [];
+    (state.data && state.data.catalog ? state.data.catalog : []).forEach(function (c) {
+      (c.items || []).forEach(function (it) {
+        if (it.img && !seen[it.img]) {
+          seen[it.img] = 1;
+          photoList.push({ name: it.img.replace(/^assets\/img\//, ""), path: it.img, sha: "", size: 0 });
+        }
+      });
+    });
+    if (photoList.length < 5) {
+      var fallback = ["__NEED_PHOTO__.jpg", "sm-skumbriya-gk.jpg", "sm-gorbusha-gk.jpg", "hero-caviar.jpg", "hero-table.jpg"];
+      fallback.forEach(function (n) {
+        var p = "assets/img/" + n;
+        if (!seen[p]) { seen[p] = 1; photoList.push({ name: n, path: p, sha: "", size: 0 }); }
+      });
+    }
+    return photoList;
   }
 
   function renderGallery() {
@@ -464,6 +487,9 @@
     $("#mi-img").value = it ? it.img || "" : "";
     updatePrev();
 
+    var needHint = $("#mi-need-hint");
+    if (needHint) needHint.style.display = (it && /__NEED_PHOTO__/.test(it.img || "")) ? "block" : "none";
+
     $("#modal-item").classList.add("on");
     setTimeout(function () { $("#mi-name").focus(); }, 60);
   }
@@ -480,6 +506,13 @@
     if (!ed || !ed.itemId) return null;
     var cat = state.data.catalog.filter(function (c) { return c.id === ed.catId; })[0];
     return cat ? cat.items.filter(function (x) { return x.id === ed.itemId; })[0] || null : null;
+  }
+
+  /* Товар без нормального фото: подставляем заглушку одним нажатием. */
+  function markNeedPhoto() {
+    $("#mi-img").value = "assets/img/__NEED_PHOTO__.jpg";
+    updatePrev();
+    toast("Поставлена заглушка «ПОЧИНИ МЕНЯ». Выберите или загрузите фото.", "ok");
   }
 
   function saveItem() {
@@ -1015,6 +1048,8 @@
     $("#mi-save").addEventListener("click", saveItem);
     $("#mi-cancel").addEventListener("click", function () { closeModal("#modal-item"); });
     $("#mi-img").addEventListener("input", updatePrev);
+    var needBtn = $("#mi-need");
+    if (needBtn) needBtn.addEventListener("click", markNeedPhoto);
 
     $("#mi-pick").addEventListener("click", function () {
       state.imgTarget = function (path) {
