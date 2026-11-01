@@ -600,19 +600,10 @@
           "price": 1570,
           "oldPrice": null,
           "unit": "кг",
-          "piece": false,
-          "packPrice": 3140,
-          "img": "assets/img/__NEED_PHOTO__.jpg",
+          "img": "assets/img/kizhuch-h-k-balyk-mvy6cdvx.jpg",
           "badge": null,
           "desc": "Дикий серебристый лосось кижуч холодного копчения. Плотное насыщенное красное мясо — настоящий дальневосточный деликатес.",
-          "tags": "кижуч копченый хк балык дикий лосось",
-          "packs": [
-            {
-              "weight": "2 кг",
-              "price": 1570,
-              "total": 3140
-            }
-          ]
+          "tags": "кижуч копченый хк балык дикий лосось"
         },
         {
           "id": "sm-kizhuch-chili",
