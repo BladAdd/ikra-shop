@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-11-01T06:31:03.776Z",
+  "updatedAt": "2026-11-01T08:08:20.029Z",
   "priceListDate": "22.07.2026",
   "shop": {
     "name": "Икра & Рыба",
@@ -154,7 +154,7 @@
           "unit": "кг",
           "piece": false,
           "packPrice": 1040,
-          "img": "assets/img/sm-skumbriya-rulet-gk.jpg",
+          "img": "assets/img/__NEED_PHOTO__.jpg",
           "badge": null,
           "desc": "Рулеты из филе скумбрии со специями горячего копчения. Красивая праздничная нарезка, готова к подаче на стол.",
           "tags": "скумбрия рулеты гк горячего копчения филе",
