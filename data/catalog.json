@@ -537,19 +537,10 @@
           "price": 550,
           "oldPrice": 620,
           "unit": "кг",
-          "piece": false,
-          "packPrice": 1650,
-          "img": "assets/img/__NEED_PHOTO__.jpg",
+          "img": "assets/img/ivasi-h-k-mvxog61t.jpg",
           "badge": "Хит",
           "desc": "Тихоокеанская сардина иваси холодного копчения. Нежное жирное филе, которое тает во рту.",
-          "tags": "иваси копченая сардина хк",
-          "packs": [
-            {
-              "weight": "3 кг",
-              "price": 550,
-              "total": 1650
-            }
-          ]
+          "tags": "иваси копченая сардина хк"
         },
         {
           "id": "sm-moyva-hk",
