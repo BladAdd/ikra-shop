@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-11-01T10:26:33.890Z",
+  "updatedAt": "2026-11-01T10:32:33.587Z",
   "priceListDate": "22.07.2026",
   "shop": {
     "name": "Икра & Рыба",
@@ -581,7 +581,7 @@
           "unit": "кг",
           "piece": false,
           "packPrice": 185,
-          "img": "assets/img/__NEED_PHOTO__.jpg",
+          "img": "assets/img/sm-moyva-hk-200.jpg",
           "badge": null,
           "desc": "Пробная упаковка копчёной мойвы: свежий замес в вакууме, удобно взять с собой.",
           "tags": "мойва копченая хк 200 г порция",
