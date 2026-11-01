@@ -549,19 +549,10 @@
           "price": 860,
           "oldPrice": null,
           "unit": "кг",
-          "piece": false,
-          "packPrice": 2580,
-          "img": "assets/img/__NEED_PHOTO__.jpg",
+          "img": "assets/img/moyva-h-k-mvxoj6hs.jpg",
           "badge": "Хит",
           "desc": "Северная мойва холодного копчения — золотистая, с икрой, с приятным дымным вкусом. Любимая закуска к пиву.",
-          "tags": "мойва копченая хк рыба",
-          "packs": [
-            {
-              "weight": "3 кг",
-              "price": 860,
-              "total": 2580
-            }
-          ]
+          "tags": "мойва копченая хк рыба"
         },
         {
           "id": "sm-moyva-hk-200",
