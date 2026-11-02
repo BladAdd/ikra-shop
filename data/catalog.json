@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-11-01T10:32:33.587Z",
+  "updatedAt": "2026-11-02T07:40:35.577Z",
   "priceListDate": "22.07.2026",
   "shop": {
     "name": "Икра & Рыба",
@@ -600,10 +600,19 @@
           "price": 1570,
           "oldPrice": null,
           "unit": "кг",
-          "img": "assets/img/kizhuch-h-k-balyk-mvy6cdvx.jpg",
+          "piece": false,
+          "packPrice": 3140,
+          "img": "assets/img/sm-kizhuch-balyk.jpg",
           "badge": null,
           "desc": "Дикий серебристый лосось кижуч холодного копчения. Плотное насыщенное красное мясо — настоящий дальневосточный деликатес.",
-          "tags": "кижуч копченый хк балык дикий лосось"
+          "tags": "кижуч копченый хк балык дикий лосось",
+          "packs": [
+            {
+              "weight": "2 кг",
+              "price": 1570,
+              "total": 3140
+            }
+          ]
         },
         {
           "id": "sm-kizhuch-chili",
@@ -614,7 +623,7 @@
           "unit": "кг",
           "piece": false,
           "packPrice": 3360,
-          "img": "assets/img/__NEED_PHOTO__.jpg",
+          "img": "assets/img/sm-kizhuch-chili.jpg",
           "badge": null,
           "desc": "Балык кижуча, обсыпанный хлопьями жгучего перца чили. Плотное мясо лосося и острая пряная нотка — для смелых.",
           "tags": "кижуч чили перец копченый хк острое",
