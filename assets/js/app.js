@@ -644,8 +644,6 @@
   /* ---------- Инициализация ---------- */
   function init() {
     var set = function (id, val) { var e = document.getElementById(id); if (e && val) e.textContent = val; };
-    set("tb-delivery", SHOP.delivery || "Доставка курьером по Москве и МО от 2 часов");
-    set("tb-hours", SHOP.workHours || "Ежедневно 9:00 — 21:00");
     set("foot-hours", SHOP.workHours || "Ежедневно 9:00 — 21:00");
     set("price-date", SHOP.priceListDate || "");
     set("price-note", SHOP.priceNote || "");

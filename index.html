@@ -62,42 +62,6 @@
 </head>
 <body>
 
-<!-- ======================= ВЕРХНЯЯ ИНФО-ПОЛОСА ======================= -->
-<aside class="topbar">
-  <div class="wrap">
-    <div class="topbar-left">
-      <div class="topbar-item">
-        <span class="topbar-ico">🚚</span>
-        <strong id="tb-delivery">Доставка курьером по Москве и МО от 2 часов</strong>
-      </div>
-      <div class="topbar-divider"></div>
-      <div class="topbar-item">
-        <span class="topbar-ico">🕘</span>
-        <span id="tb-hours">Ежедневно 9:00 — 21:00</span>
-      </div>
-      <div class="topbar-divider"></div>
-      <div class="topbar-item topbar-free-shipping">
-        <span class="badge-mini">АКЦИЯ</span>
-        <span>Бесплатная доставка от 5 000 ₽</span>
-      </div>
-    </div>
-    <div class="topbar-right">
-      <a href="tel:+79619200292" class="topbar-link phone-link">
-        <span class="topbar-ico">📞</span>
-        <span>+7 (961) 920-02-92</span>
-      </a>
-      <div class="topbar-divider"></div>
-      <a href="https://wa.me/79619200292" target="_blank" rel="noopener" class="topbar-link wa-topbar">
-        <span class="wa-dot"></span> WhatsApp
-      </a>
-      <div class="topbar-divider"></div>
-      <a href="admin.html" class="topbar-link admin-topbar js-admin-link" title="Административная панель" style="display:none">
-        <span>⚙ Управление</span>
-      </a>
-    </div>
-  </div>
-</aside>
-
 <!-- ======================= ГЛАВНАЯ ШАПКА МАГАЗИНА ======================= -->
 <header class="site" id="site-header">
   <div class="wrap header-wrap">
@@ -105,8 +69,25 @@
     <!-- ЛОГОТИП МАГАЗИНА -->
     <a class="logo" href="#top" aria-label="Икра & Рыба — на главную">
       <div class="logo-mark" aria-hidden="true">
-        <span class="logo-inner-ring"></span>
-        <span class="logo-glint"></span>
+        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="lgGold" x1="12" y1="10" x2="54" y2="56" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#f4dc86"/><stop offset=".55" stop-color="#d4af37"/><stop offset="1" stop-color="#a67c14"/>
+            </linearGradient>
+            <linearGradient id="lgDeep" x1="8" y1="6" x2="56" y2="58" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#123027"/><stop offset="1" stop-color="#06130f"/>
+            </linearGradient>
+          </defs>
+          <rect x="1.5" y="1.5" width="61" height="61" rx="17" fill="url(#lgDeep)" stroke="url(#lgGold)" stroke-width="2"/>
+          <!-- рыба -->
+          <path d="M14 32c8-11 22-13 30-6 2 1.6 3.6 3.6 4.8 6-1.2 2.4-2.8 4.4-4.8 6-8 7-22 5-30-6z" fill="url(#lgGold)"/>
+          <path d="M49 32l7-8v16l-7-8z" fill="url(#lgGold)"/>
+          <circle cx="24" cy="30.5" r="2.1" fill="#08130f"/>
+          <!-- икра -->
+          <circle cx="34" cy="38.5" r="2.4" fill="#e8544a" stroke="#7a1a15" stroke-width=".7"/>
+          <circle cx="40" cy="36.5" r="2.2" fill="#f0715f" stroke="#7a1a15" stroke-width=".7"/>
+          <circle cx="37.5" cy="42.5" r="2" fill="#d33a30" stroke="#7a1a15" stroke-width=".7"/>
+        </svg>
       </div>
       <div class="logo-text">
         <span class="logo-brand">Икра & Рыба</span>
@@ -681,7 +662,25 @@
     <div class="foot-grid">
       <div class="foot-col brand-col">
         <div class="logo foot-logo">
-          <div class="logo-mark" aria-hidden="true"></div>
+          <div class="logo-mark" aria-hidden="true">
+            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="lgGoldFooter" x1="12" y1="10" x2="54" y2="56" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#f4dc86"/><stop offset=".55" stop-color="#d4af37"/><stop offset="1" stop-color="#a67c14"/>
+                </linearGradient>
+                <linearGradient id="lgDeepFooter" x1="8" y1="6" x2="56" y2="58" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#123027"/><stop offset="1" stop-color="#06130f"/>
+                </linearGradient>
+              </defs>
+              <rect x="1.5" y="1.5" width="61" height="61" rx="17" fill="url(#lgDeepFooter)" stroke="url(#lgGoldFooter)" stroke-width="2"/>
+              <path d="M14 32c8-11 22-13 30-6 2 1.6 3.6 3.6 4.8 6-1.2 2.4-2.8 4.4-4.8 6-8 7-22 5-30-6z" fill="url(#lgGoldFooter)"/>
+              <path d="M49 32l7-8v16l-7-8z" fill="url(#lgGoldFooter)"/>
+              <circle cx="24" cy="30.5" r="2.1" fill="#08130f"/>
+              <circle cx="34" cy="38.5" r="2.4" fill="#e8544a" stroke="#7a1a15" stroke-width=".7"/>
+              <circle cx="40" cy="36.5" r="2.2" fill="#f0715f" stroke="#7a1a15" stroke-width=".7"/>
+              <circle cx="37.5" cy="42.5" r="2" fill="#d33a30" stroke="#7a1a15" stroke-width=".7"/>
+            </svg>
+          </div>
           <div class="logo-text">
             <span class="logo-brand">Икра & Рыба</span>
             <small class="logo-sub">Гастрономический бутик</small>

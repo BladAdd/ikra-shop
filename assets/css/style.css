@@ -101,61 +101,6 @@ h3 { font-size: 1.25rem; }
   opacity: 0.45;
 }
 
-/* ======================= ВЕРХНЯЯ ИНФО-ПОЛОСА ======================= */
-.topbar {
-  background: linear-gradient(90deg, var(--pine-950), var(--pine-850) 50%, var(--pine-950));
-  border-bottom: 1px solid var(--line);
-  font-size: 0.82rem;
-  color: var(--muted);
-  position: relative;
-  z-index: 50;
-}
-.topbar .wrap {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 38px;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-.topbar-left, .topbar-right {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  flex-wrap: wrap;
-}
-.topbar-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-.topbar-item strong {
-  color: var(--cream);
-  font-weight: 600;
-}
-.topbar-ico { font-size: 0.95rem; }
-.topbar-divider {
-  width: 1px;
-  height: 14px;
-  background: var(--line);
-}
-.badge-mini {
-  background: var(--caviar-red);
-  color: #fff;
-  font-size: 0.65rem;
-  font-weight: 700;
-  padding: 1px 6px;
-  border-radius: var(--radius-pill);
-  letter-spacing: 0.05em;
-}
-.topbar-link {
-  color: var(--cream-dim);
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  transition: color 0.15s;
-}
-.topbar-link:hover { color: var(--gold-400); }
 .wa-topbar {
   color: #38e87d;
   font-weight: 600;
@@ -201,30 +146,15 @@ header.site {
   user-select: none;
 }
 .logo-mark {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, var(--caviar-red-lt), var(--caviar-red) 60%, var(--caviar-red-dark));
-  box-shadow: 0 0 0 1px var(--gold-500), 0 0 20px rgba(200, 50, 43, 0.5);
-  position: relative;
+  width: 48px;
+  height: 48px;
   flex-shrink: 0;
+  border-radius: 15px;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s;
+  filter: drop-shadow(0 6px 16px rgba(212, 175, 55, 0.22));
 }
-.logo-inner-ring {
-  position: absolute;
-  inset: 3px;
-  border-radius: 50%;
-  border: 1px dashed rgba(212, 175, 55, 0.5);
-}
-.logo-glint {
-  position: absolute;
-  top: 8px;
-  left: 9px;
-  width: 9px;
-  height: 6px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.75);
-  transform: rotate(-30deg);
-}
+.logo-mark svg { width: 100%; height: 100%; display: block; }
+.logo:hover .logo-mark { transform: translateY(-1px) scale(1.04); filter: drop-shadow(0 8px 20px rgba(212, 175, 55, 0.38)); }
 .logo-text {
   display: flex;
   flex-direction: column;
@@ -2164,8 +2094,6 @@ footer.site {
   .strip .wrap { grid-template-columns: 1fr; }
   .quality-grid { grid-template-columns: 1fr; }
   .foot-grid { grid-template-columns: 1fr; }
-  .topbar-left .topbar-divider:last-of-type,
-  .topbar-free-shipping { display: none; }
   .cart-pill-label { display: none; }
   .cart-pill-btn { padding: 8px 14px; }
   .cart-pill-text { display: none; }
