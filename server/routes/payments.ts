@@ -35,8 +35,33 @@ paymentsRouter.post('/create', limitOrders, optionalAuth, async (req, res) => {
     return;
   }
 
+  // Идемпотентность: если у заказа уже есть живой платёж — не создаём второй,
+  // иначе получим две активные ссылки и риск двойного списания.
+  // Пересоздание разрешаем только когда прежний платёж заведомо мёртв
+  // (canceled/expired/failed) либо помечен как superseded; неизвестный статус — блокируем.
+  const lastPayment = getDb()
+    .prepare(`SELECT * FROM payments WHERE order_id=? ORDER BY id DESC LIMIT 1`)
+    .get(order.id) as PaymentRow | undefined;
+  if (lastPayment && !['canceled', 'expired', 'failed', 'superseded'].includes(lastPayment.status)) {
+    if (lastPayment.pay_url && lastPayment.rollypay_payment_id) {
+      // Возвращаем существующий платёж в том же формате, что и при создании
+      res.json({
+        payUrl: lastPayment.pay_url,
+        paymentId: lastPayment.rollypay_payment_id,
+        testMode: lastPayment.test_mode === 1,
+      });
+      return;
+    }
+    // Платёж создан, но ссылка не сохранилась — честная ошибка вместо нового платежа в шлюзе
+    res.status(409).json({ error: 'Платёж по заказу уже создан, платёжную ссылку уточните у менеджера' });
+    return;
+  }
+
   try {
     const amount = (order.total_cents / 100).toFixed(2);
+    // ВНИМАНИЕ (прод): если фронтенд разложен в подкаталог домена (например, https://site.ru/ikra-shop/),
+    // FRONTEND_URL обязан включать этот путь целиком — иначе редиректы на
+    // payment-success.html / payment-fail.html уведут в корень домена и сломаются.
     const result = await createPayment({
       amount,
       orderId: order.id,
@@ -47,6 +72,15 @@ paymentsRouter.post('/create', limitOrders, optionalAuth, async (req, res) => {
       paymentMethod: parsed.data.method,
       metadata: { order_id: order.id },
     });
+
+    // Страховка от гонки двух параллельных POST /create: прежние незавершённые
+    // платежи заказа помечаем superseded (до INSERT, чтобы не задеть новый платёж)
+    getDb()
+      .prepare(
+        `UPDATE payments SET status='superseded', updated_at=strftime('%Y-%m-%dT%H:%M:%fZ','now')
+         WHERE order_id=? AND status IN ('created','pending')`
+      )
+      .run(order.id);
 
     getDb()
       .prepare(
@@ -61,11 +95,13 @@ paymentsRouter.post('/create', limitOrders, optionalAuth, async (req, res) => {
 
     res.json({ payUrl: result.pay_url, paymentId: result.payment_id, testMode: config.rollypay.testMode });
   } catch (e) {
-    console.error('[payments] create failed:', e);
     if (e instanceof RollyPayError) {
-      res.status(e.status === 503 ? 503 : 502).json({ error: 'Платёжный шлюз недоступен', detail: config.isProduction ? undefined : e.body });
+      // Детали ошибки шлюза — только в лог сервера; клиенту всегда общий текст
+      console.error('[payments] create failed:', e.message, '| status:', e.status, '| body:', e.body);
+      res.status(e.status === 503 ? 503 : 502).json({ error: 'Платёжный шлюз недоступен' });
       return;
     }
+    console.error('[payments] create failed:', e);
     res.status(500).json({ error: 'Не удалось создать платёж' });
   }
 });

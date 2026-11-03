@@ -109,6 +109,7 @@ export default defineConfig(() => {
         input: {
           main: path.resolve(__dirname, 'index.html'),
           admin: path.resolve(__dirname, 'admin.html'),
+          product: path.resolve(__dirname, 'product.html'),
           paymentSuccess: path.resolve(__dirname, 'payment-success.html'),
           paymentFail: path.resolve(__dirname, 'payment-fail.html'),
           credits: path.resolve(__dirname, 'credits.html'),

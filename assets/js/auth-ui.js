@@ -23,23 +23,55 @@
     });
   }
 
+  // Сервер считается доступным, только если база API реально задана:
+  // в проде без IKRA_API_URL база пустая — серверные фичи мягко отключаем
+  function apiOnline() {
+    return typeof API !== "undefined" && API.base !== "";
+  }
+
+  // Локальный тост: window.IkraToast нигде не определён, поэтому авторизационные
+  // сообщения пропадали. Если глобальный тост однажды появится — используем его,
+  // иначе показываем элемент #toast со страницы
+  var toastTimer = null;
+
+  function toast(msg, kind) {
+    if (typeof window.IkraToast === "function") {
+      window.IkraToast(msg, kind);
+      return;
+    }
+    var el = $("toast");
+    if (!el) return;
+    el.textContent = msg;
+    el.className = "toast on" + (kind ? " " + kind : "");
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () {
+      el.className = "toast";
+      toastTimer = null;
+    }, 3200);
+  }
+
   function renderAccount() {
     if (!els.wrap) return;
     if (currentUser) {
       var initials = (currentUser.name || currentUser.email || "?").trim().charAt(0).toUpperCase();
+      // Защита от пустых name и email — иначе .split упа́ет (fallback «Гость»)
+      var shownName = (currentUser.name || currentUser.email || "").trim().split(" ")[0] || "Гость";
       els.wrap.innerHTML =
         '<button type="button" class="account-btn logged" id="account-btn" aria-haspopup="true">' +
           (currentUser.avatar
             ? '<img class="account-avatar" src="' + escapeHtml(currentUser.avatar) + '" alt="" referrerpolicy="no-referrer">'
             : '<span class="account-avatar initial">' + escapeHtml(initials) + "</span>") +
-          '<span class="account-name">' + escapeHtml((currentUser.name || currentUser.email).split(" ")[0]) + "</span>" +
+          '<span class="account-name">' + escapeHtml(shownName) + "</span>" +
         "</button>" +
         '<div class="account-menu" id="account-menu">' +
           '<div class="account-menu-head">' +
             "<b>" + escapeHtml(currentUser.name || "Покупатель") + "</b>" +
             "<span>" + escapeHtml(currentUser.email) + "</span>" +
           "</div>" +
-          '<a href="#" class="account-menu-item" data-account-action="orders">Мои заказы</a>' +
+          // «Мои заказы» показываем только при живом API: без сервера ссылка мёртвая
+          (apiOnline()
+            ? '<a href="#" class="account-menu-item" data-account-action="orders">Мои заказы</a>'
+            : "") +
           (currentUser.isAdmin ? '<a href="admin.html" class="account-menu-item">Админ-панель</a>' : "") +
           '<button type="button" class="account-menu-item danger" data-account-action="logout">Выйти</button>' +
         "</div>";
@@ -74,6 +106,8 @@
 
   function switchTab(mode) {
     els.modal.dataset.mode = mode;
+    var title = els.modal.querySelector("#auth-title");
+    if (title) title.textContent = mode === "register" ? "Регистрация" : mode === "orders" ? "Мои заказы" : "Вход в аккаунт";
     document.querySelectorAll(".auth-tab").forEach(function (t) {
       t.classList.toggle("active", t.dataset.authTab === mode);
     });
@@ -88,6 +122,50 @@
       e.textContent = "";
       e.classList.remove("on");
     });
+  }
+
+  /* ---------- Мои заказы (панель внутри auth-модалки; R7v2) ---------- */
+  function ensureOrdersPane() {
+    var card = els.modal ? els.modal.querySelector(".auth-card") : null;
+    if (!card || card.querySelector('[data-auth-pane="orders"]')) return;
+    var pane = document.createElement("div");
+    pane.className = "auth-pane";
+    pane.setAttribute("data-auth-pane", "orders");
+    pane.innerHTML = '<div class="auth-orders" id="auth-orders-list">Загружаю заказы…</div>';
+    card.appendChild(pane);
+  }
+
+  function openOrders() {
+    if (!els.modal) return;
+    if (!apiOnline()) {
+      toast("История заказов заработает после подключения сервера. Статус заказа уточняйте в WhatsApp", "err");
+      return;
+    }
+    ensureOrdersPane();
+    els.modal.classList.add("on");
+    document.body.style.overflow = "hidden";
+    switchTab("orders");
+    var title = els.modal.querySelector("#auth-title");
+    if (title) title.textContent = "Мои заказы";
+    var box = document.getElementById("auth-orders-list");
+    if (box) box.textContent = "Загружаю заказы…";
+    API.myOrders()
+      .then(function (list) {
+        var rows = Array.isArray(list) ? list : (list && list.orders) || [];
+        if (!rows.length) {
+          box.innerHTML = '<div class="auth-orders-empty">Заказов пока нет. Оформите первый — он появится здесь.</div>';
+          return;
+        }
+        box.innerHTML = rows.map(function (o) {
+          var st = String(o.status || "—");
+          return '<div class="auth-orders-row"><b>Заказ #' + escapeHtml(String(o.id || "")) + "</b>" +
+            "<span>" + escapeHtml(String(o.created_at || o.date || "")) + " · " + escapeHtml(String(o.total || "")) + "</span>" +
+            '<span class="auth-orders-status">' + escapeHtml(st) + "</span></div>";
+        }).join("");
+      })
+      .catch(function () {
+        box.innerHTML = '<div class="auth-orders-empty">Не удалось загрузить заказы. Попробуйте позже или напишите в WhatsApp.</div>';
+      });
   }
 
   function showError(scope, msg) {
@@ -106,7 +184,7 @@
     renderAccount();
     notify();
     closeModal();
-    if (window.IkraToast) window.IkraToast("Вы вошли как " + (user.name || user.email));
+    toast("Вы вошли как " + (user.name || user.email || "Гость"), "ok");
   }
 
   function init() {
@@ -137,13 +215,22 @@
       var action = t.closest("[data-account-action]");
       if (action) {
         e.preventDefault();
+        if (action.dataset.accountAction === "orders") {
+          var menuO = $("account-menu");
+          if (menuO) menuO.classList.remove("open");
+          openOrders();
+          return;
+        }
         if (action.dataset.accountAction === "logout") {
-          API.logout().then(function () {
-            currentUser = null;
-            renderAccount();
-            notify();
-            window.IkraToast && window.IkraToast("Вы вышли из аккаунта");
-          });
+          // Выход должен работать даже без сервера: сначала чистим локальное
+          // состояние UI, затем уведомляем сервер (ошибку сети молча игнорируем)
+          currentUser = null;
+          var openMenu = $("account-menu");
+          if (openMenu) openMenu.classList.remove("open");
+          renderAccount();
+          notify();
+          toast("Вы вышли из аккаунта", "ok");
+          API.logout().catch(function () { /* сервер недоступен — сессия уже очищена локально */ });
         }
         return;
       }
@@ -171,6 +258,11 @@
       loginForm.addEventListener("submit", function (e) {
         e.preventDefault();
         clearErrors();
+        // Без сервера POST уйдёт в 404 Pages — честно предупреждаем (R7v2)
+        if (!apiOnline()) {
+          showError("login", "Онлайн-вход будет подключён позже. Заказы работают через WhatsApp");
+          return;
+        }
         var email = $("auth-login-email").value.trim();
         var password = $("auth-login-password").value;
         if (!email || !password) { showError("login", "Заполните почту и пароль"); return; }
@@ -188,6 +280,10 @@
       regForm.addEventListener("submit", function (e) {
         e.preventDefault();
         clearErrors();
+        if (!apiOnline()) {
+          showError("register", "Онлайн-вход будет подключён позже. Заказы работают через WhatsApp");
+          return;
+        }
         var name = $("auth-reg-name").value.trim();
         var email = $("auth-reg-email").value.trim();
         var password = $("auth-reg-password").value;
@@ -205,6 +301,11 @@
     // Google
     document.querySelectorAll("[data-google-login]").forEach(function (btn) {
       btn.addEventListener("click", function () {
+        // Без задеплоенного сервера редирект уводил бы на 404 — не навигируем
+        if (!apiOnline()) {
+          toast("Онлайн-вход будет подключён позже. Заказы работают через WhatsApp");
+          return;
+        }
         window.location.href = API.googleLoginUrl();
       });
     });
@@ -219,7 +320,7 @@
         not_admin: "У этой почты нет доступа к админ-панели",
       };
       var msg = map[params.get("auth_error")] || "Не удалось войти";
-      window.IkraToast && window.IkraToast(msg);
+      toast(msg, "err");
       params.delete("auth_error");
       history.replaceState(null, "", location.pathname + (params.toString() ? "?" + params : "") + location.hash);
     }

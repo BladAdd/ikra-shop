@@ -1,0 +1,27 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Золотой градиент рыбы (как в логотипе на сайте) -->
+    <linearGradient id="ikra-gold" x1="96" y1="80" x2="432" y2="448" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f4dc86"/><stop offset=".55" stop-color="#d4af37"/><stop offset="1" stop-color="#a67c14"/>
+    </linearGradient>
+    <!-- Тёмно-зелёный фон скруглённого квадрата -->
+    <linearGradient id="ikra-deep" x1="64" y1="48" x2="448" y2="464" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#123027"/><stop offset="1" stop-color="#06130f"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Подложка: скруглённый квадрат с золотой обводкой -->
+  <rect x="12" y="12" width="488" height="488" rx="136" fill="url(#ikra-deep)" stroke="url(#ikra-gold)" stroke-width="16"/>
+
+  <!-- Рыба: тело -->
+  <path d="M112 256c64-88 176-104 240-48 16 12.8 28.8 28.8 38.4 48-9.6 19.2-22.4 35.2-38.4 48-64 56-176 40-240-48z" fill="url(#ikra-gold)"/>
+  <!-- Рыба: хвост -->
+  <path d="M392 256l56-64v128l-56-64z" fill="url(#ikra-gold)"/>
+  <!-- Рыба: глаз -->
+  <circle cx="192" cy="244" r="16.8" fill="#08130f"/>
+
+  <!-- Три красные икринки -->
+  <circle cx="272" cy="308" r="19.2" fill="#e8544a" stroke="#7a1a15" stroke-width="5.6"/>
+  <circle cx="320" cy="292" r="17.6" fill="#f0715f" stroke="#7a1a15" stroke-width="5.6"/>
+  <circle cx="300" cy="340" r="16" fill="#d33a30" stroke="#7a1a15" stroke-width="5.6"/>
+</svg>

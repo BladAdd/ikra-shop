@@ -19,3 +19,7 @@ tools/candidates/
 tools/photo_src/
 tools/photo_new/
 tools/_*.jpg
+_tmp_*
+dist/
+dist-server/
+node_modules/

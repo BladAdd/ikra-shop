@@ -1,0 +1,11 @@
+# robots.txt для магазина «Икра & Рыба»
+# Сайт: https://bladadd.github.io/ikra-shop/
+# Проект-сайт живёт в подпапке /ikra-shop/ — закрываем оба пути
+
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /ikra-shop/admin.html
+Disallow: /credits.html
+
+Sitemap: https://bladadd.github.io/ikra-shop/sitemap.xml

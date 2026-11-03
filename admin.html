@@ -6,7 +6,7 @@
 <title>Админ-панель — Икра</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23c8322b' stroke='%23d4af37' stroke-width='2'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="assets/css/admin.css?v=2">
+<link rel="stylesheet" href="assets/css/admin.css?v=5">
 </head>
 <body>
 
@@ -66,13 +66,14 @@
 <!-- ======================= ПАНЕЛЬ ======================= -->
 <div class="shell" id="shell">
 
-  <aside>
+  <aside id="sidebar">
     <div class="brand">
       <span class="dot"></span>
       <div><b>Икра</b><span>админ-панель</span></div>
     </div>
 
-    <button class="tab-btn active" data-tab="items"><span class="ic">📦</span> Товары</button>
+    <button class="tab-btn active" data-tab="dash"><span class="ic">📊</span> Обзор</button>
+    <button class="tab-btn" data-tab="items"><span class="ic">📦</span> Товары</button>
     <button class="tab-btn" data-tab="cats"><span class="ic">🗂</span> Категории</button>
     <button class="tab-btn" data-tab="photos"><span class="ic">🖼</span> Фото</button>
     <button class="tab-btn" data-tab="orders"><span class="ic">🧾</span> Заказы</button>
@@ -95,20 +96,125 @@
       <div class="st">Товаров: <b id="st-items">0</b></div>
       <div class="st">Категорий: <b id="st-cats">0</b></div>
       <div class="grow"></div>
-      <div class="dirty" id="dirty">● Есть несохранённые изменения</div>
+      <div class="dirty" id="dirty">● Несохранённых изменений: <b id="dirty-count">0</b></div>
       <button class="btn btn-sm" id="btn-reload">Обновить</button>
       <button class="btn btn-primary btn-sm" id="btn-save">Сохранить на сайт</button>
     </div>
 
+    <!-- панель массовых действий (видна при выбранных товарах) -->
+    <div class="bulk-bar" id="bulk-bar" style="display:none">
+      <b id="bulk-count">Выбрано: 0</b>
+      <div class="inline">
+        <input type="number" id="bulk-percent" placeholder="N%" step="1" style="width:86px">
+        <button class="btn btn-sm" id="bulk-percent-apply">Цена +N%</button>
+      </div>
+      <div class="inline">
+        <button class="btn btn-sm" id="bulk-clear-badge">Снять плашки</button>
+        <button class="btn btn-sm" data-badge="Хит">Плашка: Хит</button>
+        <button class="btn btn-sm" data-badge="Новинка">Плашка: Новинка</button>
+        <button class="btn btn-sm" data-badge="Премиум">Плашка: Премиум</button>
+      </div>
+      <div class="inline">
+        <select id="bulk-move" style="width:auto;min-width:170px">
+          <option value="">Перенести в категорию…</option>
+        </select>
+      </div>
+      <div class="inline">
+        <button class="btn btn-sm btn-danger" id="bulk-del">Удалить выбранные</button>
+        <button class="btn btn-sm" id="bulk-sel-clear">Снять выделение</button>
+      </div>
+    </div>
+
+    <!-- ======================= ОБЗОР (ДАШБОРД) ======================= -->
+    <section class="panel on" id="panel-dash">
+      <div class="panel-head">
+        <div class="grow">
+          <h1>Обзор</h1>
+          <p>Что происходит в каталоге и что пора сделать.</p>
+        </div>
+      </div>
+
+      <div class="dash-grid" id="dash-stats">
+        <button class="stat" data-djump="items">
+          <span class="lbl">Всего товаров</span>
+          <b class="val" id="dash-total">0</b>
+          <span class="sub">во всех категориях</span>
+        </button>
+        <button class="stat warn" data-djump="nophoto">
+          <span class="lbl">Без фото</span>
+          <b class="val" id="dash-nophoto">0</b>
+          <span class="sub">нажмите, чтобы посмотреть</span>
+        </button>
+        <button class="stat" data-djump="cats">
+          <span class="lbl">Категорий</span>
+          <b class="val" id="dash-cats">0</b>
+          <span class="sub">разделов каталога</span>
+        </button>
+        <button class="stat" data-djump="onreq">
+          <span class="lbl">«По запросу»</span>
+          <b class="val" id="dash-onreq">0</b>
+          <span class="sub">товаров без цены</span>
+        </button>
+        <button class="stat" data-djump="promos">
+          <span class="lbl">Промокоды</span>
+          <b class="val" id="dash-promos">0</b>
+          <span class="sub">активных сейчас</span>
+        </button>
+        <div class="stat plain">
+          <span class="lbl">Каталог обновлён</span>
+          <b class="val val-sm" id="dash-updated">—</b>
+          <span class="sub">дата последнего сохранения</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Быстрые действия</h3>
+        <div class="quick">
+          <button class="btn" id="dash-add-item">＋ Добавить товар</button>
+          <button class="btn" id="dash-upload-photo">🖼 Загрузить фото</button>
+          <a class="btn" href="index.html" target="_blank">↗ Открыть сайт</a>
+          <button class="btn" id="dash-export">⬇ Скачать копию (JSON)</button>
+          <button class="btn" id="dash-csv">📄 Скачать прайс (CSV)</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Памятка</h3>
+        <p style="color:var(--muted);font-size:.86rem;margin:0 0 8px">
+          Изменения не попадут на сайт, пока вы не нажмёте <b>«Сохранить на сайт»</b> (или Ctrl+S).
+          Сайт обновится через 1–2 минуты после сохранения.
+        </p>
+        <p style="color:var(--muted);font-size:.86rem;margin:0">
+          Фото удобнее всего загружать во вкладке <b>«Фото»</b>: панель сама угадает,
+          к какому товару относится файл по его имени.
+        </p>
+      </div>
+    </section>
+
     <!-- ======================= ТОВАРЫ ======================= -->
-    <section class="panel on" id="panel-items">
+    <section class="panel" id="panel-items">
       <div class="panel-head">
         <div class="grow">
           <h1>Товары</h1>
-          <p>Добавляйте позиции, меняйте цены и описания. Порядок меняется перетаскиванием.</p>
+          <p>Порядок меняется перетаскиванием или стрелками. Цену можно править прямо в списке.</p>
         </div>
         <button class="btn btn-primary" id="btn-add-item">+ Добавить товар</button>
       </div>
+
+      <div class="card filter-bar">
+        <input type="search" id="items-search" placeholder="Поиск по названию…">
+        <select id="items-cat-filter" style="max-width:230px">
+          <option value="">Все категории</option>
+        </select>
+        <div class="chips">
+          <button class="chip on" data-chip="all">Все</button>
+          <button class="chip" data-chip="nophoto">Нет фото</button>
+          <button class="chip" data-chip="onreq">По запросу</button>
+          <button class="chip" data-chip="sale">Со скидкой</button>
+          <button class="chip" data-chip="badge">С плашкой</button>
+        </div>
+      </div>
+
       <div id="items-root"></div>
     </section>
 
@@ -117,7 +223,7 @@
       <div class="panel-head">
         <div class="grow">
           <h1>Категории</h1>
-          <p>Разделы каталога: «Икра», «Копчёная рыба» и любые другие.</p>
+          <p>Разделы каталога. Порядок — перетаскиванием или стрелками.</p>
         </div>
         <button class="btn btn-primary" id="btn-add-cat">+ Добавить категорию</button>
       </div>
@@ -129,7 +235,7 @@
       <div class="panel-head">
         <div class="grow">
           <h1>Фото</h1>
-          <p>Все изображения сайта. Загружайте новые — они сохранятся в репозиторий.</p>
+          <p>Загрузите файлы — панель подскажет, к какому товару они относятся, и привяжет сама.</p>
         </div>
       </div>
 
@@ -137,16 +243,32 @@
         <h3>Загрузить фото</h3>
         <div class="drop" id="drop">
           Перетащите файлы сюда или нажмите, чтобы выбрать<br>
-          <span style="font-size:.78rem">JPG, PNG, WebP. Большие фото сжимаются автоматически.</span>
+          <span style="font-size:.78rem">JPG, PNG, WebP. Большие фото сжимаются автоматически. Имя файла помогает угадать товар.</span>
         </div>
         <input type="file" id="file-input" accept="image/*" multiple hidden>
         <div class="hint" style="margin-top:10px;color:var(--muted);font-size:.78rem">
-          После загрузки файлы появятся в списке ниже. Не забудьте нажать «Сохранить на сайт».
+          После загрузки не забудьте нажать «Сохранить на сайт», чтобы привязка к товарам попала на витрину.
+        </div>
+        <div id="upload-queue"></div>
+        <div class="inline mt" id="queue-bar" style="display:none">
+          <button class="btn btn-sm" id="q-upload-all">Загрузить всё без привязки</button>
+          <button class="btn btn-sm" id="q-clear">Очистить список</button>
         </div>
       </div>
 
       <div class="card">
+        <h3>Нужны фото <span class="tag hot" id="need-count">0</span></h3>
+        <p style="color:var(--muted);font-size:.84rem;margin:0 0 10px">
+          Товары с заглушкой «ПОЧИНИ МЕНЯ». Загрузите фото — оно сразу привяжется к товару.
+        </p>
+        <div id="need-root"></div>
+      </div>
+
+      <div class="card">
         <h3>Все фото <span class="tag" id="photo-count">0</span></h3>
+        <div class="inline" style="margin-bottom:6px">
+          <input type="search" id="photo-filter" placeholder="Поиск по имени файла…" style="max-width:280px">
+        </div>
         <div class="gallery" id="gallery"></div>
       </div>
     </section>
@@ -181,6 +303,7 @@
             <option value="canceled">Отменены</option>
             <option value="expired">Истекли</option>
             <option value="refunded">Возвраты</option>
+            <option value="failed">Ошибки оплаты</option>
           </select>
         </div>
         <div id="orders-list"><div class="empty">Нажмите «Обновить»</div></div>
@@ -192,7 +315,7 @@
       <div class="panel-head">
         <div class="grow">
           <h1>Магазин</h1>
-          <p>Название, контакты, доставка, реквизиты. Эти данные показываются на сайте.</p>
+          <p>Название, контакты, доставка, реквизиты, промокоды. Эти данные показываются на сайте.</p>
         </div>
       </div>
 
@@ -239,9 +362,15 @@
             <input type="text" id="s-hours" data-shop="workHours">
           </div>
         </div>
-        <div class="field">
-          <label for="s-delivery">Условия доставки (верхняя полоса)</label>
-          <input type="text" id="s-delivery" data-shop="delivery">
+        <div class="row">
+          <div class="field">
+            <label for="s-delivery">Условия доставки (верхняя полоса)</label>
+            <input type="text" id="s-delivery" data-shop="delivery">
+          </div>
+          <div class="field">
+            <label for="s-freefrom">Бесплатная доставка от, ₽</label>
+            <input type="number" id="s-freefrom" data-shop="freeFrom" placeholder="5000">
+          </div>
         </div>
         <label class="check">
           <input type="checkbox" id="s-newyear" data-shop="newYear">
@@ -270,6 +399,24 @@
             <label for="s-ozon">Ссылка на Ozon</label>
             <input type="url" id="s-ozon" data-shop="ozon">
           </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Промокоды <span class="tag" id="promo-count">0</span></h3>
+        <p style="color:var(--muted);font-size:.84rem;margin:0 0 10px">
+          Процент или фиксированная скидка, минимальная сумма заказа. Покупатель вводит код на витрине в корзине.
+        </p>
+        <div id="promos-list"></div>
+        <div class="inline promo-add" style="margin-top:12px">
+          <input type="text" id="promo-code" placeholder="КОД" style="width:130px;text-transform:uppercase">
+          <select id="promo-type" style="width:150px">
+            <option value="percent">процент, %</option>
+            <option value="fixed">фикс. сумма, ₽</option>
+          </select>
+          <input type="number" id="promo-value" placeholder="Размер" min="1" style="width:110px">
+          <input type="number" id="promo-min" placeholder="Мин. сумма" min="0" style="width:130px">
+          <button class="btn btn-sm btn-primary" id="btn-promo-add">+ Добавить</button>
         </div>
       </div>
     </section>
@@ -336,7 +483,10 @@
         <p style="color:var(--muted);font-size:.86rem">
           Файл со всеми товарами, категориями и настройками. Держите копию на всякий случай.
         </p>
-        <button class="btn" id="btn-export">Скачать копию (JSON)</button>
+        <div class="inline">
+          <button class="btn" id="btn-export">Скачать копию (JSON)</button>
+          <button class="btn" id="btn-csv">Скачать прайс (CSV)</button>
+        </div>
       </div>
 
       <div class="card">
@@ -362,7 +512,7 @@
 
 <!-- ======================= МОДАЛКА ТОВАРА ======================= -->
 <div class="modal-back" id="modal-item">
-  <div class="modal">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="mi-title">
     <h3 id="mi-title">Товар</h3>
 
     <div class="row">
@@ -376,24 +526,40 @@
       </div>
     </div>
 
+    <div class="field">
+      <label>Фасовки и цены</label>
+      <p class="hint" style="margin:0 0 8px">
+        Для весового товара цена — за 1 кг, «всего» считается сама. У порционных — цена за упаковку.
+        Отметьте основную фасовку — она показывается на витрине.
+      </p>
+      <div id="mi-packs"></div>
+      <button class="btn btn-sm" id="mi-packs-add" style="margin-top:8px">+ фасовка</button>
+    </div>
+
     <div class="row-3">
       <div class="field">
         <label for="mi-price">Цена, ₽</label>
         <input type="number" id="mi-price" min="0" step="1" placeholder="4500">
-        <div class="hint">Пусто = «По запросу»</div>
+        <div class="hint">Пусто = «По запросу» · из основной фасовки</div>
       </div>
+      <div class="field">
+        <label for="mi-packprice">Всего за фасовку, ₽</label>
+        <input type="number" id="mi-packprice" min="0" step="1" placeholder="2450">
+        <div class="hint">Стоимость основной фасовки целиком</div>
+      </div>
+      <div class="field">
+        <label for="mi-weight">Основная фасовка</label>
+        <input type="text" id="mi-weight" placeholder="500 г">
+        <div class="hint">Например «1 кг» или «400 г»</div>
+      </div>
+    </div>
+
+    <div class="row-3">
       <div class="field">
         <label for="mi-old">Старая цена, ₽</label>
         <input type="number" id="mi-old" min="0" step="1" placeholder="5500">
         <div class="hint">Для зачёркивания</div>
       </div>
-      <div class="field">
-        <label for="mi-weight">Фасовка</label>
-        <input type="text" id="mi-weight" placeholder="500 г">
-      </div>
-    </div>
-
-    <div class="row">
       <div class="field">
         <label for="mi-unit">Единица</label>
         <select id="mi-unit">
@@ -413,6 +579,11 @@
         </select>
       </div>
     </div>
+
+    <label class="check" style="margin-bottom:14px">
+      <input type="checkbox" id="mi-piece">
+      Порционный товар — цена указана за упаковку, а не за килограмм
+    </label>
 
     <div class="field">
       <label for="mi-desc">Описание</label>
@@ -451,7 +622,7 @@
 
 <!-- ======================= МОДАЛКА ВЫБОРА ФОТО ======================= -->
 <div class="modal-back" id="modal-gallery">
-  <div class="modal">
+  <div class="modal" role="dialog" aria-modal="true" aria-label="Выберите фото">
     <h3>Выберите фото</h3>
     <div class="gallery" id="gal-pick"></div>
     <div class="modal-foot">
@@ -462,7 +633,7 @@
 
 <!-- ======================= МОДАЛКА КАТЕГОРИИ ======================= -->
 <div class="modal-back" id="modal-cat">
-  <div class="modal" style="max-width:520px">
+  <div class="modal" style="max-width:520px" role="dialog" aria-modal="true" aria-labelledby="mc-title">
     <h3 id="mc-title">Категория</h3>
     <div class="field">
       <label for="mc-title-in">Название <span style="color:var(--red)">*</span></label>
@@ -476,6 +647,10 @@
       <label for="mc-id">Код (латиницей)</label>
       <input type="text" id="mc-id" placeholder="smoked">
       <div class="hint">Используется в ссылках. Только латиница, цифры, дефис.</div>
+      <div class="note warn" id="mc-id-warn" style="display:none;margin-top:8px">
+        Вы меняете код существующей категории. Если на сайт вели ссылки вида
+        <code>?cat=старый-код</code> — они перестанут работать.
+      </div>
     </div>
     <div class="modal-foot">
       <button class="btn" id="mc-cancel">Отмена</button>
@@ -484,8 +659,20 @@
   </div>
 </div>
 
-<div class="toast" id="toast"></div>
+<!-- ======================= МОДАЛКА ПРИВЯЗКИ ФОТО К ТОВАРУ ======================= -->
+<div class="modal-back" id="modal-bind">
+  <div class="modal" style="max-width:520px" role="dialog" aria-modal="true" aria-labelledby="bind-title">
+    <h3 id="bind-title">К какому товару привязать?</h3>
+    <input type="search" id="bind-search" placeholder="Поиск товара по названию…">
+    <div id="bind-results" style="margin-top:12px;max-height:50vh;overflow-y:auto"></div>
+    <div class="modal-foot">
+      <button class="btn" id="bind-cancel">Отмена</button>
+    </div>
+  </div>
+</div>
 
-<script src="assets/js/admin.js?v=3"></script>
+<div class="toast" id="toast" role="status" aria-live="polite"><span id="toast-text"></span><button class="toast-btn" id="toast-act" style="display:none"></button></div>
+
+<script src="assets/js/admin.js?v=5"></script>
 </body>
 </html>

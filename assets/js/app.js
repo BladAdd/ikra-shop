@@ -29,6 +29,80 @@
     try { localStorage.setItem(STORE_KEY, JSON.stringify(cart)); } catch (e) {}
   }
 
+  /* ---------- Избранное ---------- */
+  var FAV_KEY = "caviar_fav_v1";
+  var favs = {};
+  try {
+    JSON.parse(localStorage.getItem(FAV_KEY) || "[]").forEach(function (id) { favs[id] = 1; });
+  } catch (e) { favs = {}; }
+
+  function saveFavs() {
+    try { localStorage.setItem(FAV_KEY, JSON.stringify(Object.keys(favs))); } catch (e) {}
+  }
+
+  /* Обновить счётчик на чипе «Избранное» в панели категорий */
+  function updateFavChip() {
+    var chip = document.querySelector(".cat-chip.fav-chip .cat-chip-count");
+    if (chip) chip.textContent = Object.keys(favs).length;
+  }
+
+  /* ---------- Фасовки: выбор на карточке и отдельные строки корзины ----------
+     Ключ корзины: "<id товара>" для основной фасовки или "<id>::<weight фасовки>".
+     Так одна рыба в разных фасовках лежит в корзине разными строками. */
+  var PACK_SEP = "::";
+  var chosenPack = {}; // itemId -> weight фасовки (выбор на карточке, живёт в сессии)
+
+  function parseCartKey(key) {
+    var sep = key.indexOf(PACK_SEP);
+    if (sep === -1) return { id: key, packWeight: null };
+    return { id: key.slice(0, sep), packWeight: key.slice(sep + PACK_SEP.length) };
+  }
+
+  function findPack(it, weight) {
+    if (!it || !weight || !Array.isArray(it.packs)) return null;
+    for (var i = 0; i < it.packs.length; i++) {
+      if (it.packs[i].weight === weight) return it.packs[i];
+    }
+    return null;
+  }
+
+  function kgOf(weightStr) {
+    var m = /([\d.,]+)\s*кг/i.exec(weightStr || "");
+    if (m) return parseFloat(m[1].replace(",", "."));
+    var g = /(\d+)\s*г/i.exec(weightStr || "");
+    if (g) return parseInt(g[1], 10) / 1000;
+    return 1;
+  }
+
+  /* Стоимость одной штуки строки корзины: у фасовки — цена за фасовку, иначе цена товара. */
+  function lineUnitPrice(it, packWeight) {
+    var pack = findPack(it, packWeight);
+    if (pack) {
+      if (pack.total != null) return pack.total;
+      return Math.round(packPricePerKg(it, pack) * kgOf(pack.weight));
+    }
+    return it.price;
+  }
+
+  /* ---------- Промокоды ---------- */
+  var promoState = { code: "", discount: 0, valid: false };
+
+  function applyPromo(codeRaw, sum) {
+    var code = String(codeRaw || "").trim().toUpperCase();
+    if (!code) return { err: "Введите промокод" };
+    var promos = (typeof SHOP !== "undefined" && SHOP && Array.isArray(SHOP.promos)) ? SHOP.promos : [];
+    for (var i = 0; i < promos.length; i++) {
+      var p = promos[i];
+      if (String(p.code || "").toUpperCase() !== code) continue;
+      if (p.active === false) break;
+      if (p.minSum && sum < p.minSum) return { err: "Промокод действует при заказе от " + money(p.minSum) };
+      var d = p.type === "percent" ? Math.round(sum * Number(p.value) / 100) : Math.round(Number(p.value));
+      if (!(d > 0)) break;
+      return { ok: true, code: code, discount: Math.min(d, sum) };
+    }
+    return { err: "Такого промокода нет или он неактивен" };
+  }
+
   function allItems() {
     var out = [];
     if (!Array.isArray(CATALOG)) return out;
@@ -49,15 +123,26 @@
   }
 
   function cartLines() {
-    return Object.keys(cart).map(function (id) {
-      var it = findItem(id);
-      if (!it) return null;
-      return { item: it, qty: cart[id] };
+    // Строка корзины = товар + выбранная фасовка. Ключ "<id>" или "<id>::<weight>".
+    // Товар, удалённый из каталога, отбрасываем — держать его в корзине нечем.
+    return Object.keys(cart).map(function (key) {
+      var p = parseCartKey(key);
+      var it = findItem(p.id);
+      if (!it || !(cart[key] > 0)) return null; // мёртвые id и нулевые qty — мимо (W1-P2)
+      return {
+        item: it,
+        qty: cart[key],
+        key: key,
+        pack: findPack(it, p.packWeight),
+        packWeight: p.packWeight
+      };
     }).filter(Boolean);
   }
 
   function cartCount() {
-    return Object.keys(cart).reduce(function (s, k) { return s + cart[k]; }, 0);
+    // Только живые позиции: мёртвые ключи (товар удалён из каталога)
+    // не должны надувать бейдж и уезжать в заказ (находка W1-P1)
+    return cartLines().reduce(function (s, l) { return s + l.qty; }, 0);
   }
 
   function cartSum() {
@@ -65,7 +150,9 @@
     var hasPrice = lines.some(function (l) { return l.item.price != null; });
     if (!hasPrice) return null;
     return lines.reduce(function (s, l) {
-      return s + (l.item.price == null ? 0 : l.item.price * l.qty);
+      // Строка без цены не даёт вклада в сумму
+      var unit = lineUnitPrice(l.item, l.packWeight);
+      return s + (unit == null ? 0 : unit * l.qty);
     }, 0);
   }
 
@@ -144,9 +231,17 @@
     return it.unit ? "за 1 " + it.unit : "";
   }
 
-  /* Цена за килограмм фасовки: у порционных фасовок (400 г, 200 г) берём цену упаковки. */
+  /* Цена за килограмм фасовки. Контракт каталога: у весовых товаров
+     pack.price — уже цена за кг (сумма фасовки = pack.total); делить нельзя
+     (находка W2-P0: чип «3 кг» показывал 290 ₽/кг вместо 870). Делим только
+     у порционных товаров, где pack.price — цена упаковки. */
   function packPricePerKg(it, pack) {
     if (it.unit !== "кг") return pack.price;
+    if (!it.piece) return pack.price;
+    if (pack.total != null && pack.total > 0) {
+      var kg0 = kgOf(pack.weight);
+      if (kg0 > 0) return pack.total / kg0;
+    }
     var m = /([\d.,]+)\s*кг/.exec(pack.weight);
     if (m) return pack.price / parseFloat(m[1].replace(",", "."));
     var g = /(\d+)\s*г/.exec(pack.weight);
@@ -167,11 +262,52 @@
     return "Выгоднее: " + best.weight + " — " + money(Math.round(packPricePerKg(it, best))) + " за 1 кг";
   }
 
-  function priceHtml(it) {
+  /* Чипы выбора фасовки на карточке: показываем только у весовых товаров
+     без штучной продажи и при наличии двух и более фасовок. */
+  function packChipsHtml(it) {
+    if (it.unit !== "кг" || it.piece || !Array.isArray(it.packs) || it.packs.length < 2) return "";
+    var chosen = chosenPack[it.id] || it.weight; // выбор пользователя или фасовка по умолчанию
+
+    // Самая выгодная фасовка — с минимальной ценой за килограмм
+    var best = null;
+    it.packs.forEach(function (p) {
+      if (!best || packPricePerKg(it, p) < packPricePerKg(it, best)) best = p;
+    });
+
+    var out = '<div class="pack-chips">';
+    it.packs.forEach(function (p) {
+      out += '<button type="button" class="pack-chip' +
+        (chosen === p.weight ? " active" : "") +
+        (best && p.weight === best.weight ? " best" : "") +
+        '" data-pack="' + esc(p.weight) + '" data-id="' + esc(it.id) + '">' +
+        esc(p.weight) + "</button>";
+    });
+    out += "</div>";
+
+    // Подпись под чипами: цена выбранной фасовки за килограмм и за всю фасовку
+    var sel = findPack(it, chosen);
+    if (sel) {
+      var per = Math.round(packPricePerKg(it, sel));
+      var total = sel.total != null ? sel.total : Math.round(per * kgOf(sel.weight));
+      out += '<div class="pack-chip-note">' + esc(sel.weight) + " — " + money(total) + " за фасовку</div>";
+    }
+    return out;
+  }
+
+  function priceHtml(it, packWeight) {
     if (it.price == null) {
       return '<div class="price">По запросу<small>уточним при заказе</small></div>';
     }
     var old = it.oldPrice ? '<span class="old">' + money(it.oldPrice) + "</span>" : "";
+    var pack = findPack(it, packWeight);
+    if (pack) {
+      // Выбрана фасовка: показываем её цену за килограмм + итог за фасовку
+      var per = Math.round(packPricePerKg(it, pack));
+      var total = pack.total != null ? pack.total : Math.round(per * kgOf(pack.weight));
+      return '<div class="price">' + money(per) + old +
+        "<small>за 1 кг · " + esc(pack.weight) + " — " + money(total) + " за фасовку</small>" +
+        "</div>";
+    }
     var caption = priceCaption(it);
     var hint = packSavingText(it);
     return '<div class="price">' + money(it.price) + old +
@@ -181,14 +317,17 @@
   }
 
   function cardHtml(it) {
-    var inCart = cart[it.id] || 0;
+    // Ключ корзины учитывает выбранную на карточке фасовку
+    var packWeight = chosenPack[it.id] || null;
+    var key = it.id + (packWeight ? PACK_SEP + packWeight : "");
+    var inCart = cart[key] || 0;
     var actionBtnHtml = inCart > 0
       ? '<div class="card-stepper">' +
-          '<button type="button" data-act="dec" data-id="' + esc(it.id) + '" aria-label="Меньше">−</button>' +
+          '<button type="button" data-act="dec" data-key="' + esc(key) + '" aria-label="Меньше">−</button>' +
           '<span class="count">' + inCart + "</span>" +
-          '<button type="button" data-act="inc" data-id="' + esc(it.id) + '" aria-label="Больше">+</button>' +
+          '<button type="button" data-act="inc" data-key="' + esc(key) + '" aria-label="Больше">+</button>' +
         "</div>"
-      : '<button class="btn btn-gold btn-sm add-btn" data-id="' + esc(it.id) + '">' +
+      : '<button class="btn btn-gold btn-sm add-btn" data-key="' + esc(key) + '">' +
           '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>' +
           "<span>В корзину</span>" +
         "</button>";
@@ -196,33 +335,56 @@
     return '' +
       '<article class="card" data-id="' + esc(it.id) + '">' +
         '<div class="card-img">' +
+          '<button type="button" class="fav-btn' + (favs[it.id] ? " active" : "") + '" data-fav="' + esc(it.id) + '" aria-label="В избранное"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>' +
           (needsPhoto(it) ? '<span class="badge badge-need">Фото нужно</span>' : badgeHtml(it.badge, it)) +
           '<img src="' + esc(it.img) + '" alt="' + esc(it.name) + '" loading="lazy" data-zoom="' + esc(it.id) + '" onerror="this.src=\'assets/img/hero-caviar.jpg\'">' +
           (it.weight ? '<span class="card-photo-weight">' + esc(it.weight) + "</span>" : "") +
         '</div>' +
         '<div class="card-body">' +
-          "<h4>" + esc(it.name) + "</h4>" +
+          '<h4><a class="card-title-link" href="product.html?id=' + encodeURIComponent(it.id) + '">' + esc(it.name) + "</a></h4>" +
           '<p class="card-desc">' + esc(it.desc || "Свежий деликатес высшего сорта с натуральным вкусом.") + "</p>" +
+          packChipsHtml(it) +
           '<div class="card-foot">' +
-            priceHtml(it) +
+            priceHtml(it, chosenPack[it.id]) +
             actionBtnHtml +
           "</div>" +
         "</div>" +
       "</article>";
   }
 
+  /* Нормализация строк для поиска: нижний регистр + «ё» → «е» */
+  function normTxt(s) {
+    return String(s || "").toLowerCase().replace(/ё/g, "е");
+  }
+
+  /* Нормализация поискового запроса: + схлопывание пробелов */
+  function normQuery(s) {
+    // дефисы/тире → пробел: «вяленая-рыба» ищется как два слова (находка W6-P2)
+    return normTxt(s).replace(/[-\u2010-\u2015]/g, " ").replace(/\s+/g, " ").trim();
+  }
+
   function matches(it) {
-    if (activeCat !== "all" && it.catId !== activeCat) return false;
+    if (activeCat === "fav") {
+      // Показываем только отмеченные сердечком товары
+      if (!favs[it.id]) return false;
+    } else if (activeCat !== "all" && it.catId !== activeCat) {
+      return false;
+    }
     if (!query) return true;
-    var hay = (it.name + " " + (it.desc || "") + " " + (it.tags || "") + " " + (it.weight || "")).toLowerCase();
-    return hay.indexOf(query) !== -1;
+    // Все слова запроса должны встретиться в карточке
+    var hay = normTxt(it.name + " " + (it.desc || "") + " " + (it.tags || "") + " " + (it.weight || ""));
+    var tokens = query.split(/\s+/).filter(Boolean);
+    for (var i = 0; i < tokens.length; i++) {
+      if (hay.indexOf(tokens[i]) === -1) return false;
+    }
+    return true;
   }
 
   function matchScore(it, q) {
     if (!q) return 0;
-    var name = (it.name || "").toLowerCase();
-    var tags = (it.tags || "").toLowerCase();
-    var desc = (it.desc || "").toLowerCase();
+    var name = normTxt(it.name);
+    var tags = normTxt(it.tags);
+    var desc = normTxt(it.desc);
     if (name === q) return 100;
     if (name.indexOf(q) === 0) return 90;
     // Слово в названии целиком (например «Икра» в «Икра кеты»)
@@ -320,6 +482,12 @@
         '<span class="cat-chip-icon">✨</span>' +
         '<span class="cat-chip-title">Все товары</span>' +
         '<span class="cat-chip-count" id="count-all">' + all.length + "</span>" +
+      "</button>",
+      // Чип избранного — сразу после «Все товары»
+      '<button class="cat-chip fav-chip' + (activeCat === "fav" ? " active" : "") + '" data-cat="fav" title="Товары, отмеченные сердечком">' +
+        '<span class="cat-chip-icon">❤</span>' +
+        '<span class="cat-chip-title">Избранное</span>' +
+        '<span class="cat-chip-count">' + Object.keys(favs).length + "</span>" +
       "</button>"
     ];
 
@@ -398,24 +566,82 @@
   function linesHtml(lines) {
     return lines.map(function (l) {
       var it = l.item;
-      var sum = it.price == null ? "—" : money(it.price * l.qty);
+      // Вес строки — вес выбранной фасовки или базовый вес товара
+      var lineWeight = l.packWeight || it.weight;
+      // Стоимость единицы: у фасовки — цена за фасовку, у обычного товара — it.price
+      var unit = lineUnitPrice(it, l.packWeight);
+      var sum = unit == null ? "—" : money(unit * l.qty);
       return '' +
         '<div class="cart-line">' +
           '<img src="' + esc(it.img) + '" alt="' + esc(it.name) + '" onerror="this.src=\'assets/img/hero-caviar.jpg\'">' +
           "<div>" +
-            '<div class="nm">' + esc(it.name) + (it.weight ? "<small>" + esc(it.weight) + " · " + esc(priceCaption(it)) + "</small>" : "") + "</div>" +
+            '<div class="nm">' + esc(it.name) + (lineWeight ? "<small>" + esc(lineWeight) + " · " + esc(priceCaption(it)) + "</small>" : "") + "</div>" +
             '<div class="qty">' +
-              '<button type="button" data-act="dec" data-id="' + esc(it.id) + '" aria-label="Меньше">−</button>' +
+              '<button type="button" data-act="dec" data-key="' + esc(l.key) + '" aria-label="Меньше">−</button>' +
               "<span>" + l.qty + "</span>" +
-              '<button type="button" data-act="inc" data-id="' + esc(it.id) + '" aria-label="Больше">+</button>' +
+              '<button type="button" data-act="inc" data-key="' + esc(l.key) + '" aria-label="Больше">+</button>' +
             "</div>" +
           "</div>" +
           '<div style="text-align:right">' +
             '<div class="ln-sum">' + sum + "</div>" +
-            '<button type="button" class="rm" data-act="rm" data-id="' + esc(it.id) + '">удалить</button>' +
+            '<button type="button" class="rm" data-act="rm" data-key="' + esc(l.key) + '">удалить</button>' +
           "</div>" +
         "</div>";
     }).join("");
+  }
+
+  /* ---------- UI промокода: строка скидки в сводке и в drawer ---------- */
+  function updatePromoUi() {
+    var subtotal = cartSum() || 0;
+    // Скидка пересчитывается от ТЕКУЩЕЙ суммы корзины — не замирает после
+    // изменения состава заказа и не превышает его (находка W1-P1)
+    var discount = 0;
+    if (promoState.valid && promoState.code) {
+      var ps = applyPromo(promoState.code, subtotal);
+      if (ps && ps.ok) {
+        promoState.discount = ps.discount;
+        discount = ps.discount;
+      } else {
+        promoState.valid = false;
+        promoState.discount = 0;
+      }
+    }
+    var lineText = "−" + money(discount) + (promoState.valid && promoState.code ? " (" + promoState.code + ")" : "");
+    var linePage = document.getElementById("cart-promo-line");
+    var lineDrawer = document.getElementById("drawer-promo-line");
+
+    /* Доставка в «Итого»: зеркало серверной логики (orders.ts):
+       курьер 350 ₽ при subtotal < freeFrom; регионы — СДЭК посчитает менеджер;
+       самовывоз — 0. (находка W8-P1: итог не включал доставку) */
+    var DELIVERY_FEE = 350; // = config.deliveryFee на сервере
+    var fee = 0;
+    var delEl = document.querySelector('#order-form input[name="delivery"]:checked');
+    var delVal = delEl ? delEl.value : "";
+    var delStatus = document.getElementById("cart-delivery-status");
+    if (delVal === "Курьер по Москве и МО") {
+      fee = (subtotal != null && subtotal < FREE_SHIPPING_THRESHOLD) ? DELIVERY_FEE : 0;
+      if (delStatus) delStatus.textContent = fee ? money(DELIVERY_FEE) : "Бесплатно";
+    } else if (delVal === "Отправка в другой город") {
+      if (delStatus) delStatus.textContent = "СДЭК — рассчитает менеджер";
+    } else if (delVal === "Самовывоз") {
+      if (delStatus) delStatus.textContent = "Бесплатно";
+    }
+
+    if (linePage) {
+      linePage.style.display = discount > 0 ? "" : "none";
+      var v1 = document.getElementById("cart-promo-val");
+      if (v1) v1.textContent = lineText;
+    }
+    if (lineDrawer) {
+      lineDrawer.style.display = discount > 0 ? "" : "none";
+      var v2 = document.getElementById("drawer-promo-val");
+      if (v2) v2.textContent = lineText;
+    }
+    var finalPage = document.getElementById("cart-sum");
+    var finalDrawer = document.getElementById("drawer-sum");
+    // На странице итог с доставкой (как на сервере), в drawer — товары со скидкой
+    if (finalPage) finalPage.textContent = money(Math.max(0, subtotal - discount) + fee);
+    if (finalDrawer) finalDrawer.textContent = money(Math.max(0, subtotal - discount));
   }
 
   function renderCart() {
@@ -455,6 +681,7 @@
       if (drawerBody) drawerBody.innerHTML = emptyMarkup;
       if (cartTotal) cartTotal.style.display = "none";
       if (drawerFooter) drawerFooter.style.display = "none";
+      updatePromoUi(); // сброс #cart-sum/#drawer-sum в «0 ₽» — иначе протухают (GUI-1)
       return;
     }
 
@@ -466,16 +693,17 @@
     if (drawerFooter) drawerFooter.style.display = "block";
 
     if (cartSubtotalVal) cartSubtotalVal.textContent = sumStr;
-    if (cartSumEl) cartSumEl.textContent = sumStr;
-    if (drawerSumEl) drawerSumEl.textContent = sumStr;
+    // Итог к оплате и строка скидки считаются в updatePromoUi (с учётом промокода)
+    updatePromoUi();
   }
 
-  function addToCart(id) {
-    cart[id] = (cart[id] || 0) + 1;
+  /* addToCart принимает КЛЮЧ корзины: "<id>" или "<id>::<weight фасовки>" */
+  function addToCart(key) {
+    cart[key] = (cart[key] || 0) + 1;
     saveCart();
     renderCart();
     renderCatalog();
-    var it = findItem(id);
+    var it = findItem(parseCartKey(key).id);
     toast("Добавлено: " + (it ? it.name : "товар"));
   }
 
@@ -504,12 +732,19 @@
     if (lines.length) {
       lines.forEach(function (l) {
         var it = l.item;
-        var sum = it.price == null ? "цена по запросу" : money(it.price * l.qty);
-        out.push("• " + it.name + (it.weight ? " (" + it.weight + ")" : "") + " × " + l.qty + " = " + sum);
+        var w = l.packWeight || it.weight;
+        var unit = lineUnitPrice(it, l.packWeight);
+        var sum = unit == null ? "цена по запросу" : money(unit * l.qty);
+        out.push("• " + it.name + (w ? " (" + w + ")" : "") + " × " + l.qty + " = " + sum);
       });
       var s = cartSum();
       out.push("--------------------------------------");
       out.push("ИТОГО ЗА ТОВАРЫ: " + (s == null ? "уточняется" : money(s)));
+      // Активный промокод — добавляем строки скидки и итога со скидкой
+      if (promoState.valid && promoState.discount > 0) {
+        out.push("ПРОМОКОД: " + promoState.code + " (скидка −" + money(promoState.discount) + ")");
+        out.push("ИТОГО СО СКИДКОЙ: " + money(Math.max(0, (s || 0) - promoState.discount)));
+      }
       if (s >= FREE_SHIPPING_THRESHOLD) {
         out.push("🚚 Доставка по Москве: БЕСПЛАТНО (акция от 5 000 ₽)");
       }
@@ -553,7 +788,10 @@
     // Приоритет: серверный API (заказ в БД + онлайн-оплата).
     // WhatsApp остаётся резервным каналом, если сервер недоступен
     // или выбран способ «Оплата при получении».
-    var canUseApi = typeof API !== "undefined" && API.base !== undefined;
+    // ВАЖНО: API используется только когда база реально задана (сервер поднят).
+    // На GitHub Pages API.base === "" — иначе fetch уходит в корень Pages и
+    // заказ теряется (находка багханта B6): поэтому идём в WhatsApp напрямую.
+    var canUseApi = typeof API !== "undefined" && !!API.base;
     var isOnlinePay = !/при получении|перевод/i.test(formData.payment || "");
 
     if (canUseApi) {
@@ -565,7 +803,10 @@
           delivery: formData.delivery,
           payment: formData.payment,
           comment: formData.comment,
-          items: cartLines().map(function (l) { return { id: l.item.id, qty: l.qty }; }),
+          // Промокод уезжает на сервер — менеджер видит его в заказе (находка W8-P0)
+          promo: (promoState.valid && promoState.code) ? promoState.code : undefined,
+          // pack — вес выбранной фасовки; сервер посчитает цену фасовки сам
+          items: cartLines().map(function (l) { return { id: l.item.id, qty: l.qty, pack: l.packWeight || "" }; }),
         }).then(function (res) {
           return { ok: true, channel: "whatsapp", link: waLink(text), order: res.order };
         });
@@ -578,7 +819,8 @@
         delivery: formData.delivery,
         payment: formData.payment,
         comment: formData.comment,
-        items: cartLines().map(function (l) { return { id: l.item.id, qty: l.qty }; }),
+        promo: (promoState.valid && promoState.code) ? promoState.code : undefined,
+        items: cartLines().map(function (l) { return { id: l.item.id, qty: l.qty, pack: l.packWeight || "" }; }),
       }).then(function (res) {
         return API.createPayment(res.order.id).then(function (pay) {
           return { ok: true, channel: "online", order: res.order, payUrl: pay.payUrl, testMode: pay.testMode };
@@ -596,7 +838,7 @@
         body: JSON.stringify(Object.assign({}, formData, {
           order: text,
           items: cartLines().map(function (l) {
-            return { id: l.item.id, name: l.item.name, weight: l.item.weight, qty: l.qty, price: l.item.price };
+            return { id: l.item.id, name: l.item.name, weight: l.packWeight || l.item.weight, qty: l.qty, price: l.item.price };
           }),
           total: cartSum()
         }))
@@ -621,6 +863,90 @@
   }
   function closeModal() { if (modal) modal.classList.remove("on"); }
 
+  /* ---------- Промокоды: привязка инпут + кнопка + сообщение ----------
+     В подвале drawer и в форме заказа два независимых инпута, но состояние
+     промокода одно: применённый код синхронизируется в оба. */
+  function promoPartnerInputId(inputId) {
+    return inputId === "drawer-promo-input" ? "form-promo-input" : "drawer-promo-input";
+  }
+
+  function bindPromo(inputId, btnId, msgId) {
+    var input = document.getElementById(inputId);
+    var btn = document.getElementById(btnId);
+    var msg = document.getElementById(msgId);
+    if (!input || !btn || !msg) return;
+
+    function apply() {
+      var r = applyPromo(input.value, cartSum() || 0);
+      msg.textContent = r.err || ("Промокод применён: −" + money(r.discount));
+      msg.className = "promo-msg " + (r.ok ? "ok" : "err");
+      msg.style.display = "block";
+      if (r.ok) {
+        promoState = { code: r.code, discount: r.discount, valid: true };
+        // Прописываем код и в парный инпут, чтобы оба места показывали одно
+        var partner = document.getElementById(promoPartnerInputId(inputId));
+        if (partner) partner.value = input.value;
+        updatePromoUi();
+        toast("Промокод применён");
+      } else {
+        promoState.valid = false;
+        updatePromoUi();
+      }
+    }
+
+    btn.addEventListener("click", apply);
+    // Enter в поле ввода работает как кнопка «Применить»
+    input.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") { e.preventDefault(); apply(); }
+    });
+  }
+
+  /* Полный сброс промокода: состояние, оба инпута, оба сообщения */
+  function resetPromo() {
+    promoState = { code: "", discount: 0, valid: false };
+    ["drawer-promo-input", "form-promo-input"].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.value = "";
+    });
+    ["drawer-promo-msg", "form-promo-msg"].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.style.display = "none";
+    });
+    updatePromoUi();
+  }
+
+  /* ---------- Автосохранение полей формы заказа ----------
+     Черновик (имя, телефон, адрес, комментарий) живёт в localStorage,
+     чтобы случайно закрытая страница не потеряла введённые данные. */
+  var CHECKOUT_DRAFT_KEY = "caviar_checkout_v1";
+  var DRAFT_FIELDS = ["f-name", "f-phone", "f-city", "f-comment"];
+
+  function saveCheckoutDraft() {
+    var data = {};
+    DRAFT_FIELDS.forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) data[id] = el.value;
+    });
+    try { localStorage.setItem(CHECKOUT_DRAFT_KEY, JSON.stringify(data)); } catch (e) {}
+  }
+
+  function restoreCheckoutDraft() {
+    var raw = null;
+    try { raw = localStorage.getItem(CHECKOUT_DRAFT_KEY); } catch (e) {}
+    if (!raw) return;
+    var data = null;
+    try { data = JSON.parse(raw); } catch (e) { return; }
+    if (!data) return;
+    DRAFT_FIELDS.forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el && typeof data[id] === "string") el.value = data[id];
+    });
+  }
+
+  function clearCheckoutDraft() {
+    try { localStorage.removeItem(CHECKOUT_DRAFT_KEY); } catch (e) {}
+  }
+
   /* ---------- Просмотр фото ---------- */
   var lightbox = document.getElementById("lightbox");
   function openLightbox(id) {
@@ -632,6 +958,13 @@
     if (img) { img.src = it.img; img.alt = it.name; }
     if (title) title.textContent = it.name;
     if (price) price.textContent = money(it.price) + (priceCaption(it) ? " " + priceCaption(it) : "");
+    // Ссылка «Страница товара» ведёт на карточку в product.html
+    var pageLink = document.getElementById("lightbox-open-page");
+    if (pageLink) {
+      pageLink.href = "product.html?id=" + encodeURIComponent(id);
+      // У товара без фото ссылка не нужна — вместо фото будет заглушка
+      pageLink.style.display = needsPhoto(it) ? "none" : "";
+    }
     lightbox.classList.add("on");
     document.body.style.overflow = "hidden";
   }
@@ -673,6 +1006,38 @@
     renderCatalog();
     renderCart();
     payNote("Онлайн по ссылке");
+
+    // Промокоды: привязываем оба места ввода (drawer и форма заказа)
+    bindPromo("drawer-promo-input", "drawer-promo-apply", "drawer-promo-msg");
+    bindPromo("form-promo-input", "form-promo-apply", "form-promo-msg");
+
+    // Черновик формы заказа: восстановить и включить автосохранение
+    restoreCheckoutDraft();
+    DRAFT_FIELDS.forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.addEventListener("input", saveCheckoutDraft);
+    });
+
+    // Маска телефона: +7 (XXX) XXX-XX-XX, максимум 11 цифр
+    var phoneEl = document.getElementById("f-phone");
+    if (phoneEl) {
+      phoneEl.addEventListener("input", function () {
+        var digits = phoneEl.value.replace(/\D/g, "");
+        // 8 в начале — это тот же российский код 7
+        if (digits.charAt(0) === "8") digits = "7" + digits.slice(1);
+        if (digits.charAt(0) !== "7") digits = "7" + digits;
+        digits = digits.slice(0, 11);
+        // Собираем маску только из имеющихся цифр — стирание не ломается
+        var out = "";
+        if (digits.length > 0) out = "+7";
+        if (digits.length > 1) out += " (" + digits.slice(1, 4);
+        if (digits.length >= 4) out += ")";
+        if (digits.length > 4) out += " " + digits.slice(4, 7);
+        if (digits.length > 7) out += "-" + digits.slice(7, 9);
+        if (digits.length > 9) out += "-" + digits.slice(9, 11);
+        phoneEl.value = out;
+      });
+    }
 
     syncHeaderHeight();
     window.addEventListener("resize", syncHeaderHeight);
@@ -743,7 +1108,7 @@
 
     // Поиск в каталоге
     function syncSearch(val) {
-      query = val.trim().toLowerCase();
+      query = normQuery(val);
       if (searchCatalogEl && searchCatalogEl.value !== val) searchCatalogEl.value = val;
       if (searchHeaderEl && searchHeaderEl.value !== val) searchHeaderEl.value = val;
       if (searchClearBtn) searchClearBtn.style.display = val ? "block" : "none";
@@ -788,6 +1153,7 @@
       cartClearBtn.addEventListener("click", function () {
         cart = {};
         saveCart();
+        resetPromo(); // с корзиной уходит и скидка по промокоду
         renderCart();
         renderCatalog();
         toast("Корзина очищена");
@@ -840,24 +1206,56 @@
       });
     }
 
-    // Глобальные клики: инкремент, декремент, удаление
+    // Глобальные клики: фасовки, избранное, инкремент, декремент, удаление
     document.addEventListener("click", function (e) {
+      // Выбор фасовки на карточке: перерисовываем эту карточку с новым ключом
+      var chip = e.target.closest(".pack-chip");
+      if (chip) {
+        chosenPack[chip.dataset.id] = chip.dataset.pack;
+        var chipItem = findItem(chip.dataset.id);
+        // Перерисовываем только конкретную карточку, а не весь каталог
+        document.querySelectorAll(".card").forEach(function (c) {
+          if (c.dataset.id === chip.dataset.id && chipItem) c.outerHTML = cardHtml(chipItem);
+        });
+        return;
+      }
+
+      // Сердечко «В избранное»: тогглим, показываем тост и анимацию
+      var favBtn = e.target.closest("[data-fav]");
+      if (favBtn) {
+        var favId = favBtn.dataset.fav;
+        if (favs[favId]) {
+          delete favs[favId];
+          toast("Убрано из избранного");
+        } else {
+          favs[favId] = 1;
+          toast("Добавлено в избранное");
+          favBtn.classList.add("fav-pop");
+          setTimeout(function () { favBtn.classList.remove("fav-pop"); }, 400);
+        }
+        saveFavs();
+        favBtn.classList.toggle("active", !!favs[favId]);
+        updateFavChip();
+        if (activeCat === "fav") renderCatalog(); // открыт фильтр «Избранное»
+        return;
+      }
+
       var add = e.target.closest(".add-btn");
       if (add) {
-        addToCart(add.dataset.id);
+        addToCart(add.dataset.key);
         return;
       }
 
       var act = e.target.closest("[data-act]");
       if (act) {
-        var id = act.dataset.id;
+        var key = act.dataset.key;
         var a = act.dataset.act;
-        if (a === "inc") cart[id] = (cart[id] || 0) + 1;
+        if (a === "inc") cart[key] = (cart[key] || 0) + 1;
         if (a === "dec") {
-          cart[id] = (cart[id] || 0) - 1;
-          if (cart[id] <= 0) delete cart[id];
+          cart[key] = (cart[key] || 0) - 1;
+          if (cart[key] <= 0) delete cart[key];
         }
-        if (a === "rm") delete cart[id];
+        if (a === "rm") delete cart[key];
         saveCart();
         renderCart();
         renderCatalog();
@@ -925,6 +1323,21 @@
           return;
         }
 
+        // Телефон должен содержать полный номер: +7 и 10 цифр = 11 цифр
+        var phoneDigits = phone.replace(/\D/g, "");
+        if (phoneDigits.length !== 11) {
+          toast("Введите телефон полностью");
+          form.querySelector("#f-phone").focus();
+          return;
+        }
+
+        // Согласие на обработку персональных данных обязательно
+        var consent = document.getElementById("f-consent");
+        if (consent && !consent.checked) {
+          toast("Отметьте согласие на обработку данных");
+          return;
+        }
+
         if (!cartCount()) {
           toast("Корзина пуста — сначала добавьте деликатесы в каталоге");
           var catSec = document.getElementById("catalog");
@@ -947,6 +1360,8 @@
         submitOrder(data).then(function (res) {
           cart = {};
           saveCart();
+          resetPromo();          // скидка применена к заказу — сбрасываем
+          clearCheckoutDraft();  // черновик формы больше не нужен
           renderCart();
           renderCatalog();
           form.reset();
@@ -969,7 +1384,12 @@
           }
           openModal(res.channel === "whatsapp" ? waLink(orderText(data)) : null);
         }).catch(function (err) {
-          toast(err && err.message ? err.message : "Не удалось отправить заказ");
+          // Не теряем заказ: при любой ошибке сервера уводим покупателя в
+          // WhatsApp с полным составом заказа (находка GUI-3).
+          var waFallback = waLink(orderText(data));
+          toast("Не удалось отправить через сайт — открываем WhatsApp");
+          try { window.open(waFallback, "_blank"); } catch (e) { /* блокировщик попапов — остаётся модалка */ }
+          openModal(waFallback);
         }).then(function () {
           if (btn) {
             btn.disabled = false;
@@ -1047,4 +1467,17 @@
   } else {
     boot();
   }
+
+  // Возврат на витрину из bfcache (кнопка «Назад» со страницы товара):
+  // product.js пишет те же ключи localStorage — перечитываем и перерисовываем
+  window.addEventListener("pageshow", function (e) {
+    if (!e.persisted) return;
+    try {
+      cart = JSON.parse(localStorage.getItem(STORE_KEY) || "{}") || {};
+      favs = {};
+      JSON.parse(localStorage.getItem(FAV_KEY) || "[]").forEach(function (id) { favs[id] = 1; });
+    } catch (err) {}
+    try { renderCart(); } catch (err2) {}
+    try { renderCatalog(); } catch (err3) {}
+  });
 })();

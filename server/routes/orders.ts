@@ -15,38 +15,80 @@ type CatalogItem = {
   weight?: string;
   price: number | null;
   unit?: string;
+  packs?: { weight: string; price: number; total: number | null }[]; // фасовки из catalog.json
 };
 
+/** Ошибка загрузки/данных каталога — внутренняя, клиенту уходит только общий текст */
+class CatalogError extends Error {}
+
+/** "2,5 кг" -> 2.5, "400 г" -> 0.4 — вес фасовки в килограммах */
+function kgOf(weight: string): number {
+  const m = /(\d+(?:[.,]\d+)?)\s*(кг|г)/i.exec(weight);
+  if (!m) {
+    console.error(`[orders] Не удалось разобрать вес фасовки: «${weight}»`);
+    throw new CatalogError('Внутренняя ошибка сервера, попробуйте позже');
+  }
+  const value = Number(m[1].replace(',', '.'));
+  return m[2].toLowerCase() === 'кг' ? value : value / 1000;
+}
+
 function loadCatalog(): Map<string, CatalogItem> {
-  const raw = JSON.parse(fs.readFileSync(config.catalogPath, 'utf-8')) as {
-    catalog: { items: CatalogItem[] }[];
-  };
-  const map = new Map<string, CatalogItem>();
-  raw.catalog.forEach((cat) => cat.items.forEach((it) => map.set(it.id, it)));
-  return map;
+  try {
+    const raw = JSON.parse(fs.readFileSync(config.catalogPath, 'utf-8')) as {
+      catalog: { items: CatalogItem[] }[];
+    };
+    const map = new Map<string, CatalogItem>();
+    raw.catalog.forEach((cat) => cat.items.forEach((it) => map.set(it.id, it)));
+    return map;
+  } catch (e) {
+    // Ошибки чтения/парсинга каталога не утекают клиенту (пути ФС, фрагменты JSON)
+    console.error('[orders] Не удалось загрузить каталог:', e);
+    throw new CatalogError('Внутренняя ошибка сервера, попробуйте позже');
+  }
 }
 
 /** Цены НИКОГДА не берутся с клиента — только из каталога на сервере */
-function priceCart(items: { id: string; qty: number }[]) {
+function priceCart(items: { id: string; qty: number; pack?: string }[]) {
   const catalog = loadCatalog();
   const lines: { id: string; name: string; weight?: string; qty: number; price: number; sum: number }[] = [];
-  for (const { id, qty } of items) {
+  for (const { id, qty, pack } of items) {
     const product = catalog.get(id);
     if (!product) throw new Error(`Товар не найден: ${id}`);
     if (product.price == null) throw new Error(`Товар «${product.name}» доступен только по запросу`);
     if (qty < 1 || qty > 99) throw new Error('Некорректное количество');
+    let unitPrice: number;
+    let weightLabel: string | undefined = product.weight;
+    if (pack) {
+      // Выбранная фасовка: цена строго из packs, без fallback на основную цену
+      const p = product.packs?.find((p) => p.weight === pack);
+      if (!p) throw new Error(`Фасовка «${pack}» недоступна для «${product.name}»`);
+      // total — цена за фасовку целиком; если её нет, считаем от цены за кг
+      unitPrice = p.total != null ? p.total : Math.round(p.price * kgOf(p.weight));
+      weightLabel = p.weight;
+    } else {
+      // Фасовка не выбрана (старый фронт шлёт только {id, qty}) — как раньше
+      unitPrice = product.price;
+    }
     lines.push({
       id,
       name: product.name,
-      weight: product.weight,
+      weight: weightLabel,
       qty,
-      price: product.price,
-      sum: product.price * qty,
+      price: unitPrice,
+      sum: unitPrice * qty,
     });
   }
   const subtotal = lines.reduce((s, l) => s + l.sum, 0);
   return { lines, subtotal };
 }
+
+// Способы доставки с витрины (index.html). Фиксированный набор вместо
+// произвольной строки: клиент не сможет подменой текста обойти платную доставку
+const DELIVERY = {
+  courier: 'Курьер по Москве и МО',
+  regions: 'Отправка в другой город',
+  pickup: 'Самовывоз',
+} as const;
 
 const orderSchema = z.object({
   name: z.string().trim().min(2, 'Укажите имя').max(80),
@@ -57,11 +99,22 @@ const orderSchema = z.object({
     .max(20)
     .regex(/^[\d\s+()\-]+$/, 'Телефон содержит недопустимые символы'),
   address: z.string().trim().max(300).default(''),
-  delivery: z.string().trim().max(120).default('Курьер по Москве и МО'),
+  delivery: z
+    .enum([DELIVERY.courier, DELIVERY.regions, DELIVERY.pickup], {
+      error: 'Выберите способ доставки из списка',
+    })
+    .default(DELIVERY.courier),
   payment: z.string().trim().max(120).default('Онлайн по ссылке'),
   comment: z.string().trim().max(1000).default(''),
+  promo: z.string().trim().max(40).optional(), // скидку сервер не считает — менеджер проверит
   items: z
-    .array(z.object({ id: z.string().min(1).max(80), qty: z.number().int().min(1).max(99) }))
+    .array(
+      z.object({
+        id: z.string().min(1).max(80),
+        qty: z.number().int().min(1).max(99),
+        pack: z.string().trim().max(40).optional(), // вес фасовки, напр. "3 кг"
+      })
+    )
     .min(1, 'Корзина пуста'),
 });
 
@@ -95,15 +148,33 @@ ordersRouter.post('/', limitOrders, optionalAuth, (req, res) => {
   try {
     pricing = priceCart(data.items);
   } catch (e) {
-    res.status(400).json({ error: (e as Error).message });
+    if (e instanceof CatalogError) {
+      // Ошибка каталога — внутренняя: детали уже в логе, клиенту общий текст
+      res.status(500).json({ error: 'Внутренняя ошибка сервера, попробуйте позже' });
+    } else {
+      // Бизнес-ошибка валидации корзины — понятный текст клиенту
+      res.status(400).json({ error: (e as Error).message });
+    }
     return;
   }
 
-  // Доставка бесплатна от порога, иначе фиксированная плата — только для курьера
-  const isCourier = /курьер/i.test(data.delivery);
+  // Доставка: платная только для курьера и только ниже порога бесплатной.
+  // Самовывоз и отправка в другой город — всегда 0 (стоимость СДЭК определит менеджер)
   const deliveryFee =
-    isCourier && pricing.subtotal < config.freeShippingFrom ? config.deliveryFee : 0;
+    data.delivery === DELIVERY.courier && pricing.subtotal < config.freeShippingFrom
+      ? config.deliveryFee
+      : 0;
   const total = pricing.subtotal + deliveryFee;
+
+  // Дополнения к комментарию для менеджера
+  const commentParts = [data.comment];
+  if (data.delivery === DELIVERY.regions) {
+    commentParts.push('Отправка в другой город: стоимость СДЭК определит менеджер');
+  }
+  if (data.promo) {
+    commentParts.push(`ПРОМОКОД: ${data.promo}`);
+  }
+  const comment = commentParts.filter(Boolean).join('\n');
 
   const id = crypto.randomUUID();
   const sessionId = typeof req.body.sessionId === 'string' ? req.body.sessionId.slice(0, 64) : null;
@@ -123,7 +194,7 @@ ordersRouter.post('/', limitOrders, optionalAuth, (req, res) => {
       data.address,
       data.delivery,
       data.payment,
-      data.comment,
+      comment,
       JSON.stringify({ lines: pricing.lines, deliveryFee, subtotal: pricing.subtotal }),
       total * 100,
       JSON.stringify({ subtotal: pricing.subtotal, deliveryFee })

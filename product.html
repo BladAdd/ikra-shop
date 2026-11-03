@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Товар — Икра & Рыба</title>
+<meta name="description" content="Икра, копчёная и вяленая рыба, деликатесы — карточка товара с ценой, фасовками и доставкой по Москве от 2 часов и по всей России.">
+<meta name="theme-color" content="#07130f">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<!-- Open Graph: дефолты для шаринга в WhatsApp/Telegram — updateSeo() подставляет товарные -->
+<meta property="og:type" content="product">
+<meta property="og:site_name" content="Икра & Рыба">
+<meta property="og:title" content="Икра & Рыба — деликатесы с доставкой">
+<meta property="og:description" content="Икра, копчёная и вяленая рыба, деликатесы — доставка по Москве от 2 часов и по всей России.">
+<meta property="og:image" content="https://bladadd.github.io/ikra-shop/assets/img/hero-caviar.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23c8322b' stroke='%23d4af37' stroke-width='2'/%3E%3Cpath d='M11 16c2-4 8-4 10 0-2 4-8 4-10 0z' fill='%23d4af37'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/css/style.css?v=8">
+<style>
+  /* ==========================================================================
+     Страница товара — специфичные блоки. Базовые классы (крошки, сетка,
+     цена, чипы фасовок, похожие товары) уже описаны в style.css.
+     ========================================================================== */
+
+  /* ---- Шапка страницы товара: текстовый логотип + кнопка «Каталог» ---- */
+  .ph-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-height: 74px;
+  }
+  .ph-wrap .logo { text-decoration: none; }
+  .ph-nav { display: flex; align-items: center; gap: 10px; }
+
+  /* ---- Плашки над названием: в витрине .badge абсолютные, здесь — в строку ---- */
+  .product-badges .badge,
+  .product-badges .badge-discount {
+    position: static;
+  }
+
+  /* ---- Цена + сердечко избранного в одном ряду ---- */
+  .product-price-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .product-price-row .fav-btn {
+    position: static;
+    width: 42px;
+    height: 42px;
+  }
+  .product-price-row .fav-btn svg {
+    width: 19px;
+    height: 19px;
+  }
+
+  /* ---- Цена по запросу: акцентная строка ---- */
+  .price-null-note {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 6px 0 2px;
+    padding: 10px 14px;
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    border-left: 3px solid var(--gold-500);
+    border-radius: var(--radius-sm);
+    background: rgba(212, 175, 55, 0.07);
+    color: var(--gold-300);
+    font-size: 0.88rem;
+    line-height: 1.45;
+  }
+  .price-null-note a {
+    color: var(--gold-300);
+    font-weight: 700;
+    text-decoration: underline;
+    white-space: nowrap;
+  }
+  .price-null-note a:hover { color: var(--gold-200); }
+
+  /* ---- Кнопка после добавления: зелёное состояние «Добавлено ✓» ---- */
+  .btn.add-done {
+    background: linear-gradient(135deg, #28d76b, #159b58);
+    color: #fff;
+    box-shadow: 0 8px 24px rgba(40, 215, 107, 0.35);
+    animation: addPop 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .btn.add-done:hover { color: #fff; box-shadow: 0 12px 32px rgba(40, 215, 107, 0.5); }
+  @keyframes addPop {
+    0% { transform: scale(0.94); }
+    55% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+  /* Ссылка «Перейти в корзину» рядом с зелёной кнопкой */
+  .go-cart-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--gold-400);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px dashed rgba(212, 175, 55, 0.5);
+    transition: color 0.15s;
+  }
+  .go-cart-link:hover { color: var(--gold-300); }
+
+  /* ---- Заглушка «Фото скоро появится» на большом изображении ---- */
+  .product-imgbox.is-need .product-need-plate {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+  }
+  .product-need-plate b {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    color: var(--cream-dim);
+    letter-spacing: 0.02em;
+  }
+  .product-need-plate small {
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  /* ---- Карточка похожего товара ---- */
+  .related-card {
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(180deg, var(--pine-800), var(--pine-850));
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    text-decoration: none;
+    transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s, border-color 0.2s;
+  }
+  .related-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--line-gold-strong);
+    box-shadow: var(--shadow-md);
+  }
+  .related-card-img {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    background: var(--pine-700);
+    overflow: hidden;
+  }
+  .related-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+  .related-card:hover .related-card-img img { transform: scale(1.06); }
+  .related-need {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 12px;
+    background: repeating-linear-gradient(-45deg, var(--pine-800), var(--pine-800) 12px, var(--pine-850) 12px, var(--pine-850) 24px);
+    color: var(--muted);
+    font-size: 0.72rem;
+    text-align: center;
+    line-height: 1.35;
+  }
+  .related-need .rn-ico { font-size: 1.3rem; opacity: 0.75; }
+  .related-card-body {
+    padding: 14px 16px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+  }
+  .related-card-body h4 {
+    font-family: var(--font-serif);
+    font-size: 0.98rem;
+    font-weight: 600;
+    color: var(--cream);
+    line-height: 1.35;
+  }
+  .rc-price {
+    margin-top: auto;
+    font-family: var(--font-serif);
+    font-size: 1.12rem;
+    font-weight: 600;
+    color: var(--gold-400);
+  }
+  .rc-price small {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: normal;
+    color: var(--muted);
+    margin-left: 4px;
+  }
+
+  /* ---- Скелет-лоадер на время загрузки данных ---- */
+  .p-skel { padding-top: 28px; }
+  .skel {
+    border-radius: var(--radius-md);
+    background: linear-gradient(90deg, var(--pine-800) 25%, var(--pine-700) 50%, var(--pine-800) 75%);
+    background-size: 200% 100%;
+    animation: skelWave 1.4s ease-in-out infinite;
+  }
+  .p-skel-crumbs { width: 220px; height: 14px; margin-bottom: 24px; }
+  .p-skel-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: 48px;
+  }
+  .p-skel-img { aspect-ratio: 4 / 3; border-radius: var(--radius-lg); }
+  .p-skel-line { height: 20px; margin-bottom: 16px; }
+  .p-skel-line.w90 { width: 90%; }
+  .p-skel-line.w60 { width: 60%; }
+  .p-skel-line.w75 { width: 75%; }
+  .p-skel-line.w40 { width: 40%; }
+  .p-skel-btn { width: 240px; height: 52px; border-radius: var(--radius-pill); margin-top: 22px; }
+  @keyframes skelWave {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  /* ---- Краткий подвал страницы товара ---- */
+  .p-footer { padding: 26px 0; }
+  .p-foot-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .p-foot-brand { color: var(--muted); font-size: 0.84rem; }
+  .p-foot-contacts {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .p-foot-phone {
+    font-family: var(--font-serif);
+    font-size: 1.02rem;
+    color: var(--gold-400);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .p-foot-phone:hover { color: var(--gold-300); }
+
+  /* ---- Адаптив ---- */
+  @media (max-width: 860px) {
+    .p-skel-grid { grid-template-columns: 1fr; gap: 24px; }
+    .logo-sub { display: none; }
+  }
+  @media (max-width: 560px) {
+    .p-foot-row { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ======================= ШАПКА СТРАНИЦЫ ТОВАРА ======================= -->
+<header class="site" id="site-header">
+  <div class="wrap ph-wrap">
+    <!-- Текстовый логотип → на главную -->
+    <a class="logo" href="index.html" aria-label="Икра &amp; Рыба — на главную">
+      <span class="logo-text">
+        <span class="logo-brand">Икра &amp; Рыба</span>
+        <small class="logo-sub">Гастрономический бутик</small>
+      </span>
+    </a>
+    <!-- Кнопка «Каталог» -->
+    <nav class="ph-nav">
+      <a class="btn btn-ghost btn-sm" href="index.html#catalog">Каталог</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ======================= КОНТЕНТ СТРАНИЦЫ ======================= -->
+<main class="wrap" id="product-main">
+  <!-- Скелет с лоадером: заменяется JS после загрузки каталога -->
+  <div id="product-root">
+    <div class="p-skel" aria-hidden="true">
+      <div class="skel p-skel-crumbs"></div>
+      <div class="p-skel-grid">
+        <div class="skel p-skel-img"></div>
+        <div>
+          <div class="skel p-skel-line w40"></div>
+          <div class="skel p-skel-line w90"></div>
+          <div class="skel p-skel-line w60"></div>
+          <div class="skel p-skel-line w75"></div>
+          <div class="skel p-skel-btn"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Похожие товары: заполняется JS -->
+  <section id="related-root" class="related-section" hidden></section>
+</main>
+
+<!-- ======================= КРАТКИЙ ПОДВАЛ ======================= -->
+<footer class="site p-footer">
+  <div class="wrap p-foot-row">
+    <div class="p-foot-brand">© <span id="foot-year">2026</span> «Икра &amp; Рыба» — икра, рыба и деликатесы с доставкой</div>
+    <div class="p-foot-contacts">
+      <a class="p-foot-phone" href="tel:+79619200292">+7 (961) 920-02-92</a>
+      <a class="btn btn-green btn-sm" href="https://wa.me/79619200292" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Данные магазина: источник правды data/catalog.json + встроенный резерв -->
+<script src="assets/js/data.js?v=7"></script>
+<script src="assets/js/product.js?v=3"></script>
+</body>
+</html>

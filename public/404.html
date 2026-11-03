@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Страницу ошибки индексировать не нужно -->
+  <meta name="robots" content="noindex">
+  <title>404 — страница не найдена | Икра &amp; Рыба</title>
+  <style>
+    /* ===== Базовые стили (все стили inline, внешние файлы не подключаются) ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body { height: 100%; }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* Тёмный фон #07130f с мягким золотым свечением сверху */
+      background:
+        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(212, 175, 55, 0.10), transparent 70%),
+        #07130f;
+      color: #e9e4d3;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      text-align: center;
+      padding: 32px 20px;
+    }
+
+    .page {
+      max-width: 560px;
+      width: 100%;
+    }
+
+    /* ===== SVG-иконка: рыбка и пузырьки-икринки ===== */
+    .icon {
+      display: block;
+      margin: 0 auto 6px;
+      opacity: 0.95;
+    }
+
+    /* ===== Большой заголовок 404 (Georgia, золото) ===== */
+    .code {
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 700;
+      font-size: clamp(96px, 24vw, 180px);
+      line-height: 1;
+      color: #d4af37;
+      letter-spacing: 0.04em;
+      text-shadow: 0 0 40px rgba(212, 175, 55, 0.25);
+      margin: 8px 0 4px;
+    }
+
+    /* Тонкая золотая разделительная линия */
+    .divider {
+      width: 64px;
+      height: 2px;
+      margin: 18px auto 22px;
+      border: none;
+      background: linear-gradient(90deg, transparent, #d4af37, transparent);
+    }
+
+    /* ===== Подпись под заголовком ===== */
+    .subtitle {
+      font-size: 17px;
+      line-height: 1.6;
+      color: #c9d2cc;
+      max-width: 440px;
+      margin: 0 auto 32px;
+    }
+
+    /* ===== Кнопка и вторичная ссылка ===== */
+    .actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 36px;
+      border-radius: 999px;
+      background: #d4af37;
+      color: #07130f;
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+
+    .btn:hover  { background: #e6c65c; transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+
+    .secondary {
+      color: #d4af37;
+      font-size: 15px;
+      text-decoration: none;
+      padding-bottom: 2px;
+      border-bottom: 1px dashed rgba(212, 175, 55, 0.6);
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .secondary:hover { color: #e6c65c; border-color: #e6c65c; }
+
+    /* ===== Подпись магазина внизу ===== */
+    .footer {
+      margin-top: 44px;
+      font-size: 13px;
+      color: #5f6d66;
+    }
+
+    .footer b { color: #8a9790; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <!-- Иконка: рыбка с пузырьками-икринками, нарисована вручную (золото на тёмном) -->
+    <svg class="icon" width="132" height="66" viewBox="0 0 140 70" fill="none"
+         xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+      <!-- пузырьки-икринки над рыбкой -->
+      <circle cx="26" cy="12" r="4"   stroke="#d4af37" stroke-width="2" opacity="0.75"/>
+      <circle cx="42" cy="7"  r="2.6" stroke="#d4af37" stroke-width="2" opacity="0.5"/>
+      <circle cx="35" cy="22" r="2"   fill="#d4af37" opacity="0.6"/>
+      <!-- туловище рыбки -->
+      <path d="M12 46 C 28 26, 62 24, 88 42 C 64 62, 28 64, 12 46 Z" fill="#d4af37"/>
+      <!-- хвост -->
+      <path d="M86 42 L 112 27 L 104 42 L 112 57 Z" fill="#d4af37" opacity="0.85"/>
+      <!-- жабры -->
+      <path d="M46 33 C 52 40, 52 46, 46 53" stroke="#07130f" stroke-width="2.4" stroke-linecap="round" fill="none"/>
+      <!-- глаз -->
+      <circle cx="30" cy="42" r="3.4" fill="#07130f"/>
+    </svg>
+
+    <h1 class="code">404</h1>
+    <hr class="divider">
+    <p class="subtitle">Такой страницы нет — но у нас есть 147 позиций деликатесов</p>
+
+    <div class="actions">
+      <!-- Абсолютные пути: GH Pages отдаёт 404.html на любой глубине,
+           относительные "./index.html" там резолвятся в битые адреса -->
+      <a class="btn" href="/ikra-shop/index.html">Вернуться в магазин</a>
+      <a class="secondary" href="/ikra-shop/index.html#catalog">Смотреть каталог</a>
+    </div>
+
+    <p class="footer"><b>Икра &amp; Рыба</b> — магазин икры и деликатесов</p>
+  </main>
+</body>
+</html>

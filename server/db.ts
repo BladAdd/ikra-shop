@@ -13,12 +13,22 @@ export function getDb(): DB {
   return db;
 }
 
+/** Закрытие соединения — вызывать при graceful shutdown (чекпоинт WAL-файлов) */
+export function closeDb(): void {
+  if (!db) return;
+  db.close();
+}
+
 export function initDb(): DB {
   const dir = path.dirname(config.dbPath);
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 
   db = new Database(config.dbPath);
-  db.pragma('journal_mode = WAL');
+  const journalMode = db.pragma('journal_mode = WAL', { simple: true });
+  if (journalMode !== 'wal') {
+    // ФС без поддержки WAL (сетевые диски и т.п.) — режим останется DELETE
+    console.warn(`[db] WAL недоступен, journal_mode = ${journalMode}`);
+  }
   db.pragma('foreign_keys = ON');
   db.pragma('busy_timeout = 5000');
 
@@ -28,8 +38,23 @@ export function initDb(): DB {
   return db;
 }
 
-function runMigrations(conn: DB): void {
-  conn.exec(`
+type Migration = {
+  version: number;
+  name: string;
+  up: (conn: DB) => void;
+};
+
+/**
+ * Последовательные миграции схемы. Миграция 1 = текущая схема.
+ * Любые будущие изменения схемы добавлять НОВОЙ миграцией (version + 1),
+ * старые миграции не редактировать — иначе живые БД разъедутся.
+ */
+const MIGRATIONS: Migration[] = [
+  {
+    version: 1,
+    name: 'initial schema (users, orders, payments, sessions_kv)',
+    up: (conn) => {
+      conn.exec(`
     CREATE TABLE IF NOT EXISTS users (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       email TEXT NOT NULL UNIQUE COLLATE NOCASE,
@@ -64,6 +89,7 @@ function runMigrations(conn: DB): void {
     CREATE INDEX IF NOT EXISTS idx_orders_user ON orders(user_id);
     CREATE INDEX IF NOT EXISTS idx_orders_session ON orders(session_id);
     CREATE INDEX IF NOT EXISTS idx_orders_status ON orders(status);
+    -- У orders индекс НЕ уникальный: при повторной оплате id платежа перезаписывается
     CREATE INDEX IF NOT EXISTS idx_orders_rollypay ON orders(rollypay_payment_id);
 
     CREATE TABLE IF NOT EXISTS payments (
@@ -82,7 +108,6 @@ function runMigrations(conn: DB): void {
     );
 
     CREATE INDEX IF NOT EXISTS idx_payments_order ON payments(order_id);
-    CREATE INDEX IF NOT EXISTS idx_payments_rp ON payments(rollypay_payment_id);
 
     CREATE TABLE IF NOT EXISTS sessions_kv (
       key TEXT PRIMARY KEY,
@@ -92,6 +117,44 @@ function runMigrations(conn: DB): void {
 
     CREATE INDEX IF NOT EXISTS idx_sessions_expires ON sessions_kv(expires_at);
   `);
+
+      // Защита от дублей перед созданием UNIQUE-индекса (на живых БД, где дубли
+      // могли накопиться): у повторов оставляем самую раннюю запись
+      conn.exec(`
+    UPDATE payments SET rollypay_payment_id = NULL
+    WHERE rollypay_payment_id IS NOT NULL
+      AND id NOT IN (
+        SELECT MIN(id) FROM payments WHERE rollypay_payment_id IS NOT NULL GROUP BY rollypay_payment_id
+      );
+  `);
+
+      // UNIQUE: один платёж RollyPay — максимум одна запись в payments
+      conn.exec(`
+    DROP INDEX IF EXISTS idx_payments_rp;
+    CREATE UNIQUE INDEX IF NOT EXISTS uq_payments_rp
+      ON payments(rollypay_payment_id)
+      WHERE rollypay_payment_id IS NOT NULL;
+  `);
+    },
+  },
+];
+
+function runMigrations(conn: DB): void {
+  const current = conn.pragma('user_version', { simple: true }) as number;
+  for (const m of MIGRATIONS) {
+    if (m.version <= current) continue;
+    // Каждая миграция — в транзакции: либо вся, либо ничего
+    const apply = conn.transaction(() => {
+      m.up(conn);
+      conn.pragma(`user_version = ${m.version}`);
+    });
+    apply();
+    console.log(`[db] миграция ${m.version} применена: ${m.name}`);
+  }
+  // БД создана более новой версией кода — предупредим о даунгрейде
+  if (current > MIGRATIONS.length) {
+    console.warn(`[db] user_version=${current} больше последней известной миграции (${MIGRATIONS.length})`);
+  }
 }
 
 function seedAdmins(conn: DB): void {

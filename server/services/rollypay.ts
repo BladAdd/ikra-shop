@@ -54,6 +54,37 @@ function assertConfigured(): void {
   }
 }
 
+// Таймаут на все запросы к провайдеру: без него fetch висит до дефолтного
+// таймаута undici (~5 минут), удерживая HTTP-запрос создания заказа
+const RP_TIMEOUT_MS = 15_000;
+const RP_RETRY_DELAY_MS = 1_000;
+
+const sleep = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
+
+/**
+ * Выполняет fetch с таймаутом. Сетевые ошибки (DNS, отказ соединения, таймаут)
+ * оборачиваем в RollyPayError, чтобы наружу не улетал сырой TypeError.
+ */
+async function rpFetch(url: string, init: RequestInit): Promise<Response> {
+  try {
+    return await fetch(url, { ...init, signal: AbortSignal.timeout(RP_TIMEOUT_MS) });
+  } catch (e) {
+    // TypeError — сетевой сбой fetch; TimeoutError/AbortError — сработал наш таймаут
+    const name = e instanceof Error ? e.name : 'unknown';
+    throw new RollyPayError(`RollyPay network error (${name}): ${String(e)}`, 504, null);
+  }
+}
+
+/** Читает ответ как текст и безопасно парсит JSON (не-JSON от прокси/CDN не крэшит) */
+async function parseBody(res: Response): Promise<unknown> {
+  const text = await res.text();
+  try {
+    return JSON.parse(text);
+  } catch {
+    return text; // оставляем сырой текст как body для диагностики
+  }
+}
+
 export async function createPayment(input: CreatePaymentInput): Promise<CreatePaymentResult> {
   assertConfigured();
 
@@ -70,7 +101,7 @@ export async function createPayment(input: CreatePaymentInput): Promise<CreatePa
     test: config.rollypay.testMode,
   };
 
-  const res = await fetch(`${config.rollypay.baseUrl}/api/v1/payments`, {
+  const res = await rpFetch(`${config.rollypay.baseUrl}/api/v1/payments`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -80,13 +111,7 @@ export async function createPayment(input: CreatePaymentInput): Promise<CreatePa
     body: JSON.stringify(payload),
   });
 
-  const text = await res.text();
-  let body: unknown = text;
-  try {
-    body = JSON.parse(text);
-  } catch {
-    /* оставляем текст */
-  }
+  const body = await parseBody(res);
 
   if (!res.ok) {
     throw new RollyPayError(
@@ -95,21 +120,47 @@ export async function createPayment(input: CreatePaymentInput): Promise<CreatePa
       body
     );
   }
-  return body as CreatePaymentResult;
+
+  // Минимальная валидация ответа: без payment_id дальше по стеку всё сломается
+  const result = body as CreatePaymentResult;
+  if (!result || typeof result.payment_id !== 'string' || !result.payment_id) {
+    throw new RollyPayError('RollyPay createPayment: в ответе отсутствует payment_id', 502, body);
+  }
+  return result;
 }
 
+/**
+ * GET платежа — идемпотентный, поэтому при сетевом сбое допускается 1 повтор
+ * (через 1с). Используется для сверки статусов при расхождениях вебхука.
+ */
 export async function getPayment(paymentId: string): Promise<Record<string, unknown>> {
   assertConfigured();
-  const res = await fetch(`${config.rollypay.baseUrl}/api/v1/payments/${encodeURIComponent(paymentId)}`, {
-    headers: {
-      'Content-Type': 'application/json',
-      'X-API-Key': config.rollypay.apiKey,
-      'X-Nonce': crypto.randomUUID(),
-    },
-  });
-  const body = await res.json();
-  if (!res.ok) throw new RollyPayError(`RollyPay getPayment failed: ${res.status}`, res.status, body);
-  return body as Record<string, unknown>;
+  const url = `${config.rollypay.baseUrl}/api/v1/payments/${encodeURIComponent(paymentId)}`;
+
+  // X-Nonce должен быть уникальным на каждый запрос — генерируем внутри цикла
+  for (let attempt = 0; ; attempt++) {
+    let res: Response;
+    try {
+      res = await rpFetch(url, {
+        headers: {
+          'Content-Type': 'application/json',
+          'X-API-Key': config.rollypay.apiKey,
+          'X-Nonce': crypto.randomUUID(),
+        },
+      });
+    } catch (e) {
+      // rpFetch оборачивает сетевые сбои в RollyPayError(504) — один повтор
+      if (attempt < 1 && e instanceof RollyPayError && e.status === 504) {
+        await sleep(RP_RETRY_DELAY_MS);
+        continue;
+      }
+      throw e;
+    }
+
+    const body = await parseBody(res);
+    if (!res.ok) throw new RollyPayError(`RollyPay getPayment failed: ${res.status}`, res.status, body);
+    return body as Record<string, unknown>;
+  }
 }
 
 /**

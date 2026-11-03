@@ -31,8 +31,15 @@ export const securityHeaders = helmet({
     },
   },
   crossOriginEmbedderPolicy: false,
+  // Фронт/админка живут на другом origin (GitHub Pages), картинки и статика сервера
+  // встраиваются кросс-доменно: дефолтный CORP 'same-origin' у helmet 8 заблокировал бы их.
+  // Ослабляем только встраивание ресурсов — на CSP скриптов это не влияет.
+  crossOriginResourcePolicy: { policy: 'cross-origin' },
 });
 
+// CORS: allowlist-функция + credentials:true. Wildcard '*' вместе с credentials
+// запрещён браузерами и здесь не используется — cors отражает только разрешённые
+// origin (frontendUrl/appUrl, в dev — любой localhost-порт).
 export const corsMiddleware = cors({
   origin: (origin, cb) => {
     if (!origin) return cb(null, true); // server-to-server / curl
@@ -49,12 +56,34 @@ export const corsMiddleware = cors({
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'X-Admin-Token', 'Accept'],
 });
 
+/**
+ * Ключ rate limit — ТОЛЬКО доверенный IP. Клиентские заголовки (X-Forwarded-For,
+ * X-Real-IP и т.п.) здесь никогда не читаются напрямую: они учитываются исключительно
+ * через req.ip, который Express вычисляет по app.set('trust proxy', N).
+ *
+ * ТРЕБОВАНИЕ: trust proxy должен равняться ТОЧНОМУ числу прокси перед сервером
+ * (на Railway — 1, см. index.ts), но НЕ `true`. При `true` Express доверяет всей
+ * цепочке XFF и берёт левое, клиентоуправляемое значение — лимит обходится
+ * подстановкой произвольных заголовков. При корректном N req.ip = адрес,
+ * аттестованный ближайшим доверенным прокси; без прокси это адрес TCP-сокета,
+ * который клиент подделать не может.
+ */
+function trustedIpKey(req: Request): string {
+  return req.ip || req.socket?.remoteAddress || 'unknown';
+}
+
 const limiterDefaults = {
   windowMs: 60 * 1000,
   standardHeaders: true,
   legacyHeaders: false,
+  // Единый ключ для всех лимитеров — только доверенный IP (см. trustedIpKey)
+  keyGenerator: trustedIpKey,
 };
 
+// Единый бюджет на всю зону /api/auth/*: этот ОДИН экземпляр переиспользуется
+// в routes/auth.ts и на /register, и на /login. Хранилище общее, путь в ключ
+// не входит, поэтому попытки login+register в сумме дают один лимит 30/мин на IP,
+// а не 30+30. Второй экземпляр для register не создавать — разделит бюджет.
 export const limitAuth = rateLimit({ ...limiterDefaults, max: 30, message: { error: 'Слишком много попыток входа. Попробуйте позже.' } });
 export const limitOrders = rateLimit({ ...limiterDefaults, max: 20, message: { error: 'Слишком много заказов. Подождите минуту.' } });
 export const limitWebhook = rateLimit({ ...limiterDefaults, max: 200, message: { error: 'Too many webhook calls' } });

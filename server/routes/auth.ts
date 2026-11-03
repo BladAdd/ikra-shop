@@ -83,8 +83,9 @@ authRouter.get('/google/callback', async (req, res) => {
     });
     const payload = ticket.getPayload();
     if (!payload?.email || !payload.email_verified) throw new Error('email_not_verified');
-
-    const user = Users.upsertGoogle(payload.email, payload.name || payload.email.split('@')[0], payload.picture);
+    // Нормализуем email до проверки админов (is_admin) и создания аккаунта
+    const email = payload.email.trim().toLowerCase();
+    const user = Users.upsertGoogle(email, payload.name || email.split('@')[0], payload.picture);
     if (intent === 'admin' && !user.is_admin) {
       return res.redirect(`${config.frontendUrl}/?auth_error=not_admin`);
     }
@@ -98,6 +99,14 @@ authRouter.get('/google/callback', async (req, res) => {
 });
 
 /* ---------------- Локальная регистрация и вход ---------------- */
+
+// Единый текст ошибки аутентификации: не раскрываем, что именно неверно
+// (несуществующая почта / неверный пароль / занятый при регистрации)
+const AUTH_ERROR = 'Неверная почта или пароль';
+
+// Заранее вычисленный bcrypt-хеш случайной строки: сравнение с ним для несуществующих
+// пользователей делает время ответа логина одинаковым и не выдаёт существование аккаунта
+const DUMMY_HASH = '$2b$12$3Z5Wau5.oLA2HsBROTIlteHKmIZb6EjvaYhXBFRZuNPcPrVYfmTD6';
 
 const emailSchema = z.string().email().max(254);
 const passwordSchema = z.string().min(8, 'Пароль должен быть не короче 8 символов').max(128);
@@ -114,7 +123,11 @@ authRouter.post('/register', limitAuth, async (req, res) => {
     }
     const { email, password, name } = body.data;
     if (Users.findByEmail(email)) {
-      res.status(409).json({ error: 'Пользователь с такой почтой уже зарегистрирован' });
+      // Не раскрываем существование аккаунта: без 409 и явного «занят».
+      // Хешируем пароль и на этой ветке — время ответа не отличается от успешной регистрации.
+      console.warn(`[auth] register: отклонена попытка дубликата аккаунта (${email})`);
+      await bcrypt.hash(password, 12);
+      res.status(401).json({ error: AUTH_ERROR });
       return;
     }
     const hash = await bcrypt.hash(password, 12);
@@ -130,16 +143,17 @@ authRouter.post('/register', limitAuth, async (req, res) => {
 
 authRouter.post('/login', limitAuth, async (req, res) => {
   try {
-    const body = z.object({ email: emailSchema, password: z.string().max(128) }).safeParse(req.body);
+    const body = z.object({ email: emailSchema, password: passwordSchema }).safeParse(req.body);
     if (!body.success) {
       res.status(400).json({ error: 'Некорректные данные' });
       return;
     }
     const user = Users.findByEmail(body.data.email);
-    // Одинаковый ответ для несуществующего пользователя и неверного пароля
-    const ok = user && user.password_hash ? await bcrypt.compare(body.data.password, user.password_hash) : false;
-    if (!ok || !user) {
-      res.status(401).json({ error: 'Неверная почта или пароль' });
+    // bcrypt.compare выполняется всегда: для несуществующего email и аккаунта Google —
+    // с фейковым хешем, чтобы время ответа не выдавало существование аккаунта
+    const ok = await bcrypt.compare(body.data.password, user?.password_hash || DUMMY_HASH);
+    if (!user || !user.password_hash || !ok) {
+      res.status(401).json({ error: AUTH_ERROR });
       return;
     }
     res.cookie(AUTH_COOKIE, signToken(user), cookieOptions());

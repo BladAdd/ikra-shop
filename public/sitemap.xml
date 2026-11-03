@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Карта сайта магазина «Икра & Рыба» -->
+<!-- Страницы с query-параметрами (product.html?id=...) в карту не включаются -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Главная -->
+  <url>
+    <loc>https://bladadd.github.io/ikra-shop/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <!-- Благодарности / авторы -->
+  <url>
+    <loc>https://bladadd.github.io/ikra-shop/credits.html</loc>
+    <priority>0.3</priority>
+  </url>
+  <!-- Политика конфиденциальности -->
+  <url>
+    <loc>https://bladadd.github.io/ikra-shop/privacy.html</loc>
+    <priority>0.2</priority>
+  </url>
+  <!-- Публичная оферта -->
+  <url>
+    <loc>https://bladadd.github.io/ikra-shop/offer.html</loc>
+    <priority>0.2</priority>
+  </url>
+</urlset>
