@@ -5,23 +5,11 @@
   <!-- Главная -->
   <url>
     <loc>https://bladadd.github.io/ikra-shop/</loc>
-    <lastmod>2026-11-03</lastmod>
+    <lastmod>2026-11-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
-  <!-- Благодарности / авторы -->
-  <url>
-    <loc>https://bladadd.github.io/ikra-shop/credits.html</loc>
-    <priority>0.3</priority>
-  </url>
-  <!-- Политика конфиденциальности -->
-  <url>
-    <loc>https://bladadd.github.io/ikra-shop/privacy.html</loc>
-    <priority>0.2</priority>
-  </url>
-  <!-- Публичная оферта -->
-  <url>
-    <loc>https://bladadd.github.io/ikra-shop/offer.html</loc>
-    <priority>0.2</priority>
-  </url>
+  <!-- privacy.html / offer.html / credits.html имеют noindex и в карту не включены -->
+  <!-- Карточки товаров генерируются на основе product.html?id=... и поисковиками -->
+  <!-- подхватываются с главной; отдельные URL в карту не включаются -->
 </urlset>
