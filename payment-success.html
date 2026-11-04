@@ -8,158 +8,158 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23c8322b' stroke='%23d4af37' stroke-width='2'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="assets/css/style.css?v=10">
 <style>
-  /* Локальные дополнения к стилю страницы результата (основное — в assets/css/style.css) */
-  .pay-result-card { animation: pay-in .5s ease both; }
-  @keyframes pay-in {
-    from { opacity: 0; transform: translateY(14px); }
-    to   { opacity: 1; transform: none; }
-  }
-  /* Состояние ожидания: золотая окружность с вращающимся сектором вместо эмодзи */
-  .pay-result-icon.wait { background: rgba(212, 175, 55, 0.12); border: 2px solid var(--gold-500); }
-  .pay-result-spinner {
-    width: 30px; height: 30px; border-radius: 50%;
-    border: 3px solid rgba(212, 175, 55, 0.25);
-    border-top-color: var(--gold-400);
-    animation: pay-spin .9s linear infinite;
-  }
-  @keyframes pay-spin { to { transform: rotate(360deg); } }
-  .pay-result-icon svg { display: block; }
-  @media (max-width: 480px) {
-    .pay-result-card { padding: 30px 20px; }
-  }
+ /* Локальные дополнения к стилю страницы результата (основное — в assets/css/style.css) */
+ .pay-result-card { animation: pay-in .5s ease both; }
+ @keyframes pay-in {
+ from { opacity: 0; transform: translateY(14px); }
+ to { opacity: 1; transform: none; }
+ }
+ /* Состояние ожидания: золотая окружность с вращающимся сектором вместо эмодзи */
+ .pay-result-icon.wait { background: rgba(212, 175, 55, 0.12); border: 2px solid var(--gold-500); }
+ .pay-result-spinner {
+ width: 30px; height: 30px; border-radius: 50%;
+ border: 3px solid rgba(212, 175, 55, 0.25);
+ border-top-color: var(--gold-400);
+ animation: pay-spin .9s linear infinite;
+ }
+ @keyframes pay-spin { to { transform: rotate(360deg); } }
+ .pay-result-icon svg { display: block; }
+ @media (max-width: 480px) {
+ .pay-result-card { padding: 30px 20px; }
+ }
 </style>
 </head>
 <body>
 <main class="pay-result">
-  <div class="pay-result-card">
-    <div class="pay-result-icon wait" id="result-icon" aria-hidden="true">
-      <span class="pay-result-spinner"></span>
-    </div>
-    <h1 id="result-title">Проверяем оплату</h1>
-    <p id="result-text">Уточняем статус платежа в банке. Это займёт несколько секунд — не закрывайте страницу.</p>
-    <div class="pay-result-order" id="order-info" hidden></div>
-    <div class="pay-result-actions">
-      <a class="btn btn-gold btn-block" href="index.html">Вернуться в магазин</a>
-      <a class="btn btn-green btn-block" href="https://wa.me/79619200292?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%9E%D0%BF%D0%BB%D0%B0%D1%82%D0%B8%D0%BB(%D0%B0)%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%20%E2%80%94%20%D0%BF%D0%BE%D0%B4%D1%82%D0%B2%D0%B5%D1%80%D0%B4%D0%B8%D1%82%D0%B5%20%D0%BF%D0%BE%D0%BB%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D0%B5" target="_blank" rel="noopener">Написать в WhatsApp</a>
-    </div>
-    <noscript>
-      <p style="margin-top:16px;font-size:.85rem;color:var(--muted)">Чтобы увидеть статус оплаты, включите JavaScript — или свяжитесь с менеджером через WhatsApp.</p>
-    </noscript>
-  </div>
+ <div class="pay-result-card">
+ <div class="pay-result-icon wait" id="result-icon" aria-hidden="true">
+ <span class="pay-result-spinner"></span>
+ </div>
+ <h1 id="result-title">Проверяем оплату</h1>
+ <p id="result-text">Уточняем статус платежа в банке. Это займёт несколько секунд — не закрывайте страницу.</p>
+ <div class="pay-result-order" id="order-info" hidden></div>
+ <div class="pay-result-actions">
+ <a class="btn btn-gold btn-block" href="index.html">Вернуться в магазин</a>
+ <a class="btn btn-green btn-block" href="index.html#order" rel="noopener">Связаться с магазином</a>
+ </div>
+ <noscript>
+ <p style="margin-top:16px;font-size:.85rem;color:var(--muted)">Чтобы увидеть статус оплаты, включите JavaScript — или менеджер свяжется с вами по указанному телефону.</p>
+ </noscript>
+ </div>
 </main>
 
 <script src="assets/js/api.js"></script>
 <script>
 (function () {
-  var params = new URLSearchParams(location.search);
-  var orderId = (params.get("order") || "").trim();
-  var infoEl = document.getElementById("order-info");
-  var textEl = document.getElementById("result-text");
-  var titleEl = document.getElementById("result-title");
-  var iconEl = document.getElementById("result-icon");
+ var params = new URLSearchParams(location.search);
+ var orderId = (params.get("order") || "").trim();
+ var infoEl = document.getElementById("order-info");
+ var textEl = document.getElementById("result-text");
+ var titleEl = document.getElementById("result-title");
+ var iconEl = document.getElementById("result-icon");
 
-  // Единственная уместная SVG-иконка страницы — отметка в круге (и её «крест» для отмены)
-  var ICON_OK = '<svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5 10-11"/></svg>';
-  var ICON_FAIL = '<svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+ // Единственная уместная SVG-иконка страницы — отметка в круге (и её «крест» для отмены)
+ var ICON_OK = '<svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5 10-11"/></svg>';
+ var ICON_FAIL = '<svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
 
-  // Экранирование пользовательских данных перед вставкой в HTML
-  function esc(s) {
-    return String(s).replace(/[&<>"']/g, function (ch) {
-      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch];
-    });
-  }
+ // Экранирование пользовательских данных перед вставкой в HTML
+ function esc(s) {
+ return String(s).replace(/[&<>"']/g, function (ch) {
+ return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch];
+ });
+ }
 
-  function fmt(n) {
-    try { return new Intl.NumberFormat("ru-RU").format(n) + " ₽"; }
-    catch (e) { return n + " ₽"; }
-  }
+ function fmt(n) {
+ try { return new Intl.NumberFormat("ru-RU").format(n) + " ₽"; }
+ catch (e) { return n + " ₽"; }
+ }
 
-  // Номер заказа из параметра ?order= показываем сразу, не дожидаясь ответа банка
-  function showOrderBlock(extra) {
-    if (!orderId) return;
-    infoEl.hidden = false;
-    infoEl.innerHTML = "Заказ № <b>" + esc(orderId.slice(0, 8)) + "</b>" + (extra || "");
-  }
+ // Номер заказа из параметра ?order= показываем сразу, не дожидаясь ответа банка
+ function showOrderBlock(extra) {
+ if (!orderId) return;
+ infoEl.hidden = false;
+ infoEl.innerHTML = "Заказ № <b>" + esc(orderId.slice(0, 8)) + "</b>" + (extra || "");
+ }
 
-  // statusNote — необязательная подпись статуса в блоке заказа: когда сервера
-  // нет, точный статус неизвестен, и вместо «оплачен» пишем, кто подтвердит
-  function setSuccess(total, statusNote) {
-    titleEl.textContent = "Заказ оплачен";
-    textEl.textContent = "Спасибо! Оплата прошла успешно. Менеджер свяжется с вами, чтобы согласовать удобное время доставки.";
-    iconEl.className = "pay-result-icon ok";
-    iconEl.innerHTML = ICON_OK;
-    showOrderBlock(
-      (total != null ? "<br>Сумма: <b>" + esc(fmt(total)) + "</b>" : "") +
-      "<br>Статус: <b>" + esc(statusNote || "оплачен") + "</b>"
-    );
-  }
+ // statusNote — необязательная подпись статуса в блоке заказа: когда сервера
+ // нет, точный статус неизвестен, и вместо «оплачен» пишем, кто подтвердит
+ function setSuccess(total, statusNote) {
+ titleEl.textContent = "Заказ оплачен";
+ textEl.textContent = "Спасибо! Оплата прошла успешно. Менеджер свяжется с вами, чтобы согласовать удобное время доставки.";
+ iconEl.className = "pay-result-icon ok";
+ iconEl.innerHTML = ICON_OK;
+ showOrderBlock(
+ (total != null ? "<br>Сумма: <b>" + esc(fmt(total)) + "</b>" : "") +
+ "<br>Статус: <b>" + esc(statusNote || "оплачен") + "</b>"
+ );
+ }
 
-  function setFail() {
-    titleEl.textContent = "Платёж не прошёл";
-    textEl.textContent = "Оплата была отменена или истекла. Вы можете повторить попытку — корзина сохранена.";
-    iconEl.className = "pay-result-icon fail";
-    iconEl.innerHTML = ICON_FAIL;
-  }
+ function setFail() {
+ titleEl.textContent = "Платёж не прошёл";
+ textEl.textContent = "Оплата была отменена или истекла. Вы можете повторить попытку — корзина сохранена.";
+ iconEl.className = "pay-result-icon fail";
+ iconEl.innerHTML = ICON_FAIL;
+ }
 
-  function setWait(message) {
-    titleEl.textContent = "Проверяем оплату";
-    textEl.textContent = message;
-    iconEl.className = "pay-result-icon wait";
-    iconEl.innerHTML = '<span class="pay-result-spinner"></span>';
-  }
+ function setWait(message) {
+ titleEl.textContent = "Проверяем оплату";
+ textEl.textContent = message;
+ iconEl.className = "pay-result-icon wait";
+ iconEl.innerHTML = '<span class="pay-result-spinner"></span>';
+ }
 
-  showOrderBlock();
+ showOrderBlock();
 
-  if (!orderId) {
-    textEl.textContent = "Номер заказа не найден. Если оплата прошла, менеджер всё равно получит уведомление.";
-    return;
-  }
+ if (!orderId) {
+ textEl.textContent = "Номер заказа не найден. Если оплата прошла, менеджер всё равно получит уведомление.";
+ return;
+ }
 
-  // Опрос статуса имеет смысл только при наличии бэкенда. На GitHub Pages
-  // window.IKRA_API_URL не задан, API.base пуст — запрос ушёл бы в корень
-  // сайта (404) и страница навсегда зависла бы на «Статус уточняется».
-  // Поэтому при пустой базе опрос НЕ запускаем: сразу показываем состояние
-  // успеха с номером заказа и подписью, что статус подтвердит менеджер.
-  if (typeof API === "undefined" || !API.paymentStatus || !API.base) {
-    setSuccess(null, "подтвердит менеджер в WhatsApp");
-    titleEl.textContent = "Заказ принят";
-    textEl.textContent = "Спасибо! Заказ оформлен. Статус оплаты подтвердит менеджер в WhatsApp.";
-    return;
-  }
+ // Опрос статуса имеет смысл только при наличии бэкенда. На GitHub Pages
+ // window.IKRA_API_URL не задан, API.base пуст — запрос ушёл бы в корень
+ // сайта (404) и страница навсегда зависла бы на «Статус уточняется».
+ // Поэтому при пустой базе опрос НЕ запускаем: сразу показываем состояние
+ // успеха с номером заказа и подписью, что статус подтвердит менеджер.
+ if (typeof API === "undefined" || !API.paymentStatus || !API.base) {
+ setSuccess(null, "подтвердит менеджер");
+ titleEl.textContent = "Заказ принят";
+ textEl.textContent = "Спасибо! Заказ оформлен. Статус оплаты подтвердит менеджер.";
+ return;
+ }
 
-  // Небольшая задержка: вебхук RollyPay обычно приходит за 1–3 секунды
-  var attempts = 0;
-  function poll() {
-    attempts++;
-    API.paymentStatus(orderId)
-      .then(function (s) {
-        if (s && s.paid) {
-          setSuccess(s.total);
-          return;
-        }
-        if (s && (s.orderStatus === "canceled" || s.orderStatus === "expired")) {
-          setFail();
-          return;
-        }
-        // ещё обрабатывается — продолжаем опрос до 30 секунд
-        if (attempts < 15) {
-          setWait("Проверяем оплату… Это занимает несколько секунд.");
-          setTimeout(poll, 2000);
-        } else {
-          titleEl.textContent = "Оплата обрабатывается";
-          textEl.textContent = "Банк пока не подтвердил платёж. Уведомление придёт на вашу почту, менеджер свяжется с вами.";
-          iconEl.className = "pay-result-icon wait";
-          iconEl.innerHTML = '<span class="pay-result-spinner"></span>';
-        }
-      })
-      .catch(function () {
-        titleEl.textContent = "Статус уточняется";
-        textEl.textContent = "Не удалось проверить статус автоматически. Если деньги списаны — заказ будет обработан, менеджер свяжется с вами.";
-        iconEl.className = "pay-result-icon wait";
-        iconEl.innerHTML = '<span class="pay-result-spinner"></span>';
-      });
-  }
-  poll();
+ // Небольшая задержка: вебхук RollyPay обычно приходит за 1–3 секунды
+ var attempts = 0;
+ function poll() {
+ attempts++;
+ API.paymentStatus(orderId)
+ .then(function (s) {
+ if (s && s.paid) {
+ setSuccess(s.total);
+ return;
+ }
+ if (s && (s.orderStatus === "canceled" || s.orderStatus === "expired")) {
+ setFail();
+ return;
+ }
+ // ещё обрабатывается — продолжаем опрос до 30 секунд
+ if (attempts < 15) {
+ setWait("Проверяем оплату… Это занимает несколько секунд.");
+ setTimeout(poll, 2000);
+ } else {
+ titleEl.textContent = "Оплата обрабатывается";
+ textEl.textContent = "Банк пока не подтвердил платёж. Уведомление придёт на вашу почту, менеджер свяжется с вами.";
+ iconEl.className = "pay-result-icon wait";
+ iconEl.innerHTML = '<span class="pay-result-spinner"></span>';
+ }
+ })
+ .catch(function () {
+ titleEl.textContent = "Статус уточняется";
+ textEl.textContent = "Не удалось проверить статус автоматически. Если деньги списаны — заказ будет обработан, менеджер свяжется с вами.";
+ iconEl.className = "pay-result-icon wait";
+ iconEl.innerHTML = '<span class="pay-result-spinner"></span>';
+ });
+ }
+ poll();
 })();
 </script>
 </body>

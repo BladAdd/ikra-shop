@@ -765,9 +765,16 @@
   }
 
   function waLink(text) {
-    var phone = SHOP.whatsapp || "79619200292";
+    // Номер задаётся владельцем в конфиге магазина (shop.whatsapp). Пока он
+    // не заполнен — ссылка пустая: все WhatsApp-кнопки прячутся (см. waAvailable).
+    var phone = String(SHOP.whatsapp || "").replace(/\D/g, "");
+    if (!phone) return "";
     return "https://wa.me/" + phone + "?text=" + encodeURIComponent(text);
   }
+
+  var waAvailable = function () {
+    return !!String(SHOP.whatsapp || "").replace(/\D/g, "");
+  };
 
   function payNote(payment) {
     var note = document.getElementById("pay-note");
@@ -848,6 +855,10 @@
       });
     }
 
+    // Нет ни сервера, ни WhatsApp-номера: канал недоступен, заказ не уйдёт «в никуда»
+    if (!waAvailable()) {
+      return Promise.resolve({ ok: false, noChannel: true });
+    }
     return Promise.resolve({ ok: true, channel: "whatsapp", link: waLink(text) });
   }
 
@@ -856,8 +867,13 @@
     if (!modal) return;
     var wa = document.getElementById("modal-wa");
     if (wa) {
-      wa.href = link || waLink(orderText(null));
-      wa.style.display = "inline-flex";
+      var fallback = link || (waAvailable() ? waLink(orderText(null)) : "");
+      if (fallback) {
+        wa.href = fallback;
+        wa.style.display = "inline-flex";
+      } else {
+        wa.style.display = "none";
+      }
     }
     modal.classList.add("on");
   }
@@ -992,7 +1008,15 @@
     set("foot-requisites", legalStr);
 
     var fw = document.getElementById("float-wa");
-    if (fw) fw.href = waLink("Здравствуйте! Хочу уточнить ассортимент и оформить заказ на деликатесы.");
+    if (fw) {
+      if (waAvailable()) {
+        fw.href = waLink("Здравствуйте! Хочу уточнить ассортимент и оформить заказ на деликатесы.");
+      } else {
+        fw.style.display = "none";
+      }
+    }
+    var drawerWa = document.getElementById("drawer-wa-order");
+    if (drawerWa && !waAvailable()) drawerWa.style.display = "none";
 
     var stat = document.getElementById("stat-count");
     if (stat) stat.textContent = allItems().length;
@@ -1202,7 +1226,9 @@
     if (drawerWaBtn) {
       drawerWaBtn.addEventListener("click", function () {
         if (!cartCount()) { toast("Корзина пуста"); return; }
-        window.open(waLink(orderText(null)), "_blank");
+        var link = waLink(orderText(null));
+        if (!link) { toast("WhatsApp-заказ временно недоступен — оформите через форму ниже"); return; }
+        window.open(link, "_blank");
       });
     }
 
@@ -1358,6 +1384,12 @@
         if (btn) { btn.disabled = true; btn.innerHTML = "<span>Оформляем заказ…</span>"; }
 
         submitOrder(data).then(function (res) {
+          if (res && res.noChannel) {
+            // Приём заказов сейчас недоступен (нет ни сервера, ни WhatsApp):
+            // корзину и форму НЕ трогаем — покупатель не потеряет состав
+            toast("Приём заказов временно недоступен — попробуйте позже");
+            return;
+          }
           cart = {};
           saveCart();
           resetPromo();          // скидка применена к заказу — сбрасываем
@@ -1387,9 +1419,14 @@
           // Не теряем заказ: при любой ошибке сервера уводим покупателя в
           // WhatsApp с полным составом заказа (находка GUI-3).
           var waFallback = waLink(orderText(data));
-          toast("Не удалось отправить через сайт — открываем WhatsApp");
-          try { window.open(waFallback, "_blank"); } catch (e) { /* блокировщик попапов — остаётся модалка */ }
-          openModal(waFallback);
+          if (waFallback) {
+            toast("Не удалось отправить через сайт — открываем WhatsApp");
+            try { window.open(waFallback, "_blank"); } catch (e) { /* блокировщик попапов — остаётся модалка */ }
+            openModal(waFallback);
+          } else {
+            toast("Не удалось отправить заказ — попробуйте ещё раз позже");
+            openModal(null);
+          }
         }).then(function () {
           if (btn) {
             btn.disabled = false;
@@ -1402,10 +1439,16 @@
     // Заказ в WhatsApp из блока на странице
     var waBtn = document.getElementById("wa-order");
     if (waBtn) {
-      waBtn.addEventListener("click", function () {
-        if (!cartCount()) { toast("Корзина пуста — выберите товары"); return; }
-        window.open(waLink(orderText(null)), "_blank");
-      });
+      if (!waAvailable()) {
+        // Номер магазина не задан: канал недоступен — прячем кнопку,
+        // оформление остаётся через форму ниже
+        waBtn.style.display = "none";
+      } else {
+        waBtn.addEventListener("click", function () {
+          if (!cartCount()) { toast("Корзина пуста — выберите товары"); return; }
+          window.open(waLink(orderText(null)), "_blank");
+        });
+      }
     }
 
     // Анимация снега
