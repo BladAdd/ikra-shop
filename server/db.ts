@@ -32,7 +32,14 @@ export function initDb(): DB {
   db.pragma('foreign_keys = ON');
   db.pragma('busy_timeout = 5000');
 
-  runMigrations(db);
+  // Пересоздание таблиц в миграциях (DROP parent при активных FK запрещён, а
+  // PRAGMA foreign_keys внутри транзакции игнорируется) — выключаем на время
+  db.pragma('foreign_keys = OFF');
+  try {
+    runMigrations(db);
+  } finally {
+    db.pragma('foreign_keys = ON');
+  }
   seedAdmins(db);
   console.log(`[db] SQLite ready at ${config.dbPath}`);
   return db;
@@ -137,6 +144,45 @@ const MIGRATIONS: Migration[] = [
   `);
     },
   },
+  {
+    version: 2,
+    name: 'OAuth-провайдеры (Яндекс/VK/MAX): email nullable, user_identities',
+    up: (conn) => {
+      // users: email становится nullable (VK/MAX могут не отдавать почту),
+      // CHECK(provider) расширяется на новых провайдеров. Пересоздание таблицы:
+      // SQLite не умеет менять CHECK у существующей.
+      conn.exec(`
+    CREATE TABLE users_v2 (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      email TEXT UNIQUE COLLATE NOCASE,
+      name TEXT NOT NULL DEFAULT '',
+      avatar TEXT,
+      provider TEXT NOT NULL CHECK(provider IN ('local','google','yandex','vk','max')),
+      password_hash TEXT,
+      is_admin INTEGER NOT NULL DEFAULT 0,
+      created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now')),
+      updated_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now'))
+    );
+    INSERT INTO users_v2 (id, email, name, avatar, provider, password_hash, is_admin, created_at, updated_at)
+      SELECT id, email, name, avatar, provider, password_hash, is_admin, created_at, updated_at FROM users;
+    DROP TABLE users;
+    ALTER TABLE users_v2 RENAME TO users;
+  `);
+
+      // Связи «аккаунт — вход через провайдера»: у одного аккаунта может быть
+      // несколько способов входа (почта + Яндекс + VK), у провайдера uid уникален
+      conn.exec(`
+    CREATE TABLE IF NOT EXISTS user_identities (
+      user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      provider TEXT NOT NULL CHECK(provider IN ('google','yandex','vk','max')),
+      provider_uid TEXT NOT NULL,
+      created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now')),
+      UNIQUE(provider, provider_uid)
+    );
+    CREATE INDEX IF NOT EXISTS idx_identities_user ON user_identities(user_id);
+  `);
+    },
+  },
 ];
 
 function runMigrations(conn: DB): void {
@@ -161,7 +207,7 @@ function seedAdmins(conn: DB): void {
   if (!config.administratorEmails.length) return;
   const upsert = conn.prepare(`
     INSERT INTO users (email, name, provider, is_admin)
-    VALUES (?, ?, 'google', 1)
+    VALUES (?, ?, 'local', 1)
     ON CONFLICT(email) DO UPDATE SET is_admin=1, updated_at=strftime('%Y-%m-%dT%H:%M:%fZ','now')
   `);
   const tx = conn.transaction(() => {
@@ -208,6 +254,15 @@ export function deleteSession(key: string): void {
   getDb().prepare(`DELETE FROM sessions_kv WHERE key=?`).run(key);
 }
 
+export type OAuthProviderId = 'yandex' | 'vk' | 'max';
+
+export type OAuthProfile = {
+  uid: string;
+  email: string | null;
+  name: string;
+  avatar: string | null;
+};
+
 // Вспомогательные запросы для пользователей
 export const Users = {
   findByEmail: (email: string) =>
@@ -217,25 +272,63 @@ export const Users = {
     getDb()
       .prepare(`INSERT INTO users(email,name,provider,password_hash) VALUES (?,?,?,?)`)
       .run(email.toLowerCase(), name, 'local', passwordHash),
-  upsertGoogle: (email: string, name: string, avatar?: string) => {
-    const stmt = getDb().prepare(`
-      INSERT INTO users(email,name,avatar,provider) VALUES (?,?,?,'google')
-      ON CONFLICT(email) DO UPDATE SET
-        name=COALESCE(NULLIF(excluded.name,''),users.name),
-        avatar=COALESCE(excluded.avatar,users.avatar),
-        updated_at=strftime('%Y-%m-%dT%H:%M:%fZ','now')
-    `);
-    stmt.run(email.toLowerCase(), name, avatar || null);
-    return Users.findByEmail(email)!;
+
+  findIdentity: (provider: OAuthProviderId, uid: string): number | undefined =>
+    (
+      getDb()
+        .prepare(`SELECT user_id FROM user_identities WHERE provider=? AND provider_uid=?`)
+        .get(provider, uid) as { user_id: number } | undefined
+    )?.user_id,
+
+  addIdentity: (userId: number, provider: OAuthProviderId, uid: string): void => {
+    getDb()
+      .prepare(`INSERT OR IGNORE INTO user_identities(user_id,provider,provider_uid) VALUES (?,?,?)`)
+      .run(userId, provider, uid);
+  },
+
+  /**
+   * Вход через OAuth-провайдера: находим аккаунт по связи, иначе по совпавшему
+   * email (привязываем способ входа), иначе создаём новый аккаунт (email может
+   * отсутствовать — например, VK не всегда отдаёт почту).
+   */
+  upsertOAuth: (provider: OAuthProviderId, prof: OAuthProfile): UserRow => {
+    const db = getDb();
+    const existingId = Users.findIdentity(provider, prof.uid);
+    if (existingId) {
+      // Обновим профиль (имя/аватар могли измениться у провайдера)
+      db.prepare(`UPDATE users SET
+          name=COALESCE(NULLIF(?,''),name),
+          avatar=COALESCE(?,avatar),
+          updated_at=strftime('%Y-%m-%dT%H:%M:%fZ','now')
+        WHERE id=?`).run(prof.name, prof.avatar, existingId);
+      return Users.findById(existingId)!;
+    }
+    if (prof.email) {
+      const byEmail = Users.findByEmail(prof.email);
+      if (byEmail) {
+        Users.addIdentity(byEmail.id, provider, prof.uid);
+        db.prepare(`UPDATE users SET
+            avatar=COALESCE(?,avatar),
+            updated_at=strftime('%Y-%m-%dT%H:%M:%fZ','now')
+          WHERE id=?`).run(prof.avatar, byEmail.id);
+        return Users.findById(byEmail.id)!;
+      }
+    }
+    const res = db
+      .prepare(`INSERT INTO users(email,name,avatar,provider) VALUES (?,?,?,?)`)
+      .run(prof.email ? prof.email.toLowerCase() : null, prof.name || 'Покупатель', prof.avatar || null, provider);
+    const newId = Number(res.lastInsertRowid);
+    Users.addIdentity(newId, provider, prof.uid);
+    return Users.findById(newId)!;
   },
 };
 
 export type UserRow = {
   id: number;
-  email: string;
+  email: string | null;
   name: string;
   avatar: string | null;
-  provider: 'google' | 'local';
+  provider: 'local' | 'google' | 'yandex' | 'vk' | 'max';
   password_hash: string | null;
   is_admin: number;
   created_at: string;

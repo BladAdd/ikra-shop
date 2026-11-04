@@ -11,7 +11,7 @@ export const securityHeaders = helmet({
   contentSecurityPolicy: {
     directives: {
       defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'", 'https://mc.yandex.ru', 'https://accounts.google.com'],
+      scriptSrc: ["'self'", "'unsafe-inline'", 'https://mc.yandex.ru'],
       styleSrc: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
       fontSrc: ["'self'", 'https://fonts.gstatic.com'],
       imgSrc: ["'self'", 'data:', 'https:', 'blob:'],
@@ -21,12 +21,11 @@ export const securityHeaders = helmet({
         config.frontendUrl,
         'https://rollypay.io',
         'https://api.github.com',
-        'https://oauth2.googleapis.com',
       ],
-      frameSrc: ['https://accounts.google.com', 'https://pay.rollypay.io'],
+      frameSrc: ['https://pay.rollypay.io'],
       objectSrc: ["'none'"],
       baseUri: ["'self'"],
-      formAction: ["'self'", 'https://accounts.google.com', 'https://pay.rollypay.io'],
+      formAction: ["'self'", 'https://pay.rollypay.io'],
       upgradeInsecureRequests: config.isProduction ? [] : null,
     },
   },

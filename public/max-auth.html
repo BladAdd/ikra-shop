@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Вход через MAX — Икра & Рыба</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#07130f">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23c8322b' stroke='%23d4af37' stroke-width='2'/%3E%3Cpath d='M11 16c2-4 8-4 10 0-2 4-8 4-10 0z' fill='%23d4af37'/%3E%3C/svg%3E">
+<style>
+  /* Автономная страница: открывается внутри webview MAX, где внешние
+     стили магазина не нужны — только карточка с кодом */
+  * { box-sizing: border-box; margin: 0; }
+  body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: #07130f;
+    color: #f0f5f2;
+    font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  }
+  .card {
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+    padding: 28px 22px;
+    border-radius: 16px;
+    background: #0d1f19;
+    border: 1px solid rgba(212, 175, 55, 0.35);
+  }
+  h1 { font-size: 1.15rem; margin-bottom: 6px; }
+  .sub { font-size: 0.86rem; color: #9fb3aa; line-height: 1.5; margin-bottom: 18px; }
+  .code {
+    font-size: 2.6rem;
+    font-weight: 800;
+    letter-spacing: 0.22em;
+    color: #d4af37;
+    background: #07130f;
+    border-radius: 12px;
+    padding: 16px 8px;
+    margin-bottom: 12px;
+    user-select: all;
+  }
+  .hint { font-size: 0.8rem; color: #9fb3aa; line-height: 1.55; }
+  .hint b { color: #f0f5f2; }
+  .err { color: #ff6b6b; font-size: 0.88rem; margin-bottom: 12px; display: none; }
+  .brand { margin-top: 18px; font-size: 0.76rem; color: #6d8078; }
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>Вход в магазин «Икра &amp; Рыба»</h1>
+  <p class="sub" id="status">Подтверждаем вас в MAX…</p>
+  <p class="err" id="err"></p>
+  <div class="code" id="code" hidden>••••••</div>
+  <p class="hint" id="hint" hidden>Введите этот код на сайте в окне входа MAX.<br>Код действует <b>5 минут</b> и только один раз.</p>
+  <p class="brand">Икра &amp; Рыба · деликатесы с доставкой</p>
+</div>
+
+<script>
+/* Мини-приложение MAX: webview кладёт подписанные параметры запуска в
+   URL-фрагмент (WebAppData=...). Подделать их нельзя — подпись HMAC токена
+   бота проверяется на сервере; initDataUnsafe для валидации не используем. */
+(function () {
+  var statusEl = document.getElementById("status");
+  var errEl = document.getElementById("err");
+  var codeEl = document.getElementById("code");
+  var hintEl = document.getElementById("hint");
+
+  function showErr(msg) {
+    statusEl.style.display = "none";
+    errEl.textContent = msg;
+    errEl.style.display = "block";
+  }
+
+  function apiBase() {
+    if (window.IKRA_API_URL) return String(window.IKRA_API_URL).replace(/\/$/, "");
+    if (/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) return "http://localhost:8080";
+    return "";
+  }
+
+  function readInitData() {
+    // MAX передаёт параметры во фрагменте: #WebAppData=<...>&WebAppPlatform=...
+    var frag = location.hash.replace(/^#/, "");
+    var m = frag.match(/WebAppData=([^&]+)/);
+    return m ? decodeURIComponent(m[1]) : "";
+  }
+
+  function failNoWebApp() {
+    showErr("Откройте эту страницу из мессенджера MAX (через наше мини-приложение). В обычном браузере код не выдаётся.");
+  }
+
+  var initData = readInitData();
+  if (!initData) { failNoWebApp(); return; }
+
+  var base = apiBase();
+  if (!base) { showErr("Сервер магазина не настроен. Напишите нам в WhatsApp: +7 (961) 920-02-92"); return; }
+
+  fetch(base + "/api/auth/max/webapp", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ initData: initData })
+  })
+    .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, data: d }; }); })
+    .then(function (res) {
+      if (!res.ok) throw new Error(res.data && res.data.error || "Не удалось подтвердить вход");
+      codeEl.textContent = res.data.code;
+      codeEl.hidden = false;
+      hintEl.hidden = false;
+      statusEl.textContent = res.data.name
+        ? "Готово, " + res.data.name + "! Ваш код для входа на сайт:"
+        : "Готово! Ваш код для входа на сайт:";
+    })
+    .catch(function (e) { showErr(e.message || "Ошибка связи с сервером"); });
+})();
+</script>
+</body>
+</html>

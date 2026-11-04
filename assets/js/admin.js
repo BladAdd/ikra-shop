@@ -1965,11 +1965,11 @@
       if (e.key === "Enter") doLogin();
     });
 
-    // Google-вход для администратора
-    var googleBtn = $("#btn-login-google");
-    if (googleBtn) {
-      googleBtn.addEventListener("click", function () {
-        window.location.href = ORDERS_API + "/api/auth/google/start?redirect=admin";
+    // Яндекс-вход для администратора (redirect=admin: сервер проверит is_admin)
+    var yandexBtn = $("#btn-login-yandex");
+    if (yandexBtn) {
+      yandexBtn.addEventListener("click", function () {
+        window.location.href = ORDERS_API + "/api/auth/yandex/start?redirect=admin";
       });
     }
 

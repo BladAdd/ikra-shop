@@ -56,12 +56,38 @@ export const config = {
   jwtSecret: jwtSecretValue(),
   jwtTtl: env('JWT_TTL', '30d'),
 
-  google: {
-    clientId: env('GOOGLE_CLIENT_ID'),
-    clientSecret: env('GOOGLE_CLIENT_SECRET'),
+  yandex: {
+    clientId: env('YANDEX_CLIENT_ID'),
+    clientSecret: env('YANDEX_CLIENT_SECRET'),
     get enabled() {
       return Boolean(this.clientId && this.clientSecret);
     },
+  },
+
+  vk: {
+    clientId: env('VK_CLIENT_ID'),
+    clientSecret: env('VK_CLIENT_SECRET'),
+    // Сервисный ключ доступа: обязателен VK для конфиденциальных приложений
+    // (обмен кода на бэкенде). Пусто — не передаём.
+    serviceToken: env('VK_SERVICE_TOKEN'),
+    get enabled() {
+      return Boolean(this.clientId && this.clientSecret);
+    },
+  },
+
+  max: {
+    // Официального OAuth у MAX нет (проверено 04.11.2026 по dev.max.ru):
+    // вход — мини-приложение внутри MAX (initData + HMAC токена бота) и
+    // одноразовый код на сайте. См. НАСТРОЙКА-ВХОДА.md.
+    webappToken: env('MAX_WEBAPP_TOKEN'),
+    botLink: env('MAX_BOT_LINK'),
+    get enabled() {
+      return Boolean(this.webappToken);
+    },
+  },
+
+  get oauthEnabled() {
+    return this.yandex.enabled || this.vk.enabled || this.max.enabled;
   },
 
   administratorEmails: env('ADMIN_EMAILS')
@@ -88,7 +114,9 @@ export const config = {
 
 export function assertRuntimeConfig(): void {
   const warnings: string[] = [];
-  if (!config.google.enabled) warnings.push('Google OAuth выключен (нет GOOGLE_CLIENT_ID/SECRET) — вход через Google не сработает');
+  if (!config.yandex.enabled) warnings.push('Яндекс OAuth выключен (нет YANDEX_CLIENT_ID/SECRET) — вход через Яндекс не сработает');
+  if (!config.vk.enabled) warnings.push('VK OAuth выключен (нет VK_CLIENT_ID/SECRET) — вход через VK не сработает');
+  if (!config.max.enabled) warnings.push('Вход через MAX выключен (нет MAX_WEBAPP_TOKEN) — кнопка MAX покажет подсказку вместо кода');
   if (!config.rollypay.enabled) warnings.push('RollyPay выключен (нет ROLLYPAY_API_KEY/SECRET) — онлайн-оплата недоступна, останется WhatsApp');
   if (!config.administratorEmails.length) warnings.push('ADMIN_EMAILS пуст — никто не войдёт в админку');
   // Проверка JWT_SECRET выполняется в jwtSecretValue() при создании конфига:

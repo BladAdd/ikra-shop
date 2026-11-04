@@ -20,7 +20,7 @@ const JWT_TTL = '7d' as jwt.SignOptions['expiresIn'];
 
 export type AuthPayload = {
   sub: number;
-  email: string;
+  email: string | null;
   admin: boolean;
 };
 

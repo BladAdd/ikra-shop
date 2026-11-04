@@ -68,8 +68,18 @@ var API = {
     return API.request("/api/auth/logout", { method: "POST" });
   },
 
-  googleLoginUrl: function (intent) {
-    return API_BASE + "/api/auth/google/start" + (intent ? "?redirect=" + encodeURIComponent(intent) : "");
+  oauthStartUrl: function (provider, intent) {
+    return API_BASE + "/api/auth/" + provider + "/start" + (intent ? "?redirect=" + encodeURIComponent(intent) : "");
+  },
+
+  // Вход через MAX: мини-приложение подтверждает пользователя, сервер
+  // выдаёт одноразовый код; на сайте код обменивается на сессию
+  maxWebAppLogin: function (initData) {
+    return API.request("/api/auth/max/webapp", { method: "POST", body: { initData: initData } });
+  },
+
+  maxClaim: function (code) {
+    return API.request("/api/auth/max/claim", { method: "POST", body: { code: code } });
   },
 
   createOrder: function (payload) {

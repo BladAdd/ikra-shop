@@ -44,7 +44,13 @@ app.get('/api/health', (_req, res) => {
   res.json({
     ok: true,
     time: new Date().toISOString(),
-    googleAuth: config.google.enabled,
+    oauth: {
+      yandex: config.yandex.enabled,
+      vk: config.vk.enabled,
+      max: config.max.enabled,
+      // Публичный диплинк мини-приложения/бота MAX — показывается в окне входа
+      maxBotLink: config.max.botLink || null,
+    },
     rollypay: config.rollypay.enabled,
     rollypayTestMode: config.rollypay.testMode,
   });
@@ -107,7 +113,7 @@ setInterval(() => {
 
 const server = app.listen(config.port, () => {
   console.log(`[server] Икра API слушает http://localhost:${config.port} (режим: ${config.nodeEnv})`);
-  console.log(`[server] Google OAuth: ${config.google.enabled ? 'вкл' : 'выкл'}, RollyPay: ${config.rollypay.enabled ? (config.rollypay.testMode ? 'вкл (тест)' : 'вкл') : 'выкл'}`);
+  console.log(`[server] OAuth: Яндекс ${config.yandex.enabled ? 'вкл' : 'выкл'}, VK ${config.vk.enabled ? 'вкл' : 'выкл'}, MAX ${config.max.enabled ? 'вкл' : 'выкл'}; RollyPay: ${config.rollypay.enabled ? (config.rollypay.testMode ? 'вкл (тест)' : 'вкл') : 'выкл'}`);
   console.log(`[server] Администраторы: ${config.administratorEmails.join(', ') || 'не заданы'}`);
   console.log(`[server] Webhook URL: ${config.appUrl}/webhooks/rollypay`);
 });

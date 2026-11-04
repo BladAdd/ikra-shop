@@ -2238,23 +2238,72 @@ footer.site {
 .auth-title { font-size: 1.5rem; color: var(--cream); margin-bottom: 6px; }
 .auth-sub { font-size: 0.84rem; color: var(--muted); margin-bottom: 20px; line-height: 1.5; }
 
-.google-btn {
+/* Вход через OAuth-провайдеров: Яндекс / VK / MAX — три кнопки в ряд (на
+   узких экранах — колонкой), каждая в фирменном цвете сервиса */
+.oauth-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.oauth-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 8px;
   width: 100%;
-  padding: 12px 16px;
+  padding: 12px 8px;
   border-radius: var(--radius-sm);
   background: #fff;
   border: 1px solid #dadce0;
-  color: #3c4043;
-  font-size: 0.94rem;
+  color: #1c1c1e;
+  font-size: 0.92rem;
   font-weight: 600;
   cursor: pointer;
-  transition: box-shadow 0.2s, background 0.15s;
+  transition: box-shadow 0.2s, background 0.15s, border-color 0.2s;
 }
-.google-btn:hover { box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25); background: #f8f9fa; }
+.oauth-btn svg { flex: 0 0 auto; }
+.oauth-btn:hover { box-shadow: 0 2px 10px rgba(0, 0, 0, 0.22); }
+/* Яндекс — фирменный жёлто-красный */
+.oa-yandex:hover { border-color: #fc3f1d; }
+.oa-yandex .oauth-mark { color: #fc3f1d; }
+/* VK — бренд-буклет VK ID: белый текст на сплошном #0077FF (другие варианты запрещены) */
+.oa-vk { background: #0077ff; border-color: #0077ff; color: #fff; }
+.oa-vk:hover { background: #0066dd; border-color: #0066dd; }
+.oa-vk .oauth-mark { color: #fff; }
+/* MAX — фирменный градиент (#8419FF → #3C22FE → #00EAFF), белый текст */
+.oa-max { background: linear-gradient(120deg, #8419ff, #3c22fe 55%, #00eaff); border-color: transparent; color: #fff; }
+.oa-max:hover { box-shadow: 0 2px 10px rgba(96, 40, 255, 0.45); }
+.oa-max .oauth-mark { color: #fff; }
+
+/* Панель входа через MAX (одноразовый код из мини-приложения) */
+.max-panel {
+  margin-top: 12px;
+  padding: 14px;
+  border: 1px solid rgba(132, 25, 255, 0.35);
+  border-radius: var(--radius-sm);
+  background: rgba(132, 25, 255, 0.06);
+}
+.max-panel-title { font-weight: 700; font-size: 0.94rem; margin: 0 0 8px; color: var(--cream); }
+.max-panel-steps { margin: 0 0 10px; padding-left: 18px; font-size: 0.84rem; color: var(--muted); line-height: 1.5; }
+.max-panel-steps a { color: #a06bff; }
+.max-panel-row { display: flex; gap: 8px; }
+.max-panel-row input {
+  flex: 1;
+  min-width: 0;
+  letter-spacing: 0.3em;
+  text-align: center;
+  font-size: 1.05rem;
+  font-weight: 700;
+  padding: 10px 8px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line-light);
+  background: #fff;
+  color: #1c1c1e;
+}
+.max-panel-err { margin: 8px 0 0; font-size: 0.8rem; color: #ff6b6b; }
+@media (max-width: 480px) {
+  .oauth-row { grid-template-columns: 1fr; }
+}
 
 .auth-divider {
   display: flex;

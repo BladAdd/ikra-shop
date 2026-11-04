@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://api.github.com" crossorigin>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23c8322b' stroke='%23d4af37' stroke-width='2'/%3E%3Cpath d='M11 16c2-4 8-4 10 0-2 4-8 4-10 0z' fill='%23d4af37'/%3E%3C/svg%3E">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="stylesheet" href="assets/css/style.css?v=9">
+<link rel="stylesheet" href="assets/css/style.css?v=10">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -852,8 +852,10 @@
         <a href="#reviews" class="foot-link">Отзывы клиентов</a>
         <a href="#order" class="foot-link">Оформить заказ</a>
         <a href="#faq" class="foot-link">Вопросы и ответы</a>
+        <a href="faq.html" class="foot-link">Все вопросы и ответы</a>
         <a href="privacy.html" class="foot-link">Политика конфиденциальности</a>
         <a href="offer.html" class="foot-link">Публичная оферта</a>
+        <a href="user-agreement.html" class="foot-link">Пользовательское соглашение</a>
       </div>
 
       <div class="foot-col">
@@ -984,15 +986,42 @@
     <h3 id="auth-title" class="auth-title">Вход в аккаунт</h3>
     <p class="auth-sub">Заказы сохраняются в личном кабинете — история, повтор заказа и адреса в одном месте.</p>
 
-    <button type="button" class="google-btn" data-google-login>
-      <svg viewBox="0 0 48 48" width="20" height="20" aria-hidden="true">
-        <path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.9 2.4 30.5 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.9 6.1C12.4 13.1 17.7 9.5 24 9.5z"/>
-        <path fill="#4285F4" d="M46.1 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.5c-.6 3-2.3 5.5-4.9 7.2l7.7 6c4.5-4.2 7.1-10.3 7.1-17.7z"/>
-        <path fill="#FBBC05" d="M10.5 28.7a14.5 14.5 0 0 1 0-9.4l-7.9-6.1a24 24 0 0 0 0 21.6l7.9-6.1z"/>
-        <path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.7-6c-2.1 1.5-4.9 2.3-8.2 2.3-6.3 0-11.6-3.6-13.5-8.8l-7.9 6.1C6.5 42.6 14.6 48 24 48z"/>
-      </svg>
-      Продолжить с Google
-    </button>
+    <div class="oauth-row">
+      <button type="button" class="oauth-btn oa-yandex" data-oauth="yandex" aria-label="Войти через Яндекс">
+        <svg class="oauth-mark" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor" d="M13.6 3H17v18h-3.3V8.9c0-.9 0-1.8.1-2.4-.2.4-.5.9-.9 1.5L8.9 21H6.2L10 8.7c-.6.7-1.4 1.4-2.3 2L6 8.9c2.3-1.6 4.6-3.9 7.6-5.9z"/>
+        </svg>
+        <span>Яндекс</span>
+      </button>
+      <button type="button" class="oauth-btn oa-vk" data-oauth="vk" aria-label="Войти через VK">
+        <svg class="oauth-mark" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor" d="M13.162 18.994c.609 0 .858-.406.851-.915-.031-1.917.714-2.949 2.059-1.604 1.488 1.488 1.796 2.519 3.603 2.519h3.2c.808 0 1.126-.26 1.126-.668 0-.863-1.421-2.386-2.625-3.504-1.686-1.565-1.765-1.602-.313-3.486 1.801-2.339 4.157-5.336 2.196-5.336h-3.98c-.772 0-.828.435-1.103 1.083-.995 2.347-2.886 5.387-3.604 4.922-.751-.485-.407-2.406-.35-5.261.015-.754.011-1.271-1.141-1.539-.629-.145-1.241-.205-1.809-.205-2.273 0-3.841.953-2.95 1.119 1.571.293 1.42 3.692 1.055 5.16-.638 2.556-3.036-2.024-4.035-4.305-.241-.548-.315-.974-1.175-.974H.913c-.492 0-.787.16-.787.516 0 .602 2.96 6.72 5.786 9.77 2.756 2.975 5.48 2.708 7.25 2.708z"/>
+        </svg>
+        <span>VK</span>
+      </button>
+      <button type="button" class="oauth-btn oa-max" data-oauth="max" aria-label="Войти через MAX">
+        <svg class="oauth-mark" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor" d="M12 2l2.4 6.2L21 9.5l-5 4.1 1.6 6.4L12 16.6 6.4 20l1.6-6.4-5-4.1 6.6-1.3L12 2z"/>
+        </svg>
+        <span>MAX</span>
+      </button>
+    </div>
+
+    <!-- Вход через MAX: у MAX нет OAuth для сайтов — вход по одноразовому коду
+         из мини-приложения (см. НАСТРОЙКА-ВХОДА.md) -->
+    <div class="max-panel" id="max-panel" hidden>
+      <p class="max-panel-title">Вход через MAX</p>
+      <ol class="max-panel-steps">
+        <li id="max-step-open">Откройте наше мини-приложение в MAX: <a id="max-bot-link" href="#" target="_blank" rel="noopener">открыть MAX</a></li>
+        <li>Оно покажет 6-значный код — действует 5 минут</li>
+        <li>Введите код здесь:</li>
+      </ol>
+      <div class="max-panel-row">
+        <input type="text" id="max-code-input" inputmode="numeric" maxlength="6" autocomplete="one-time-code" placeholder="••••••" aria-label="Код из MAX">
+        <button type="button" class="btn btn-primary" id="max-claim-btn">Войти</button>
+      </div>
+      <p class="max-panel-err" id="max-panel-err" hidden></p>
+    </div>
 
     <div class="auth-divider"><span>или по почте</span></div>
 
@@ -1035,13 +1064,13 @@
       <p class="auth-switch">Уже есть аккаунт? <a href="#" data-auth-switch="login">Войти</a></p>
     </form>
 
-    <p class="auth-legal">Продолжая, вы соглашаетесь с обработкой персональных данных.</p>
+    <p class="auth-legal">Продолжая, вы соглашаетесь с <a href="privacy.html" target="_blank" rel="noopener">обработкой персональных данных</a> и <a href="user-agreement.html" target="_blank" rel="noopener">пользовательским соглашением</a>.</p>
   </div>
 </div>
 
 <script src="assets/js/data.js?v=7"></script>
-<script src="assets/js/api.js?v=2"></script>
-<script src="assets/js/auth-ui.js?v=3"></script>
+<script src="assets/js/api.js?v=3"></script>
+<script src="assets/js/auth-ui.js?v=4"></script>
 <script src="assets/js/app.js?v=9"></script>
 <script src="assets/js/pwa.js?v=1"></script>
 </body>

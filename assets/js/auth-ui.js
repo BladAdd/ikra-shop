@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Аккаунт покупателя: вход через Google, регистрация и вход по e-mail.
+   Аккаунт покупателя: вход через Яндекс/VK/MAX, регистрация и вход по e-mail.
    ========================================================================== */
 
 (function () {
@@ -66,7 +66,7 @@
         '<div class="account-menu" id="account-menu">' +
           '<div class="account-menu-head">' +
             "<b>" + escapeHtml(currentUser.name || "Покупатель") + "</b>" +
-            "<span>" + escapeHtml(currentUser.email) + "</span>" +
+            "<span>" + escapeHtml(currentUser.email || "") + "</span>" +
           "</div>" +
           // «Мои заказы» показываем только при живом API: без сервера ссылка мёртвая
           (apiOnline()
@@ -298,25 +298,84 @@
       });
     }
 
-    // Google
-    document.querySelectorAll("[data-google-login]").forEach(function (btn) {
+    // Вход через Яндекс / VK / MAX
+    document.querySelectorAll("[data-oauth]").forEach(function (btn) {
       btn.addEventListener("click", function () {
+        var provider = btn.getAttribute("data-oauth");
         // Без задеплоенного сервера редирект уводил бы на 404 — не навигируем
         if (!apiOnline()) {
           toast("Онлайн-вход будет подключён позже. Заказы работают через WhatsApp");
           return;
         }
-        window.location.href = API.googleLoginUrl();
+        if (provider === "max") { openMaxPanel(); return; }
+        window.location.href = API.oauthStartUrl(provider);
       });
     });
+
+    // MAX: у мессенджера нет OAuth для сайтов — показываем панель кода.
+    // Ссылка на мини-приложение берётся из /api/health (maxBotLink, не секрет).
+    function openMaxPanel() {
+      var panel = $("max-panel");
+      if (!panel) return;
+      panel.hidden = false;
+      var errEl = $("max-panel-err");
+      if (errEl) errEl.hidden = true;
+      API.health()
+        .then(function (h) {
+          var link = $("max-bot-link");
+          var url = h && h.maxBotLink;
+          if (link && url) {
+            link.href = url;
+          } else if (link) {
+            // Бот ещё не настроен владельцем — подсказываем поддержку
+            link.removeAttribute("href");
+            link.textContent = "ссылку пришлёт поддержка (см. ниже)";
+          }
+        })
+        .catch(function () {});
+      var input = $("max-code-input");
+      if (input) input.focus();
+    }
+
+    var claimBtn = $("max-claim-btn");
+    if (claimBtn) {
+      claimBtn.addEventListener("click", function () {
+        var input = $("max-code-input");
+        var errEl = $("max-panel-err");
+        var code = input ? input.value.trim() : "";
+        if (errEl) errEl.hidden = true;
+        if (!/^\d{6}$/.test(code)) {
+          if (errEl) { errEl.textContent = "Введите 6 цифр кода из MAX"; errEl.hidden = false; }
+          return;
+        }
+        claimBtn.disabled = true;
+        API.maxClaim(code)
+          .then(function (d) { handleAuthResult(d.user); })
+          .catch(function (err) {
+            if (errEl) { errEl.textContent = err.message || "Код неверный или устарел"; errEl.hidden = false; }
+          })
+          .then(function () { claimBtn.disabled = false; });
+      });
+      // Enter в поле кода — как клик «Войти»
+      var codeInput = $("max-code-input");
+      if (codeInput) {
+        codeInput.addEventListener("keydown", function (e) {
+          if (e.key === "Enter") { e.preventDefault(); claimBtn.click(); }
+        });
+      }
+    }
 
     // Результат OAuth после редиректа
     var params = new URLSearchParams(location.search);
     if (params.get("auth_error")) {
       var map = {
         state_mismatch: "Ссылка входа устарела, попробуйте снова",
-        google_failed: "Google не подтвердил вход. Попробуйте ещё раз",
-        google_disabled: "Вход через Google пока не настроен",
+        yandex_failed: "Яндекс не подтвердил вход. Попробуйте ещё раз",
+        yandex_disabled: "Вход через Яндекс пока не настроен",
+        vk_failed: "VK не подтвердил вход. Попробуйте ещё раз",
+        vk_disabled: "Вход через VK пока не настроен",
+        max_failed: "MAX не подтвердил вход. Попробуйте ещё раз",
+        max_disabled: "Вход через MAX пока не настроен",
         not_admin: "У этой почты нет доступа к админ-панели",
       };
       var msg = map[params.get("auth_error")] || "Не удалось войти";
