@@ -96,7 +96,7 @@
   if (!initData) { failNoWebApp(); return; }
 
   var base = apiBase();
-  if (!base) { showErr("Сервер магазина не настроен. Напишите нам в WhatsApp: +7 (961) 920-02-92"); return; }
+  if (!base) { showErr("Сервер магазина не настроен. Оформите заказ через форму на сайте."); return; }
 
   fetch(base + "/api/auth/max/webapp", {
     method: "POST",
