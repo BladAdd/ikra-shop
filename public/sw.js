@@ -28,7 +28,7 @@ var PRECACHE = [
   /* Те же стили/скрипты под точными версионными ключами, как их реально
      запрашивают страницы (?v=8/v9 из HTML): cache.match() сверяет URL
      вместе с query, поэтому держим в кэше оба варианта ключа. */
-  "./assets/css/style.css?v=8",
+  "./assets/css/style.css?v=9",
   "./assets/js/data.js?v=7",
   "./assets/js/app.js?v=9"
 ];

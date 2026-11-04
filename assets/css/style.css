@@ -2090,6 +2090,8 @@ footer.site {
 }
 
 @media (max-width: 640px) {
+  /* компенсация высоты фиксированного бара корзины (мобайл-аудит P1-2) */
+  body { padding-bottom: 76px; }
   .strip .wrap { grid-template-columns: 1fr; }
   .quality-grid { grid-template-columns: 1fr; }
   .foot-grid { grid-template-columns: 1fr; }
