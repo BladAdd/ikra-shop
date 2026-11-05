@@ -313,14 +313,30 @@
       // штатный путь express — PUT /api/admin/catalog; если он недоступен
       // (например, работает только dev-прокси vite) — fallback на POST /api/catalog
       var bodyStr = JSON.stringify(state.data, null, 2) + "\n";
-      return fetch("/api/admin/catalog", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: bodyStr
-      }).then(function (r) {
-        if (!r.ok) throw new Error("Ошибка сервера при сохранении (HTTP " + r.status + ")");
-        return r.json();
+      var localPut = function () {
+        return fetch("/api/admin/catalog", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: bodyStr
+        });
+      };
+      return localPut().then(function (r) {
+        if (r.ok) return r.json();
+        if (r.status === 409) {
+          // Одновременное сохранение из другого окна: одна автоматическая
+          // попытка поверх — правки текущего окна главнее, владелец видит предупреждение
+          return localPut().then(function (r2) {
+            if (r2.ok) {
+              toast("Каталог сохранён поверх чужой одновременной правки", "err", null, null, 6000);
+              return r2.json();
+            }
+            throw new Error("Каталог одновременно правят в другом окне — обнови страницу и повтори сохранение");
+          });
+        }
+        throw new Error("Ошибка сервера при сохранении (HTTP " + r.status + ")");
       }).catch(function (e1) {
+        // 409-гонку на POST-фолбэк не уводим: там ту же проблему не решить
+        if (String(e1 && e1.message || "").indexOf("одновременно") !== -1) throw e1;
         return fetch("/api/catalog", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -347,6 +363,23 @@
       // Резервная копия обновляется следом; ошибка здесь не отменяет сохранение каталога
       if (onStage) onStage();
       return updateFallbackInRepo().then(function () { return res; });
+    }).catch(function (e) {
+      // 422: файл в репозитории изменился с момента загрузки (другое окно или
+      // ручная правка). Одна автоматическая попытка: свежий sha и сохранение
+      // поверх — правки текущего окна главнее, владелец получает предупреждение.
+      if (!e || e.status !== 422 || !payload.sha) throw e;
+      return gh("/repos/" + state.repo + "/contents/" + DATA_PATH + "?ref=" + encodeURIComponent(state.branch))
+        .then(function (file) {
+          state.sha = file.sha;
+          payload.sha = file.sha;
+          return gh("/repos/" + state.repo + "/contents/" + DATA_PATH, { method: "PUT", body: payload });
+        })
+        .then(function (res2) {
+          if (res2.content && res2.content.sha) state.sha = res2.content.sha;
+          if (onStage) onStage();
+          toast("Каталог сохранён поверх свежей версии — в репозитории была параллельная правка", "err", null, null, 6000);
+          return updateFallbackInRepo().then(function () { return res2; });
+        });
     });
   }
 
@@ -2192,9 +2225,16 @@
         ? "В категории «" + c.title + "» " + c.items.length + " товаров. Удалить вместе с ними?"
         : "Удалить категорию «" + c.title + "»?";
       if (!confirm(msg)) return;
+      // Снимок до удаления: для кнопки «Вернуть» (тост живёт 10 секунд)
+      var removedCat = JSON.parse(JSON.stringify(c));
+      var removedIdx = ci;
       d.catalog.splice(ci, 1);
       bump(1); renderItems(); renderCats(); renderDash();
-      toast("Категория удалена", "ok");
+      toast("Категория удалена", "ok", "Вернуть", function () {
+        d.catalog.splice(Math.min(removedIdx, d.catalog.length), 0, removedCat);
+        bump(1); renderCats(); renderItems(); renderDash();
+        toast("Категория восстановлена", "ok");
+      }, 10000);
     });
 
     /* ----- модалка товара ----- */

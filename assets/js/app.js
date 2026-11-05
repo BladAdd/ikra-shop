@@ -363,6 +363,15 @@
     return normTxt(s).replace(/[-\u2010-\u2015]/g, " ").replace(/\s+/g, " ").trim();
   }
 
+  /* Все слова запроса q должны встретиться в нормализованной строке карточки hay */
+  function queryFits(hay, q) {
+    var tokens = q.split(/\s+/).filter(Boolean);
+    for (var j = 0; j < tokens.length; j++) {
+      if (hay.indexOf(tokens[j]) === -1) return false;
+    }
+    return true;
+  }
+
   function matches(it) {
     if (activeCat === "fav") {
       // Показываем только отмеченные сердечком товары
@@ -373,11 +382,16 @@
     if (!query) return true;
     // Все слова запроса должны встретиться в карточке
     var hay = normTxt(it.name + " " + (it.desc || "") + " " + (it.tags || "") + " " + (it.weight || ""));
-    var tokens = query.split(/\s+/).filter(Boolean);
-    for (var i = 0; i < tokens.length; i++) {
-      if (hay.indexOf(tokens[i]) === -1) return false;
+    if (queryFits(hay, query)) return true;
+    // Словоформы (подбор по окончаниям): если по полному запросу совпадений нет —
+    // пробуем запрос без последней буквы, затем без двух. Только для запросов длиннее
+    // 4 символов; сам запрос не искажаем — усечённая копия используется лишь здесь,
+    // в месте сравнения.
+    if (query.length > 4) {
+      if (queryFits(hay, query.slice(0, -1))) return true;
+      if (queryFits(hay, query.slice(0, -2))) return true;
     }
-    return true;
+    return false;
   }
 
   function matchScore(it, q) {
@@ -1139,19 +1153,32 @@
       renderCatalog();
     }
 
+    // Debounce перерисовки при вводе: каталог пересчитывается через 220 мс после
+    // паузы в наборе (ES5, без зависимостей). Очистка по крестику/кнопке сброса
+    // идёт через syncSearch напрямую и срабатывает мгновенно.
+    var searchDebounceTimer = null;
+    function scheduleSearch(inputEl, scrollIfNeeded) {
+      clearTimeout(searchDebounceTimer);
+      searchDebounceTimer = setTimeout(function () {
+        syncSearch(inputEl.value);
+        if (scrollIfNeeded) {
+          var catSec = document.getElementById("catalog");
+          if (catSec && query && window.scrollY < 300) {
+            catSec.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        }
+      }, 220);
+    }
+
     if (searchCatalogEl) {
       searchCatalogEl.addEventListener("input", function () {
-        syncSearch(searchCatalogEl.value);
+        scheduleSearch(searchCatalogEl, false);
       });
     }
 
     if (searchHeaderEl) {
       searchHeaderEl.addEventListener("input", function () {
-        syncSearch(searchHeaderEl.value);
-        var catSec = document.getElementById("catalog");
-        if (catSec && query && window.scrollY < 300) {
-          catSec.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
+        scheduleSearch(searchHeaderEl, true);
       });
     }
 

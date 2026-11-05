@@ -3032,3 +3032,71 @@ footer.site {
 .auth-orders-row span { color: var(--muted); }
 .auth-orders-status { color: var(--gold-400); font-weight: 700; }
 .auth-orders-empty { color: var(--muted); text-align: center; padding: 18px 6px; }
+
+/* ======================= Тач-цели 44px (мобайл-аудит) ======================= */
+/* Минимальная область нажатия 44×44px для интерактивных элементов витрины.
+   Правки только внутри media-запросов — десктоп не затронут. Шрифт НЕ
+   увеличиваем: компактность держим за счёт min-height/min-width и padding. */
+
+/* Планшет: бургер-меню (видно уже с 860px), кнопка аккаунта,
+   ссылки раскрытого мобильного меню */
+@media (max-width: 860px) {
+  .burger { min-width: 44px; min-height: 44px; }
+  .account-btn { min-height: 44px; }
+  nav.main.open .nav-link {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 6px 0;
+  }
+}
+
+/* Телефоны: иконки-кнопки, «+/−» в корзине, чипы, ссылки футера и т.п. */
+@media (max-width: 640px) {
+  /* Иконки закрытия модалок/корзины, сердечко избранного (было 32–36px) */
+  .lightbox-close,
+  .drawer-close-btn,
+  .auth-close,
+  .fav-btn { min-width: 44px; min-height: 44px; }
+
+  /* Кнопка корзины в шапке (на мобайле остаётся только иконка) */
+  .cart-pill-btn { min-width: 44px; min-height: 44px; }
+
+  /* «+/−»: количество на карточке (стэппер) и в корзине (было 24–28px) */
+  .card-stepper button,
+  .qty button { min-width: 44px; min-height: 44px; }
+
+  /* Удаление строки корзины и кнопка «Очистить» (были точечные) */
+  .cart-line .rm { min-height: 44px; padding: 4px 8px; }
+  .cart-clear-link { display: inline-flex; align-items: center; min-height: 44px; padding: 0 4px; }
+
+  /* Чипы фасовок и чипы-фильтры категорий, селект сортировки,
+     кнопка «Сбросить фильтры» (btn-sm) — было ~26–38px */
+  .pack-chip { min-height: 44px; }
+  .cat-chip { min-height: 44px; }
+  .sort-select { min-height: 44px; }
+  .btn-sm { min-height: 44px; }
+
+  /* Промокод: «Применить» и «Сбросить» — точечные, увеличиваем padding */
+  .promo-btn { min-height: 44px; }
+  .promo-clear { display: inline-flex; align-items: center; min-height: 44px; padding: 0 4px; }
+
+  /* Лайтбокс: «Страница товара» — мини-кнопка */
+  .lightbox-open-page { display: inline-flex; align-items: center; min-height: 44px; }
+
+  /* Ссылки футера, кнопка WhatsApp, ссылка админки — было ~22–33px */
+  .foot-link { display: flex; align-items: center; min-height: 44px; margin-bottom: 0; padding: 6px 0; }
+  .foot-wa-btn { min-height: 44px; }
+  .admin-link { display: inline-flex; align-items: center; min-height: 44px; padding: 0 4px; }
+
+  /* Пункты выпадающего меню аккаунта */
+  .account-menu-item { min-height: 44px; }
+
+  /* Кнопка «Оформить» в липком мобильном баре корзины */
+  .mcb-btn { min-height: 44px; }
+
+  /* Форма входа: OAuth-кнопки, табы «Вход/Регистрация», ссылки-переключатели */
+  .oauth-btn { min-height: 44px; }
+  .auth-tab { min-height: 44px; }
+  .auth-switch a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 4px; }
+}
